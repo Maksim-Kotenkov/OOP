@@ -9,19 +9,45 @@ version = '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
     google()
+    // maven {url "https://mvnrepository.com/artifact/"}
 }
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:latest.release')
     testImplementation 'org.junit.jupiter:junit-jupiter:latest.release'
+    // testImplementation 'org.jacoco:org.jacoco.ant:0.8.10'
 }
 
-tasks.test {
+test {
     useJUnitPlatform()
 }
 
 jacocoTestReport {
+    // reportsDir = file("docs/jacoco")
     reports {
         xml.required = true
     }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = "LINE"
+                minimum = 0.80
+            }
+        }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.enabled true
+    }
+}
+
+javadoc {
+    destinationDir = file("docs/javadoc")
 }
