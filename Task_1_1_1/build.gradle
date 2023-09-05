@@ -47,7 +47,3 @@ jacocoTestReport {
         html.enabled true
     }
 }
-
-javadoc {
-    destinationDir = file("docs/javadoc")
-}
