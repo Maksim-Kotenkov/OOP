@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'Heapsort_package'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    google()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:latest.release')
+    testImplementation 'org.junit.jupiter:junit-jupiter:latest.release'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
