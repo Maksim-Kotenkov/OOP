@@ -1,5 +1,6 @@
 package heapsort;
 
+import java.io.Console;
 import java.util.Arrays;
 
 /**
@@ -17,7 +18,16 @@ public class Heapsort {
      */
     public static void main(String[] args) {
         System.out.print("Input: ");
-        String[] console_inp = System.console().readLine().split(" ");
+        Console cnsl = System.console();
+
+        String[] console_inp;
+
+        if (cnsl == null) {
+            console_inp = new String[] {"0"};
+        } else {
+            console_inp = System.console().readLine().split(" ");
+        }
+
         int[] inp_arr = new int[console_inp.length];
 
         for (int i = 0; i < console_inp.length; i++) {
