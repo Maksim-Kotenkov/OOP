@@ -4,9 +4,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class HeapsortTest {
+    @Test
+    void checkMain() {
+        Heapsort.main(new String[] {});
+        assertTrue(true);
+    }
 
     @Test
     @DisplayName("LargeArray")
