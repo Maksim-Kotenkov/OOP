@@ -1,5 +1,7 @@
 package heapsort;
 
+import java.util.Arrays;
+
 /**
  * Класс пирамидальной сортировки с процедурами sort (основная) и to_heap (вспомогательная).
  *
@@ -8,6 +10,26 @@ package heapsort;
  * @version 1.0
  */
 public class Heapsort {
+    /**
+     * Функция для запуска скомпилированного приложения.
+     *
+     * @param args - дефолтный параметр
+     */
+    public static void main(String[] args) {
+        System.out.print("Input: ");
+        String[] console_inp = System.console().readLine().split(" ");
+        int[] inp_arr = new int[console_inp.length];
+
+        for (int i = 0; i < console_inp.length; i++) {
+            inp_arr[i] = Integer.parseInt(console_inp[i]);
+        }
+
+        int[] res = Heapsort.sort(inp_arr);
+
+        System.out.print("Output: ");
+        System.out.println(Arrays.toString(res));
+    }
+
     /**
      * Функция получения отсортированного по неубыванию массива из произвольного.
      *

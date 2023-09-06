@@ -1,0 +1,8 @@
+javadoc -d build/docs/javadoc -sourcepath src/main/java -subpackages heapsort
+
+cd src/main/java/heapsort
+javac Heapsort.java
+
+cd -
+java -cp src/main/java heapsort.Heapsort
+
