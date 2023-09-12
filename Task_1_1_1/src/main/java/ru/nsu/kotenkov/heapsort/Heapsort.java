@@ -1,4 +1,4 @@
-package heapsort;
+package ru.nsu.kotenkov.heapsort;
 
 import java.io.Console;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ import java.util.Arrays;
  * @version 1.0
  */
 public class Heapsort {
+
     /**
      * Функция для запуска скомпилированного приложения.
      *
@@ -18,23 +19,23 @@ public class Heapsort {
      */
     public static void main(String[] args) {
         System.out.print("Input: ");
-        Console cnsl = System.console();
+        Console consul = System.console();
 
-        String[] console_inp;
+        String[] consoleInp;
 
-        if (cnsl == null) {
-            console_inp = new String[] {"0"};
+        if (consul == null) {
+            consoleInp = new String[] {"0"};
         } else {
-            console_inp = System.console().readLine().split(" ");
+            consoleInp = System.console().readLine().split(" ");
         }
 
-        int[] inp_arr = new int[console_inp.length];
+        int[] inpArr = new int[consoleInp.length];
 
-        for (int i = 0; i < console_inp.length; i++) {
-            inp_arr[i] = Integer.parseInt(console_inp[i]);
+        for (int i = 0; i < consoleInp.length; i++) {
+            inpArr[i] = Integer.parseInt(consoleInp[i]);
         }
 
-        int[] res = Heapsort.sort(inp_arr);
+        int[] res = Heapsort.sort(inpArr);
 
         System.out.print("Output: ");
         System.out.println(Arrays.toString(res));
@@ -46,8 +47,7 @@ public class Heapsort {
      * @param arr - массив на вход
      * @return возвращает отсортированный массив int
      */
-    static int[] sort(int[] arr)
-    {
+    static int[] sort(int[] arr) {
         int n = arr.length;
 
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -71,8 +71,7 @@ public class Heapsort {
      * @param n - уменьшенный размер кучи (так как мы тяжелые элементы перекидываем в конец)
      * @param i - наибольшая вершина, детей которой мы будем сравнивать с ней
      */
-    static void to_heap(int[] arr, int n, int i)
-    {
+    static void to_heap(int[] arr, int n, int i) {
         int largest = i;
         int l = 2 * i + 1;
         int r = 2 * i + 2;
