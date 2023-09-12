@@ -23,8 +23,7 @@ class HeapsortTest {
         int [] rArr = new int[10000000];
 
         Random rClass = new Random();
-        for(int i=0;i<rArr.length;i++)
-        {
+        for (int i = 0; i < rArr.length; i++) {
             rArr[i] = rClass.nextInt();
         }
 
