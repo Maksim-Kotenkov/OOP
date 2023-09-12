@@ -3,11 +3,11 @@ package ru.nsu.kotenkov.heapsort;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.Random;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 
 class HeapsortTest {
@@ -20,17 +20,17 @@ class HeapsortTest {
     @Test
     @DisplayName("LargeArray")
     void checkSortingLarge() {
-        int [] rArr = new int[10000000];
+        int [] correct = new int[10000000];
 
-        Random rClass = new Random();
-        for (int i = 0; i < rArr.length; i++) {
-            rArr[i] = rClass.nextInt();
+        Random random = new Random();
+        for (int i = 0; i < correct.length; i++) {
+            correct[i] = random.nextInt();
         }
 
-        int[] arr = Heapsort.sort(rArr);
-        Arrays.sort(rArr);
+        int[] arr = Heapsort.sort(correct);
+        Arrays.sort(correct);
 
-        assertArrayEquals(arr, rArr);
+        assertArrayEquals(arr, correct);
     }
 
     @Test
