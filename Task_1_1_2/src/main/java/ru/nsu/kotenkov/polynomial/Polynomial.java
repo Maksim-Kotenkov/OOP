@@ -123,22 +123,22 @@ public class Polynomial {
      * @return - объект Polynomial, от которого был вызван метод.
      */
     public Polynomial plus(Polynomial p2) {
-        int[] new_cfs;
+        int[] newCfs;
 
         if (this.degree < p2.degree) {
-            new_cfs = p2.cfs;
+            newCfs = p2.cfs;
             for (int i = 0; i < this.degree; i++) {
-                new_cfs[i] += this.cfs[i];
+                newCfs[i] += this.cfs[i];
             }
             this.degree = p2.degree;
         } else {
-            new_cfs = this.cfs;
+            newCfs = this.cfs;
             for (int i = 0; i < p2.degree; i++) {
-                new_cfs[i] += p2.cfs[i];
+                newCfs[i] += p2.cfs[i];
             }
         }
 
-        this.cfs = new_cfs;
+        this.cfs = newCfs;
 
         return this;
     }
@@ -150,22 +150,22 @@ public class Polynomial {
      * @return - объект Polynomial, от которого был вызван метод.
      */
     public Polynomial minus(Polynomial p2) {
-        int[] new_cfs;
+        int[] newCfs;
 
         if (this.degree < p2.degree) {
-            new_cfs = p2.cfs;
+            newCfs = p2.cfs;
             for (int i = 0; i < this.degree; i++) {
-                new_cfs[i] -= this.cfs[i];
+                newCfs[i] -= this.cfs[i];
             }
             this.degree = p2.degree;
         } else {
-            new_cfs = this.cfs;
+            newCfs = this.cfs;
             for (int i = 0; i < p2.degree; i++) {
-                new_cfs[i] -= p2.cfs[i];
+                newCfs[i] -= p2.cfs[i];
             }
         }
 
-        this.cfs = new_cfs;
+        this.cfs = newCfs;
 
         return this;
     }
@@ -177,15 +177,15 @@ public class Polynomial {
      * @return - объект Polynomial, от которого был вызван метод.
      */
     public Polynomial times(Polynomial p2) {
-        int[] new_cfs = new int[(this.degree - 1) + (p2.degree - 1) + 1];
+        int[] newCfs = new int[(this.degree - 1) + (p2.degree - 1) + 1];
 
         for (int i = 0; i < this.degree; i++) {
             for (int j = 0; j < p2.degree; j++) {
-                new_cfs[i + j] += this.cfs[i] * p2.cfs[j];
+                newCfs[i + j] += this.cfs[i] * p2.cfs[j];
             }
         }
 
-        this.cfs = new_cfs;
+        this.cfs = newCfs;
         this.degree = this.degree * p2.degree / 2;
 
         System.out.println(Arrays.toString(this.cfs));

@@ -1,12 +1,15 @@
 package ru.nsu.kotenkov.polynomial;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Тестирующий класс.
+ */
 public class PolynomialTest {
     @Test
     @DisplayName("Init test")
@@ -16,6 +19,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Check the degree of polynomial")
     void checkDegree() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         if (p1.degree == 4) {
@@ -26,6 +30,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Evaluation")
     void checkEval() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
@@ -33,6 +38,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Degree of p1 <= degree of p2")
     void checkSum_p1SmallOrEqual() {
         Polynomial p1 = new Polynomial(new int[] {2, 3});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
@@ -40,6 +46,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Degree of p1 > degree of p2")
     void checkSum_p2Small() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {1, 2, 3});
@@ -48,6 +55,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Degree of p1 <= degree of p2")
     void checkSub_p1SmallOrEqual() {
         Polynomial p1 = new Polynomial(new int[] {2, 3});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
@@ -55,6 +63,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Degree of p1 > degree of p2")
     void checkSub_p2Small() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {1, 2, 3});
@@ -63,6 +72,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Degree of p1 <= degree of p2")
     void checkMul_p1SmallOrEqual() {
         Polynomial p1 = new Polynomial(new int[] {2, 3});
         Polynomial p2 = new Polynomial(new int[] {2, 3});
@@ -70,6 +80,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Degree of p1 > degree of p2")
     void checkMul_p2Small() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {1, 2, 3});
@@ -78,6 +89,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("1'th differential")
     void checkDifferentiate1() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
@@ -85,6 +97,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("2'nd differential")
     void checkDifferentiate2() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
@@ -92,6 +105,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Equals")
     void checkEqualityTrue() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
@@ -104,6 +118,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Not equals")
     void checkEqualityFalse() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {2, 9});
@@ -116,6 +131,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("toString check")
     void checkStringView() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
@@ -125,6 +141,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("toString with one zero coef")
     void checkStringViewWithZero() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 0, 7});
 
@@ -134,6 +151,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Test from the task number 1")
     void checkComplicatedTest1() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {3, 2, 8});
@@ -142,6 +160,7 @@ public class PolynomialTest {
     }
 
     @Test
+    @DisplayName("Test from the task number 2")
     void checkComplicatedTest2() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {3, 2, 8});
