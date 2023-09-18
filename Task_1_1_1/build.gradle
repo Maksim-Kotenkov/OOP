@@ -3,7 +3,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'Heapsort_package'
+group = 'ru.nsu.kotenkov.heapsort'
 version = '1.0-SNAPSHOT'
 
 repositories {

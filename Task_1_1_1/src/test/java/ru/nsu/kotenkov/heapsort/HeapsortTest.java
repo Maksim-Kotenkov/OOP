@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,44 +21,52 @@ class HeapsortTest {
     @Test
     @DisplayName("LargeArray")
     void checkSortingLarge() {
-        int [] correct = new int[10000000];
+        int[] expected = new int[10000000];
 
         Random random = new Random();
-        for (int i = 0; i < correct.length; i++) {
-            correct[i] = random.nextInt();
+        for (int i = 0; i < expected.length; i++) {
+            expected[i] = random.nextInt();
         }
 
-        int[] arr = Heapsort.sort(correct);
-        Arrays.sort(correct);
+        int[] actual = Heapsort.sort(expected);
+        Arrays.sort(expected);
 
-        assertArrayEquals(arr, correct);
+        assertArrayEquals(expected, actual);
     }
 
     @Test
     @DisplayName("SingleElem")
     void checkSortingSingleElem() {
-        int[] correct = {0};
-        int[] arr = Heapsort.sort(new int[] {0});
+        int[] expected = {0};
+        int[] actual = Heapsort.sort(new int[] {0});
 
-        assertArrayEquals(arr, correct);
+        assertArrayEquals(expected, actual);
     }
 
     @Test
     @DisplayName("SortingEmpty")
     void checkSortingEmpty() {
-        int[] correct = {};
-        int[] arr = Heapsort.sort(new int[] {});
+        int[] expected = {};
+        int[] actual = Heapsort.sort(new int[] {});
 
-        assertArrayEquals(arr, correct);
+        assertArrayEquals(expected, actual);
     }
 
     @Test
-    @DisplayName("ToHeapTest")
-    void checkToHeap() {
-        int[] arr = {2, 1, 8};
-        int[] correct = {8, 1, 2};
+    @DisplayName("SortingSorted")
+    void checkSortedEmpty() {
+        int[] expected = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] actual = Heapsort.sort(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 
-        Heapsort.to_heap(arr, arr.length, 0);
-        assertArrayEquals(arr, correct);
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("SortingReverseSorted")
+    void checkSortedReversed() {
+        int[] expected = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] actual = Heapsort.sort(new int[] {10, 9, 8, 7, 6, 5, 4, 3, 2, 1});
+
+        assertArrayEquals(expected, actual);
     }
 }

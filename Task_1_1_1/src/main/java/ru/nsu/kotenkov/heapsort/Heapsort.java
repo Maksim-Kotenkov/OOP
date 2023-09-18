@@ -51,14 +51,14 @@ public class Heapsort {
         int n = arr.length;
 
         for (int i = n / 2 - 1; i >= 0; i--) {
-            to_heap(arr, n, i);
+            toHeap(arr, n, i);
         }
 
         for (int i = n - 1; i >= 0; i--) {
             int temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp;
-            to_heap(arr, i, 0);
+            toHeap(arr, i, 0);
         }
 
         return arr;
@@ -71,7 +71,7 @@ public class Heapsort {
      * @param n - уменьшенный размер кучи (так как мы тяжелые элементы перекидываем в конец)
      * @param i - наибольшая вершина, детей которой мы будем сравнивать с ней
      */
-    static void to_heap(int[] arr, int n, int i) {
+    private static void toHeap(int[] arr, int n, int i) {
         int largest = i;
         int l = 2 * i + 1;
         int r = 2 * i + 2;
@@ -89,7 +89,7 @@ public class Heapsort {
             arr[i] = arr[largest];
             arr[largest] = swap;
 
-            to_heap(arr, n, largest);
+            toHeap(arr, n, largest);
         }
     }
 }
