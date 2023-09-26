@@ -1,6 +1,7 @@
 package ru.nsu.kotenkov.polynomial;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 
 /**
@@ -55,27 +56,52 @@ public class Polynomial {
      */
     public Polynomial differentiate(int diff) {
         for (int d = diff; d > 0; d--) {
-            for (int i = 0; i < this.degree; i++) {
-                this.cfs[i] = i * this.cfs[i];
+            for (int i = 0; i < this.degree-1; i++) {
+                this.cfs[i] = (i + 1) * this.cfs[i + 1];
             }
 
-            int[] n = new int[--this.degree];
-            System.arraycopy(this.cfs, 1, n, 0, this.degree);
+            if (this.degree <= 0) {
+                return this;
+            }
+            this.degree--;
+            this.cfs[this.degree] = 0;
 
-            this.cfs = n;
+            // int[] n = new int[--this.degree];
+            // уйти от ресайзов
+            // System.arraycopy(this.cfs, 1, n, 0, this.degree);
+
+            // this.cfs = n;
         }
 
         return this;
     }
 
-    /**
-     * Метод сравнения полинома с полиномом-аргументом.
-     *
-     * @param p2 - полином, с которым сравниваем.
-     * @return - boolean результат сравнения.
-     */
-    public boolean equals(Polynomial p2) {
-        return Arrays.equals(this.cfs, p2.cfs);
+//    /**
+//     * Метод сравнения полинома с полиномом-аргументом.
+//     *
+//     * @param p2 - полином, с которым сравниваем.
+//     * @return - boolean результат сравнения.
+//     */
+//    public boolean equals(Polynomial p2) {
+//        return Arrays.equals(this.cfs, p2.cfs);
+//    }
+
+
+    // разобраться
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Polynomial that = (Polynomial) o;
+        return degree == that.degree && Arrays.equals(cfs, that.cfs);
+    }
+
+    // почему при переопределение метода переопределяется хэшкод?
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(degree);
+        result = 31 * result + Arrays.hashCode(cfs);
+        return result;
     }
 
     /**

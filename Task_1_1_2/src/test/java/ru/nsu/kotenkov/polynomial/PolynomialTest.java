@@ -93,7 +93,7 @@ public class PolynomialTest {
     void checkDifferentiate1() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
-        assertArrayEquals(new int[] {3, 12, 21}, p1.differentiate(1).cfs);
+        assertArrayEquals(new int[] {3, 12, 21, 0}, p1.differentiate(1).cfs);
     }
 
     @Test
@@ -101,7 +101,15 @@ public class PolynomialTest {
     void checkDifferentiate2() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
-        assertArrayEquals(new int[] {12, 42}, p1.differentiate(2).cfs);
+        assertArrayEquals(new int[] {12, 42, 0, 0}, p1.differentiate(2).cfs);
+    }
+
+    @Test
+    @DisplayName("A lot differential")
+    void checkDifferentiateALot() {
+        Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
+
+        assertArrayEquals(new int[] {0, 0, 0, 0}, p1.differentiate(5).cfs);
     }
 
     @Test
@@ -124,6 +132,32 @@ public class PolynomialTest {
         Polynomial p2 = new Polynomial(new int[] {2, 9});
 
         if (!p1.equals(p2)) {
+            assertTrue(true);
+        } else {
+            assertFalse(false);
+        }
+    }
+
+    @Test
+    @DisplayName("Equals")
+    void checkEqualityComplicated() {
+        Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7, 0, 0});
+        Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
+
+        if (p1.equals(p2)) {
+            assertTrue(true);
+        } else {
+            assertFalse(false);
+        }
+    }
+
+    @Test
+    @DisplayName("Equals")
+    void checkEqualityComplicated2() {
+        Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
+        Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7, 0, 0});
+
+        if (p1.equals(p2)) {
             assertTrue(true);
         } else {
             assertFalse(false);
