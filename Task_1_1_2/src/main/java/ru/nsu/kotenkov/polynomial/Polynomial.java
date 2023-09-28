@@ -56,7 +56,7 @@ public class Polynomial {
      */
     public Polynomial differentiate(int diff) {
         for (int d = diff; d > 0; d--) {
-            for (int i = 0; i < this.degree-1; i++) {
+            for (int i = 0; i < this.degree - 1; i++) {
                 this.cfs[i] = (i + 1) * this.cfs[i + 1];
             }
 
@@ -76,27 +76,29 @@ public class Polynomial {
         return this;
     }
 
-//    /**
-//     * Метод сравнения полинома с полиномом-аргументом.
-//     *
-//     * @param p2 - полином, с которым сравниваем.
-//     * @return - boolean результат сравнения.
-//     */
-//    public boolean equals(Polynomial p2) {
-//        return Arrays.equals(this.cfs, p2.cfs);
-//    }
-
-
-    // разобраться
+    /**
+     *  Метод сравнения двух полиномов.
+     *
+     * @param o - второй полином, с которым сравнивается this полином.
+     * @return - true или false.
+     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Polynomial that = (Polynomial) o;
         return degree == that.degree && Arrays.equals(cfs, that.cfs);
     }
 
-    // почему при переопределение метода переопределяется хэшкод?
+    /**
+     * Необходимая перезапись хэшкода объектов для @Override сравнения объектов полиномов.
+     *
+     * @return - int хэшкод.
+     */
     @Override
     public int hashCode() {
         int result = Objects.hash(degree);
