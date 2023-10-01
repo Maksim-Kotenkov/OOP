@@ -3,6 +3,7 @@ package ru.nsu.kotenkov.tree;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -13,10 +14,11 @@ import java.util.List;
 public class Tree<T> {
 
     /**
-     * Children and nodeName should not be accessible from outer program;
+     * Children, nodeName and ancestor;
      */
     private final List<Tree<T>> children = new ArrayList<>();
     private final T nodeName;
+    private Tree<T> ancestor;
 
     /**
      * Class constructor for initializing nodeName.
@@ -25,6 +27,33 @@ public class Tree<T> {
      */
     public Tree(T root) {
         this.nodeName = root;
+        this.ancestor = null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tree<?>)) return false;
+        if ((ancestor == null && ((Tree<?>) o).ancestor != null) ||
+                (ancestor != null && ((Tree<?>) o).ancestor == null)) {
+            return false;
+        }
+        if (nodeName != ((Tree<?>) o).nodeName) return false;
+        if (ancestor != null && ancestor.nodeName != ((Tree<?>) o).ancestor.nodeName) return false;
+        return (this.hashCode() == o.hashCode());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(nodeName);
+        if (ancestor != null) {
+            result += Objects.hash(ancestor.nodeName);
+        }
+        for (Tree<?> child : children) {
+            result += child.hashCode();
+        }
+
+        return result;
     }
 
     /**
@@ -45,6 +74,7 @@ public class Tree<T> {
     public Tree<T> addChild(T childName) {
         Tree<T> child = new Tree<> (childName);
         this.children.add(child);
+        child.ancestor = this;
 
         return child;
     }
@@ -54,10 +84,19 @@ public class Tree<T> {
      *  created subtree. We don't need to return object, because this object was already created
      *  and was given to our method.
      *
-     * @param childName - subtree object.
+     * @param child - subtree object.
      */
-    public void addChild(Tree<T> childName) {
-        this.children.add(childName);
+    public void addChild(Tree<T> child) {
+        this.children.add(child);
+        child.ancestor = this;
+    }
+
+
+    /**
+     * Remove this node object from children list of the ancestor;
+     */
+    public void remove() {
+        this.ancestor.children.remove(this);
     }
 
     /**
