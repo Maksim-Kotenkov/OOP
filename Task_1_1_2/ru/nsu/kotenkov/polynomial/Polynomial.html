@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":9,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -88,13 +88,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -139,38 +139,6 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>int[]</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cfs">cfs</a></span></code></th>
-<td class="colLast">
-<div class="block">Коэффициенты полинома.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#degree">degree</a></span></code></th>
-<td class="colLast">
-<div class="block">Степень полинома.</div>
-</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -230,41 +198,48 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colFirst"><code>int[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCfs()">getCfs</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Необходимая перезапись хэшкода объектов для @Override сравнения объектов полиномов.</div>
+<div class="block">Basic getCfs.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDegree()">getDegree</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Basic getDegree.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#main(java.lang.String%5B%5D)">main</a></span>&#8203;(java.lang.String[]&nbsp;args)</code></th>
 <td class="colLast">
 <div class="block">Затычка для компиляции...</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="Polynomial.html" title="class in ru.nsu.kotenkov.polynomial">Polynomial</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#minus(ru.nsu.kotenkov.polynomial.Polynomial)">minus</a></span>&#8203;(<a href="Polynomial.html" title="class in ru.nsu.kotenkov.polynomial">Polynomial</a>&nbsp;p2)</code></th>
 <td class="colLast">
 <div class="block">Метод вычитания полинома-аргумента из объекта.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="Polynomial.html" title="class in ru.nsu.kotenkov.polynomial">Polynomial</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#plus(ru.nsu.kotenkov.polynomial.Polynomial)">plus</a></span>&#8203;(<a href="Polynomial.html" title="class in ru.nsu.kotenkov.polynomial">Polynomial</a>&nbsp;p2)</code></th>
 <td class="colLast">
 <div class="block">Метод сложения двух полиномов.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="Polynomial.html" title="class in ru.nsu.kotenkov.polynomial">Polynomial</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#times(ru.nsu.kotenkov.polynomial.Polynomial)">times</a></span>&#8203;(<a href="Polynomial.html" title="class in ru.nsu.kotenkov.polynomial">Polynomial</a>&nbsp;p2)</code></th>
 <td class="colLast">
 <div class="block">Метод умножения объекта на полином-аргумент.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">
@@ -277,7 +252,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -288,36 +263,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="cfs">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>cfs</h4>
-<pre>public&nbsp;int[] cfs</pre>
-<div class="block">Коэффициенты полинома.</div>
-</li>
-</ul>
-<a id="degree">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>degree</h4>
-<pre>public&nbsp;int degree</pre>
-<div class="block">Степень полинома.</div>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section>
 <ul class="blockList">
@@ -365,6 +310,34 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a id="getDegree()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDegree</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getDegree()</pre>
+<div class="block">Basic getDegree.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>- int degree.</dd>
+</dl>
+</li>
+</ul>
+<a id="getCfs()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCfs</h4>
+<pre class="methodSignature">public&nbsp;int[]&nbsp;getCfs()</pre>
+<div class="block">Basic getCfs.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>- int[] cfs.</dd>
+</dl>
+</li>
+</ul>
 <a id="differentiate(int)">
 <!--   -->
 </a>
@@ -396,22 +369,6 @@ extends java.lang.Object</pre>
 <dd><code>o</code> - - второй полином, с которым сравнивается this полином.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>- true или false.</dd>
-</dl>
-</li>
-</ul>
-<a id="hashCode()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>hashCode</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
-<div class="block">Необходимая перезапись хэшкода объектов для @Override сравнения объектов полиномов.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>- int хэшкод.</dd>
 </dl>
 </li>
 </ul>
@@ -544,13 +501,13 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
