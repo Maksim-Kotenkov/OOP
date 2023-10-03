@@ -3,7 +3,6 @@ package ru.nsu.kotenkov.polynomial;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -20,14 +19,14 @@ public class PolynomialTest {
     @DisplayName("Init test")
     void checkInit() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
-        assertArrayEquals(new int[] {4, 3, 6, 7}, p1.cfs);
+        assertArrayEquals(new int[] {4, 3, 6, 7}, p1.getCfs());
     }
 
     @Test
     @DisplayName("Check the degree of polynomial")
     void checkDegree() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
-        if (p1.degree == 4) {
+        if (p1.getDegree() == 4) {
             assertTrue(true);
         } else {
             fail("Not correct degree");
@@ -47,7 +46,7 @@ public class PolynomialTest {
     void checkSumP1SmallOrEqual() {
         Polynomial p1 = new Polynomial(new int[] {2, 3});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
-        assertArrayEquals(new int[] {6, 6, 6, 7}, p1.plus(p2).cfs);
+        assertArrayEquals(new int[] {6, 6, 6, 7}, p1.plus(p2).getCfs());
     }
 
     @Test
@@ -56,7 +55,7 @@ public class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {1, 2, 3});
         p1.plus(p2);
-        assertArrayEquals(new int[] {5, 5, 9, 7}, p1.cfs);
+        assertArrayEquals(new int[] {5, 5, 9, 7}, p1.getCfs());
     }
 
     @Test
@@ -64,7 +63,7 @@ public class PolynomialTest {
     void checkSumNegative() {
         Polynomial p1 = new Polynomial(new int[] {-2, -3});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
-        assertArrayEquals(new int[] {2, 0, 6, 7}, p1.plus(p2).cfs);
+        assertArrayEquals(new int[] {2, 0, 6, 7}, p1.plus(p2).getCfs());
     }
 
     @Test
@@ -72,7 +71,7 @@ public class PolynomialTest {
     void checkSubP1SmallOrEqual() {
         Polynomial p1 = new Polynomial(new int[] {2, 3});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
-        assertArrayEquals(new int[] {2, 0, 6, 7}, p1.minus(p2).cfs);
+        assertArrayEquals(new int[] {2, 0, 6, 7}, p1.minus(p2).getCfs());
     }
 
     @Test
@@ -81,7 +80,7 @@ public class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {1, 2, 3});
         p1.minus(p2);
-        assertArrayEquals(new int[] {3, 1, 3, 7}, p1.cfs);
+        assertArrayEquals(new int[] {3, 1, 3, 7}, p1.getCfs());
     }
 
     @Test
@@ -89,7 +88,7 @@ public class PolynomialTest {
     void checkSubNegative() {
         Polynomial p1 = new Polynomial(new int[] {-2, -3});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
-        assertArrayEquals(new int[] {6, 6, 6, 7}, p2.minus(p1).cfs);
+        assertArrayEquals(new int[] {6, 6, 6, 7}, p2.minus(p1).getCfs());
     }
 
     @Test
@@ -97,7 +96,7 @@ public class PolynomialTest {
     void checkMulP1SmallOrEqual() {
         Polynomial p1 = new Polynomial(new int[] {2, 3});
         Polynomial p2 = new Polynomial(new int[] {2, 3});
-        assertArrayEquals(new int[] {4, 12, 9}, p1.times(p2).cfs);
+        assertArrayEquals(new int[] {4, 12, 9}, p1.times(p2).getCfs());
     }
 
     @Test
@@ -106,7 +105,7 @@ public class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {1, 2, 3});
         p1.times(p2);
-        assertArrayEquals(new int[] {4, 11, 24, 28, 32, 21}, p1.cfs);
+        assertArrayEquals(new int[] {4, 11, 24, 28, 32, 21}, p1.getCfs());
     }
 
     @Test
@@ -114,7 +113,7 @@ public class PolynomialTest {
     void checkMulNegative() {
         Polynomial p1 = new Polynomial(new int[] {-2, -3});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
-        assertArrayEquals(new int[] {-8, -18, -21, -32, -21}, p1.times(p2).cfs);
+        assertArrayEquals(new int[] {-8, -18, -21, -32, -21}, p1.times(p2).getCfs());
     }
 
     @Test
@@ -122,7 +121,7 @@ public class PolynomialTest {
     void checkDifferentiate1() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
-        assertArrayEquals(new int[] {3, 12, 21, 0}, p1.differentiate(1).cfs);
+        assertArrayEquals(new int[] {3, 12, 21, 0}, p1.differentiate(1).getCfs());
     }
 
     @Test
@@ -130,7 +129,7 @@ public class PolynomialTest {
     void checkNegativeDifferentiate1() {
         Polynomial p1 = new Polynomial(new int[] {4, -3, -6, 7});
 
-        assertArrayEquals(new int[] {-3, -12, 21, 0}, p1.differentiate(1).cfs);
+        assertArrayEquals(new int[] {-3, -12, 21, 0}, p1.differentiate(1).getCfs());
     }
 
     @Test
@@ -138,7 +137,7 @@ public class PolynomialTest {
     void checkDifferentiate2() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
-        assertArrayEquals(new int[] {12, 42, 0, 0}, p1.differentiate(2).cfs);
+        assertArrayEquals(new int[] {12, 42, 0, 0}, p1.differentiate(2).getCfs());
     }
 
     @Test
@@ -146,7 +145,7 @@ public class PolynomialTest {
     void checkDifferentiate5() {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
 
-        assertArrayEquals(new int[] {0, 0, 0, 0}, p1.differentiate(5).cfs);
+        assertArrayEquals(new int[] {0, 0, 0, 0}, p1.differentiate(5).getCfs());
     }
 
     @Test
@@ -155,11 +154,7 @@ public class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
 
-        if (p1.equals(p2)) {
-            assertTrue(true);
-        } else {
-            assertFalse(false);
-        }
+        assertEquals(p1, p2);
     }
 
     @Test
@@ -171,7 +166,7 @@ public class PolynomialTest {
         if (!p1.equals(p2)) {
             assertTrue(true);
         } else {
-            assertFalse(false);
+            fail();
         }
     }
 
@@ -181,11 +176,7 @@ public class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7, 0, 0});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7});
 
-        if (p1.equals(p2)) {
-            assertTrue(true);
-        } else {
-            assertFalse(false);
-        }
+        assertEquals(p1, p2);
     }
 
     @Test
@@ -194,11 +185,7 @@ public class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {4, 3, 6, 7, 0, 0});
 
-        if (p1.equals(p2)) {
-            assertTrue(true);
-        } else {
-            assertFalse(false);
-        }
+        assertEquals(p1, p2);
     }
 
     @Test
@@ -207,11 +194,7 @@ public class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, -3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {4, -3, 6, 7, 0, 0});
 
-        if (p1.equals(p2)) {
-            assertTrue(true);
-        } else {
-            assertFalse(false);
-        }
+        assertEquals(p1, p2);
     }
 
     @Test

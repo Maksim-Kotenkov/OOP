@@ -1,6 +1,5 @@
 package ru.nsu.kotenkov.polynomial;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 
@@ -15,12 +14,12 @@ public class Polynomial {
     /**
      * Коэффициенты полинома.
      */
-    public int[] cfs;
+    private int[] cfs;
 
     /**
      * Степень полинома.
      */
-    public int degree;
+    private int degree;
 
     /**
      * Конструктор для инициализации полинома с заданными коэффициентами.
@@ -49,6 +48,24 @@ public class Polynomial {
     }
 
     /**
+     * Basic getDegree.
+     *
+     * @return - int degree.
+     */
+    public int getDegree() {
+        return degree;
+    }
+
+    /**
+     * Basic getCfs.
+     *
+     * @return - int[] cfs.
+     */
+    public int[] getCfs() {
+        return cfs;
+    }
+
+    /**
      * Метод вычисления производной заданного порядка.
      *
      * @param diff - порядок производной.
@@ -65,12 +82,6 @@ public class Polynomial {
             }
             this.degree--;
             this.cfs[this.degree] = 0;
-
-            // int[] n = new int[--this.degree];
-            // уйти от ресайзов
-            // System.arraycopy(this.cfs, 1, n, 0, this.degree);
-
-            // this.cfs = n;
         }
 
         return this;
@@ -91,19 +102,7 @@ public class Polynomial {
             return false;
         }
         Polynomial that = (Polynomial) o;
-        return degree == that.degree && Arrays.equals(cfs, that.cfs);
-    }
-
-    /**
-     * Необходимая перезапись хэшкода объектов для @Override сравнения объектов полиномов.
-     *
-     * @return - int хэшкод.
-     */
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(degree);
-        result = 31 * result + Arrays.hashCode(cfs);
-        return result;
+        return Objects.equals(this.toString(), that.toString());
     }
 
     /**
@@ -117,9 +116,10 @@ public class Polynomial {
 
         int pow = this.degree;
 
+        boolean started = false;
         for (int i = this.degree - 1; i >= 0; i--) {
             if (this.cfs[i] != 0) {
-                if (pow != this.degree) {
+                if (pow != this.degree && started) {
                     if (this.cfs[i] > 0) {
                         res = res.concat(" + ");
                     } else {
@@ -127,6 +127,7 @@ public class Polynomial {
                     }
                 }
 
+                started = true;
                 res = res.concat(Integer.toString(Math.abs(this.cfs[i])));
                 pow--;
                 if (pow > 1) {
@@ -140,7 +141,6 @@ public class Polynomial {
             }
         }
 
-        System.out.println(res);
         return res;
     }
 
@@ -215,8 +215,6 @@ public class Polynomial {
 
         this.cfs = newCfs;
         this.degree = this.degree * p2.degree / 2;
-
-        System.out.println(Arrays.toString(this.cfs));
 
         return this;
     }
