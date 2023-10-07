@@ -63,7 +63,6 @@ public class TreeTest {
         tree.addChild(subtree);
 
         String dfsResult = tree.printDFS();
-        System.out.println(dfsResult);
         assertEquals("""
                                 R1: (A: (B) R2: (C D))""", dfsResult);
     }
@@ -81,7 +80,6 @@ public class TreeTest {
         b.remove();
 
         String dfsResult = tree.printDFS();
-        System.out.println(dfsResult);
         assertEquals("""
                                 R1: (A R2: (C D))""", dfsResult);
     }
@@ -99,7 +97,6 @@ public class TreeTest {
         subtree.remove();
 
         String dfsResult = tree.printDFS();
-        System.out.println(dfsResult);
         assertEquals("""
                                 R1: (A: (B))""", dfsResult);
     }
@@ -111,11 +108,7 @@ public class TreeTest {
 
         Tree<String> tree2 = new Tree<>("R1");
 
-        if (tree1.equals(tree2)) {
-            assertTrue(true);
-        } else {
-            fail();
-        }
+        assertEquals(tree1, tree2);
     }
 
     @Test
@@ -126,11 +119,7 @@ public class TreeTest {
         Tree<String> tree2 = new Tree<>("R1");
         tree2.addChild("A");
 
-        if (tree1.equals(tree2)) {
-            assertTrue(true);
-        } else {
-            fail();
-        }
+        assertEquals(tree1, tree2);
     }
 
     @Test
@@ -168,11 +157,7 @@ public class TreeTest {
         tree2.addChild(subtree2);
         subtree2.addChild("C");
 
-        if (tree1.equals(tree2)) {
-            assertTrue(true);
-        } else {
-            fail();
-        }
+        assertEquals(tree1, tree2);
     }
 
     @Test
