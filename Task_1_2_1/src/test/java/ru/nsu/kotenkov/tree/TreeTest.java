@@ -44,11 +44,7 @@ public class TreeTest {
         tree.addChild(subtree);
 
         String bfsResult = tree.printBFS();
-        assertEquals("""
-                                R1: A R2\s
-                                A: B\s
-                                R2: C D\s
-                                """, bfsResult);
+        assertEquals("R1: A R2 \nA: B \nR2: C D \n", bfsResult);
     }
 
     @Test
@@ -63,8 +59,7 @@ public class TreeTest {
         tree.addChild(subtree);
 
         String dfsResult = tree.printDFS();
-        assertEquals("""
-                                R1: (A: (B) R2: (C D))""", dfsResult);
+        assertEquals("R1: (A: (B) R2: (C D))", dfsResult);
     }
 
     @Test
@@ -80,8 +75,7 @@ public class TreeTest {
         b.remove();
 
         String dfsResult = tree.printDFS();
-        assertEquals("""
-                                R1: (A R2: (C D))""", dfsResult);
+        assertEquals("R1: (A R2: (C D))", dfsResult);
     }
 
     @Test
@@ -97,8 +91,7 @@ public class TreeTest {
         subtree.remove();
 
         String dfsResult = tree.printDFS();
-        assertEquals("""
-                                R1: (A: (B))""", dfsResult);
+        assertEquals("R1: (A: (B))", dfsResult);
     }
 
     @Test
