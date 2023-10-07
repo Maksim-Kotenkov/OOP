@@ -14,7 +14,8 @@ import java.util.Objects;
 public class Tree<T> {
 
     /**
-     * Children, nodeName and ancestor;
+     * Children, nodeName and ancestor.
+     *
      */
     private List<Tree<T>> children = new ArrayList<>();
     private final T nodeName;
@@ -32,14 +33,22 @@ public class Tree<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Tree<?>)) return false;
-        if ((ancestor == null && ((Tree<?>) o).getAncestor() != null) ||
-                (ancestor != null && ((Tree<?>) o).getAncestor() == null)) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Tree<?>)) {
             return false;
         }
-        if (nodeName != ((Tree<?>) o).getNodeName()) return false;
-        if (ancestor != null && ancestor.getNodeName() != ((Tree<?>) o).ancestor.getNodeName()) return false;
+        if ((ancestor == null && ((Tree<?>) o).getAncestor() != null)
+                || (ancestor != null && ((Tree<?>) o).getAncestor() == null)) {
+            return false;
+        }
+        if (nodeName != ((Tree<?>) o).getNodeName()) {
+            return false;
+        }
+        if (ancestor != null && ancestor.getNodeName() != ((Tree<?>) o).ancestor.getNodeName()) {
+            return false;
+        }
         return (this.hashCode() == o.hashCode());
     }
 
@@ -88,7 +97,7 @@ public class Tree<T> {
      * @return - child Tree T object.
      */
     public Tree<T> addChild(T childName) {
-        Tree<T> child = new Tree<> (childName);
+        Tree<T> child = new Tree<>(childName);
         this.children.add(child);
         child.setAncestor(this);
 
