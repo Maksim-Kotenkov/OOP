@@ -9,6 +9,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
+/**
+ * Class for testing.
+ *
+ */
 public class TreeTest {
     @Test
     @DisplayName("Check main")
@@ -69,10 +73,10 @@ public class TreeTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         Tree<String> subtree = new Tree<>("R2");
+        b.remove();
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
-        b.remove();
 
         String dfsResult = tree.printDFS();
         assertEquals("R1: (A R2: (C D))", dfsResult);
