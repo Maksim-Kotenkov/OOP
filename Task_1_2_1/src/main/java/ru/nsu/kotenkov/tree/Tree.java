@@ -2,6 +2,7 @@ package ru.nsu.kotenkov.tree;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  *
  * @param <T> - type of nodes in our Tree.
  */
-public class Tree<T> {
+public class Tree<T> implements Iterable<T> {
 
     /**
      * Children, nodeName and ancestor.
@@ -74,18 +75,38 @@ public class Tree<T> {
         return this.nodeName;
     }
 
+    /**
+     * Public method for accessing list of children.
+     *
+     * @return List children
+     */
     public List<Tree<T>> getChildren() {
         return children;
     }
 
+    /**
+     * Public method for setting children list.
+     *
+     * @param children List new children
+     */
     public void setChildren(List<Tree<T>> children) {
         this.children = children;
     }
 
+    /**
+     * Public method for accessing ancestor node.
+     *
+     * @return Tree T ancestor node
+     */
     public Tree<T> getAncestor() {
         return ancestor;
     }
 
+    /**
+     * Public method for setting new ancestor node.
+     *
+     * @param ancestor - new Tree T ancestor node
+     */
     public void setAncestor(Tree<T> ancestor) {
         this.ancestor = ancestor;
     }
@@ -116,14 +137,18 @@ public class Tree<T> {
         child.setAncestor(this);
     }
 
-
     /**
      * Remove this node object from children list of the ancestor;
+     *
      */
     public void remove() {
-        List<Tree<T>> newChildren = this.ancestor.getChildren();
-        newChildren.remove(this);
-        this.ancestor.setChildren(newChildren);
+        if (ancestor != null) {
+            for (Tree<T> child : this.children) {
+                child.ancestor.setAncestor(this.ancestor);
+            }
+            this.ancestor.children.remove(this);
+            this.ancestor.children.addAll(this.children);
+        }
     }
 
     /**
@@ -131,22 +156,22 @@ public class Tree<T> {
      *
      * @return - String view of the tree.
      */
-    public String printBFS() {
+    public String printBfs() {
         String result = "";
-        if (this.children.isEmpty()) {
+        if (children.isEmpty()) {
             return result;
         }
 
-        result = result.concat(this.nodeName.toString());
+        result = result.concat(nodeName.toString());
         result = result.concat(": ");
-        for (Tree<T> child : this.children) {
+        for (Tree<T> child : children) {
             result = result.concat(child.getNodeName().toString());
             result = result.concat(" ");
         }
 
         result = result.concat("\n");
-        for (Tree<T> child : this.children) {
-            result = result.concat(child.printBFS());
+        for (Tree<T> child : children) {
+            result = result.concat(child.printBfs());
         }
 
         return result;
@@ -157,18 +182,18 @@ public class Tree<T> {
      *
      * @return - String view of the tree.
      */
-    public String printDFS() {
+    public String printDfs() {
         String result = this.nodeName.toString();
-        if (this.children.isEmpty()) {
+        if (children.isEmpty()) {
             return result;
         }
 
         result = result.concat(": (");
-        for (Tree<T> child : this.children){
-            result = result.concat(child.printDFS());
+        for (Tree<T> child : children) {
+            result = result.concat(child.printDfs());
             result = result.concat(" ");
         }
-        result = result.substring(0, result.length()-1);
+        result = result.substring(0, result.length() - 1);
         result = result.concat(")");
 
         return result;
@@ -181,5 +206,15 @@ public class Tree<T> {
      */
     public static void main(String[] args) {
         System.out.println("Main goes brr");
+    }
+
+    /**
+     * Return custom Iterator object for this class.
+     *
+     * @return - TreeIterator object
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new TreeIterator<>(this);
     }
 }

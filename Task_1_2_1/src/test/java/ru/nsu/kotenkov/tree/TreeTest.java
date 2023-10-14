@@ -1,12 +1,14 @@
 package ru.nsu.kotenkov.tree;
 
 
+import java.util.Iterator;
+import java.util.Objects;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 
 /**
@@ -47,7 +49,7 @@ public class TreeTest {
         subtree.addChild("D");
         tree.addChild(subtree);
 
-        String bfsResult = tree.printBFS();
+        String bfsResult = tree.printBfs();
         assertEquals("R1: A R2 \nA: B \nR2: C D \n", bfsResult);
     }
 
@@ -62,7 +64,7 @@ public class TreeTest {
         subtree.addChild("D");
         tree.addChild(subtree);
 
-        String dfsResult = tree.printDFS();
+        String dfsResult = tree.printDfs();
         assertEquals("R1: (A: (B) R2: (C D))", dfsResult);
     }
 
@@ -78,7 +80,7 @@ public class TreeTest {
         subtree.addChild("D");
         tree.addChild(subtree);
 
-        String dfsResult = tree.printDFS();
+        String dfsResult = tree.printDfs();
         assertEquals("R1: (A R2: (C D))", dfsResult);
     }
 
@@ -94,8 +96,18 @@ public class TreeTest {
         tree.addChild(subtree);
         subtree.remove();
 
-        String dfsResult = tree.printDFS();
-        assertEquals("R1: (A: (B))", dfsResult);
+        String dfsResult = tree.printDfs();
+        assertEquals("R1: (A: (B) C D)", dfsResult);
+    }
+
+    @Test
+    @DisplayName("Remove single node")
+    void checkRemoveSingle() {
+        Tree<String> tree = new Tree<>("R1");
+        tree.remove();
+
+        String dfsResult = tree.printDfs();
+        assertEquals("R1", dfsResult);
     }
 
     @Test
@@ -182,5 +194,51 @@ public class TreeTest {
         } else {
             assertTrue(true);
         }
+    }
+
+    @Test
+    @DisplayName("Check iterator")
+    void checkIterator() {
+        Tree<String> tree = new Tree<>("R1");
+        var a = tree.addChild("A");
+        a.addChild("B");
+        Tree<String> subtree = new Tree<>("R2");
+        subtree.addChild("C");
+        subtree.addChild("D");
+        tree.addChild(subtree);
+
+        String actual = "";
+        for (String label : tree) {
+            actual = actual.concat(label);
+        }
+
+        assertEquals("R1ABR2CD", actual);
+    }
+
+    @Test
+    @DisplayName("Check iterator with remove")
+    void checkIteratorWithRemove() {
+        Tree<String> tree = new Tree<>("R1");
+        var a = tree.addChild("A");
+        a.addChild("B");
+        Tree<String> subtree = new Tree<>("R2");
+        subtree.addChild("C");
+        subtree.addChild("D");
+        tree.addChild(subtree);
+
+        String actual = "";
+        Iterator<String> iterator = tree.iterator();
+
+        while (iterator.hasNext()) {
+            String item = iterator.next();
+            if (Objects.equals(item, "A")) {
+                iterator.remove();
+                subtree.remove();
+            } else {
+                actual = actual.concat(item);
+            }
+        }
+
+        assertEquals("R1BR2CD", actual);
     }
 }

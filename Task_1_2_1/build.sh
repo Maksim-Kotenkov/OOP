@@ -1,6 +1,9 @@
 javadoc -d build/docs/javadoc -sourcepath src/main/java -subpackages ru.nsu.kotenkov.tree
 
-# jar cf Heapsort.jar Heapsort.class
-javac src/main/java/ru/nsu/kotenkov/tree/Tree.java -d ./build
+javac src/main/java/ru/nsu/kotenkov/tree/*.java -d ./build
 
-java -cp ./build ru.nsu.kotenkov.tree.Tree
+cd ./build
+jar cfm Tree.jar ../src/main/java/ru/nsu/kotenkov/tree/ManifestAddition.mf ru/nsu/kotenkov/tree
+#jar tf Tree.jar
+
+java -jar Tree.jar
