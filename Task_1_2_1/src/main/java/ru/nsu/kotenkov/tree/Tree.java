@@ -138,7 +138,7 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
-     * Remove this node object from children list of the ancestor;
+     * Remove this node object from children list of the ancestor.
      *
      */
     public void remove() {
