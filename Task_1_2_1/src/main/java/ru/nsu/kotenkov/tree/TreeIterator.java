@@ -1,6 +1,7 @@
 package ru.nsu.kotenkov.tree;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @param <T> type of iterable elements
  */
-public class TreeIterator<T> implements Iterator<T> {
+class TreeIterator<T> implements Iterator<T> {
     private final List<Tree<T>> nodeList = new ArrayList<>();
     private int nxt;
 
@@ -19,24 +20,9 @@ public class TreeIterator<T> implements Iterator<T> {
      * @param node root
      */
     public TreeIterator(Tree<T> node) {
-        nodeList.addAll(creation(node));
+        node.setEdited(false);
+        nodeList.add(node);
         nxt = 0;
-    }
-
-    /**
-     * DFS-like creating collection of iterable nodes.
-     *
-     * @param node root
-     * @return List of nodes
-     */
-    private List<Tree<T>> creation(Tree<T> node) {
-        List<Tree<T>> returnList = new ArrayList<>();
-        returnList.add(node);
-        for (Tree<T> child : node.getChildren()) {
-            returnList.addAll(creation(child));
-        }
-
-        return returnList;
     }
 
     /**
@@ -57,6 +43,14 @@ public class TreeIterator<T> implements Iterator<T> {
     @Override
     public T next() {
         Tree<T> returnNode = nodeList.get(nxt);
+        if (returnNode.isEdited()) {
+            throw new ConcurrentModificationException();
+        }
+        List<Tree<T>> children = returnNode.getChildren();
+        for (Tree<T> child : children) {
+            child.setEdited(false);
+        }
+        nodeList.addAll(children);
         nxt += 1;
 
         return returnNode.getNodeName();

@@ -1,14 +1,13 @@
 package ru.nsu.kotenkov.tree;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Objects;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -212,11 +211,11 @@ public class TreeTest {
             actual = actual.concat(label);
         }
 
-        assertEquals("R1ABR2CD", actual);
+        assertEquals("R1AR2BCD", actual);
     }
 
     @Test
-    @DisplayName("Check iterator with remove")
+    @DisplayName("Check iterator with iterator remove")
     void checkIteratorWithRemove() {
         Tree<String> tree = new Tree<>("R1");
         var a = tree.addChild("A");
@@ -233,12 +232,36 @@ public class TreeTest {
             String item = iterator.next();
             if (Objects.equals(item, "A")) {
                 iterator.remove();
-                subtree.remove();
             } else {
                 actual = actual.concat(item);
             }
         }
 
-        assertEquals("R1BR2CD", actual);
+        assertEquals("R1R2BCD", actual);
+    }
+
+    @Test
+    @DisplayName("Check iterator with tree remove")
+    void checkIteratorWithTreeRemove() {
+        assertThrows(ConcurrentModificationException.class,
+                ()->{
+                    Tree<String> tree = new Tree<>("R1");
+                    var a = tree.addChild("A");
+                    a.addChild("B");
+                    Tree<String> subtree = new Tree<>("R2");
+                    subtree.addChild("C");
+                    subtree.addChild("D");
+                    tree.addChild(subtree);
+
+                    String actual = "";
+
+                    for (String item : tree) {
+                        if (Objects.equals(item, "A")) {
+                            subtree.remove();
+                        } else {
+                            actual = actual.concat(item);
+                        }
+                    }
+                });
     }
 }
