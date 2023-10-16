@@ -244,7 +244,7 @@ public class TreeTest {
     @DisplayName("Check iterator with tree remove")
     void checkIteratorWithTreeRemove() {
         assertThrows(ConcurrentModificationException.class,
-                ()->{
+                () -> {
                     Tree<String> tree = new Tree<>("R1");
                     var a = tree.addChild("A");
                     a.addChild("B");
