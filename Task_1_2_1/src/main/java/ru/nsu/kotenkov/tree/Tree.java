@@ -15,6 +15,15 @@ import java.util.Objects;
 public class Tree<T> implements Iterable<T> {
 
     /**
+     * enum for changing type of iterating through the object.
+     *
+     */
+    public enum IteratorTypesEnum {
+        BFS,
+        DFS
+    }
+
+    /**
      * Children, nodeName, ancestor and a flag for being changed.
      *
      */
@@ -22,15 +31,6 @@ public class Tree<T> implements Iterable<T> {
     private final T nodeName;
     private Tree<T> ancestor;
     private boolean edited = false;
-
-    /**
-     * enum for changing type of iterating through the object
-     *
-     */
-    public enum IteratorTypesEnum {
-        BFS,
-        DFS
-    }
     private IteratorTypesEnum iteratorType;
 
     /**
