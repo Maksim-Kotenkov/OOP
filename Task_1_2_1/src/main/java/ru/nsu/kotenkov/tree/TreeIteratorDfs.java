@@ -1,28 +1,23 @@
 package ru.nsu.kotenkov.tree;
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Custom iterator class.
  *
  * @param <T> type of iterable elements
  */
-class TreeIterator<T> implements Iterator<T> {
-    private final List<Tree<T>> nodeList = new ArrayList<>();
-    private int nxt;
+class TreeIteratorDfs<T> implements Iterator<T> {
+    private final Stack<Tree<T>> nodeStack = new Stack<>();
 
     /**
      * Class constructor that takes root node.
      *
      * @param node root
      */
-    public TreeIterator(Tree<T> node) {
+    public TreeIteratorDfs(Tree<T> node) {
         node.setEdited(false);
-        nodeList.add(node);
-        nxt = 0;
+        nodeStack.add(node);
     }
 
     /**
@@ -32,7 +27,7 @@ class TreeIterator<T> implements Iterator<T> {
      */
     @Override
     public boolean hasNext() {
-        return nxt < nodeList.size();
+        return !nodeStack.empty();
     }
 
     /**
@@ -42,7 +37,7 @@ class TreeIterator<T> implements Iterator<T> {
      */
     @Override
     public T next() {
-        Tree<T> returnNode = nodeList.get(nxt);
+        Tree<T> returnNode = nodeStack.pop();
         if (returnNode.isEdited()) {
             throw new ConcurrentModificationException();
         }
@@ -50,8 +45,7 @@ class TreeIterator<T> implements Iterator<T> {
         for (Tree<T> child : children) {
             child.setEdited(false);
         }
-        nodeList.addAll(children);
-        nxt += 1;
+        nodeStack.addAll(children);
 
         return returnNode.getNodeName();
     }
@@ -61,7 +55,6 @@ class TreeIterator<T> implements Iterator<T> {
      */
     @Override
     public void remove() {
-        nodeList.remove(nxt - 1);
-        nxt -= 1;
+        nodeStack.pop();
     }
 }

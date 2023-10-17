@@ -22,6 +22,8 @@ public class Tree<T> implements Iterable<T> {
     private final T nodeName;
     private Tree<T> ancestor;
     private boolean edited = false;
+    public enum IteratorTypesEnum {BFS, DFS};
+    private IteratorTypesEnum iteratorType;
 
     /**
      * Class constructor for initializing nodeName.
@@ -31,6 +33,7 @@ public class Tree<T> implements Iterable<T> {
     public Tree(T root) {
         this.nodeName = root;
         this.ancestor = null;
+        this.iteratorType = IteratorTypesEnum.BFS;
     }
 
     @Override
@@ -63,6 +66,10 @@ public class Tree<T> implements Iterable<T> {
 
     public boolean isEdited() {
         return edited;
+    }
+
+    public void setIteratorType(IteratorTypesEnum iteratorType) {
+        this.iteratorType = iteratorType;
     }
 
     /**
@@ -221,6 +228,9 @@ public class Tree<T> implements Iterable<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return new TreeIterator<>(this);
+        if (this.iteratorType == IteratorTypesEnum.BFS) {
+            return new TreeIteratorBfs<>(this);
+        }
+        return new TreeIteratorDfs<>(this);
     }
 }

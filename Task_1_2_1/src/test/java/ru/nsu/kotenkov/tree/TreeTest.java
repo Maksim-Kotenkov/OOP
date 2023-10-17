@@ -264,4 +264,24 @@ public class TreeTest {
                     }
                 });
     }
+
+    @Test
+    @DisplayName("Check DFS-like iterator")
+    void checkIteratorDfs() {
+        Tree<String> tree = new Tree<>("R1");
+        var a = tree.addChild("A");
+        a.addChild("B");
+        Tree<String> subtree = new Tree<>("R2");
+        subtree.addChild("C");
+        subtree.addChild("D");
+        tree.addChild(subtree);
+
+        tree.setIteratorType(Tree.IteratorTypesEnum.DFS);
+        String actual = "";
+        for (String label : tree) {
+            actual = actual.concat(label);
+        }
+
+        assertEquals("R1R2DCAB", actual);
+    }
 }
