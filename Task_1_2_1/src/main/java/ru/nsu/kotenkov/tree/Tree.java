@@ -25,12 +25,12 @@ public class Tree<T> implements Iterable<T> {
 
     /**
      * enum for changing type of iterating through the object
+     *
      */
-    public enum IteratorTypesEnum
-    {
+    public enum IteratorTypesEnum {
         BFS,
         DFS
-    };
+    }
     private IteratorTypesEnum iteratorType;
 
     /**
