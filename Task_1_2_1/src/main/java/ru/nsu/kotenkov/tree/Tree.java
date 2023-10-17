@@ -22,7 +22,15 @@ public class Tree<T> implements Iterable<T> {
     private final T nodeName;
     private Tree<T> ancestor;
     private boolean edited = false;
-    public enum IteratorTypesEnum {BFS, DFS};
+
+    /**
+     * enum for changing type of iterating through the object
+     */
+    public enum IteratorTypesEnum
+    {
+        BFS,
+        DFS
+    };
     private IteratorTypesEnum iteratorType;
 
     /**
@@ -34,6 +42,11 @@ public class Tree<T> implements Iterable<T> {
         this.nodeName = root;
         this.ancestor = null;
         this.iteratorType = IteratorTypesEnum.BFS;
+    }
+
+    @Override
+    public String toString() {
+        return this.printBfs();
     }
 
     @Override
