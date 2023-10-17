@@ -9,6 +9,7 @@ import java.util.*;
  */
 class TreeIteratorDfs<T> implements Iterator<T> {
     private final Stack<Tree<T>> nodeStack = new Stack<>();
+    private final Stack<Integer> expectedModCount = new Stack<>();
 
     /**
      * Class constructor that takes root node.
@@ -16,7 +17,7 @@ class TreeIteratorDfs<T> implements Iterator<T> {
      * @param node root
      */
     public TreeIteratorDfs(Tree<T> node) {
-        node.setEdited(false);
+        expectedModCount.add(node.getModCount());
         nodeStack.add(node);
     }
 
@@ -37,15 +38,28 @@ class TreeIteratorDfs<T> implements Iterator<T> {
      */
     @Override
     public T next() {
-        Tree<T> returnNode = nodeStack.pop();
-        if (returnNode.isEdited()) {
+        Stack<Tree<T>> nodeStackCopy = (Stack<Tree<T>>) nodeStack.clone();
+        Stack<Tree<T>> nodeStackReversed = new Stack<>();
+        while (!nodeStackCopy.empty()) {
+            nodeStackReversed.add(nodeStackCopy.pop());
+        }
+
+        Stack<Integer> actualModCount = new Stack<>();
+        while (!nodeStackReversed.empty()) {
+            actualModCount.add(nodeStackReversed.pop().getModCount());
+        }
+        if (!actualModCount.equals(expectedModCount)) {
             throw new ConcurrentModificationException();
         }
+
+        Tree<T> returnNode = nodeStack.pop();
+        expectedModCount.pop();
         List<Tree<T>> children = returnNode.getChildren();
+
         for (Tree<T> child : children) {
-            child.setEdited(false);
+            nodeStack.add(child);
+            expectedModCount.add(child.getModCount());
         }
-        nodeStack.addAll(children);
 
         return returnNode.getNodeName();
     }

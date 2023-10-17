@@ -18,7 +18,7 @@ public class Tree<T> implements Iterable<T> {
      * enum for changing type of iterating through the object.
      *
      */
-    public enum IteratorTypesEnum {
+    public enum IteratorTypes {
         BFS,
         DFS
     }
@@ -30,8 +30,8 @@ public class Tree<T> implements Iterable<T> {
     private List<Tree<T>> children = new ArrayList<>();
     private final T nodeName;
     private Tree<T> ancestor;
-    private boolean edited = false;
-    private IteratorTypesEnum iteratorType;
+    private int modCount;
+    private IteratorTypes iteratorType;
 
     /**
      * Class constructor for initializing nodeName.
@@ -41,7 +41,8 @@ public class Tree<T> implements Iterable<T> {
     public Tree(T root) {
         this.nodeName = root;
         this.ancestor = null;
-        this.iteratorType = IteratorTypesEnum.BFS;
+        this.iteratorType = IteratorTypes.BFS;
+        this.modCount = 0;
     }
 
     @Override
@@ -73,15 +74,15 @@ public class Tree<T> implements Iterable<T> {
         return result;
     }
 
-    public void setEdited(boolean edited) {
-        this.edited = edited;
+    public void setModCount(int modCount) {
+        this.modCount = modCount;
     }
 
-    public boolean isEdited() {
-        return edited;
+    public int getModCount() {
+        return modCount;
     }
 
-    public void setIteratorType(IteratorTypesEnum iteratorType) {
+    public void setIteratorType(IteratorTypes iteratorType) {
         this.iteratorType = iteratorType;
     }
 
@@ -110,7 +111,7 @@ public class Tree<T> implements Iterable<T> {
      */
     public void setChildren(List<Tree<T>> children) {
         this.children = children;
-        this.edited = true;
+        this.modCount++;
     }
 
     /**
@@ -129,7 +130,7 @@ public class Tree<T> implements Iterable<T> {
      */
     public void setAncestor(Tree<T> ancestor) {
         this.ancestor = ancestor;
-        this.edited = true;
+        this.modCount++;
     }
 
     /**
@@ -142,7 +143,7 @@ public class Tree<T> implements Iterable<T> {
         Tree<T> child = new Tree<>(childName);
         this.children.add(child);
         child.setAncestor(this);
-        this.edited = true;
+        this.modCount++;
 
         return child;
     }
@@ -158,7 +159,7 @@ public class Tree<T> implements Iterable<T> {
         this.children.add(child);
         child.setAncestor(this);
 
-        this.edited = true;
+        this.modCount++;
     }
 
     /**
@@ -173,7 +174,7 @@ public class Tree<T> implements Iterable<T> {
             this.ancestor.children.remove(this);
             this.ancestor.children.addAll(this.children);
 
-            this.edited = true;
+            this.modCount++;
         }
     }
 
@@ -241,7 +242,7 @@ public class Tree<T> implements Iterable<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        if (this.iteratorType == IteratorTypesEnum.BFS) {
+        if (this.iteratorType == IteratorTypes.BFS) {
             return new TreeIteratorBfs<>(this);
         }
         return new TreeIteratorDfs<>(this);

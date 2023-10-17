@@ -256,7 +256,7 @@ public class TreeTest {
                     String actual = "";
 
                     for (String item : tree) {
-                        if (Objects.equals(item, "A")) {
+                        if (Objects.equals(item, "B")) {
                             subtree.remove();
                         } else {
                             actual = actual.concat(item);
@@ -276,7 +276,7 @@ public class TreeTest {
         subtree.addChild("D");
         tree.addChild(subtree);
 
-        tree.setIteratorType(Tree.IteratorTypesEnum.DFS);
+        tree.setIteratorType(Tree.IteratorTypes.DFS);
         String actual = "";
         for (String label : tree) {
             actual = actual.concat(label);

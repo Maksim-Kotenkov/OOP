@@ -13,6 +13,7 @@ import java.util.List;
 class TreeIteratorBfs<T> implements Iterator<T> {
     private final List<Tree<T>> nodeList = new ArrayList<>();
     private int nxt;
+    private final List<Integer> expectedModCount = new ArrayList<>();
 
     /**
      * Class constructor that takes root node.
@@ -20,7 +21,6 @@ class TreeIteratorBfs<T> implements Iterator<T> {
      * @param node root
      */
     public TreeIteratorBfs(Tree<T> node) {
-        node.setEdited(false);
         nodeList.add(node);
         nxt = 0;
     }
@@ -42,16 +42,21 @@ class TreeIteratorBfs<T> implements Iterator<T> {
      */
     @Override
     public T next() {
+        List<Integer> actualModCount = new ArrayList<>();
+        for (int i = 0; i <= nxt; i++) {
+            actualModCount.add(nodeList.get(i).getModCount());
+        }
+
         Tree<T> returnNode = nodeList.get(nxt);
-        if (returnNode.isEdited()) {
+        List<Tree<T>> children = returnNode.getChildren();
+        expectedModCount.add(returnNode.getModCount());
+
+        if (!actualModCount.equals(expectedModCount)) {
             throw new ConcurrentModificationException();
         }
-        List<Tree<T>> children = returnNode.getChildren();
-        for (Tree<T> child : children) {
-            child.setEdited(false);
-        }
+
         nodeList.addAll(children);
-        nxt += 1;
+        nxt++;
 
         return returnNode.getNodeName();
     }
@@ -62,6 +67,7 @@ class TreeIteratorBfs<T> implements Iterator<T> {
     @Override
     public void remove() {
         nodeList.remove(nxt - 1);
+        expectedModCount.remove(nxt - 1);
         nxt -= 1;
     }
 }
