@@ -70,6 +70,7 @@ public class Tree<T> implements Iterable<T> {
             for (int j = 0; j < ((Tree<?>) o).getChildren().size(); j++) {
                 if (child.equals(((Tree<?>) o).getChildren().get(j))) {
                     flag = true;
+                    break;
                 }
             }
             if (!flag) {
