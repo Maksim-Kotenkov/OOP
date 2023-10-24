@@ -1,10 +1,7 @@
 package ru.nsu.kotenkov.tree;
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 /**
@@ -55,30 +52,20 @@ public class Tree<T> implements Iterable<T> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Tree<?>)) {
+        if (!(o instanceof Tree<?> oTree)) {
             return false;
         }
-        if (nodeName != ((Tree<?>) o).getNodeName()) {
+        if (nodeName != oTree.getNodeName()) {
             return false;
         }
-        if (this.getChildren().size() != ((Tree<?>) o).getChildren().size()) {
+        if (this.getChildren().size() != oTree.getChildren().size()) {
             return false;
         }
 
-        for (Tree<T> child : children) {
-            boolean flag = false;
-            for (int j = 0; j < ((Tree<?>) o).getChildren().size(); j++) {
-                if (child.equals(((Tree<?>) o).getChildren().get(j))) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                return false;
-            }
-        }
+        HashSet<Tree<?>> childrenSet = new HashSet<>(children);
+        HashSet<Tree<?>> objectSet = new HashSet<>(oTree.getChildren());
 
-        return true;
+        return childrenSet.equals(objectSet);
     }
 
     @Override
