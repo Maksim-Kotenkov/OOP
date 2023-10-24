@@ -61,7 +61,23 @@ public class Tree<T> implements Iterable<T> {
         if (nodeName != ((Tree<?>) o).getNodeName()) {
             return false;
         }
-        return this.hashCode() == o.hashCode();
+        if (this.getChildren().size() != ((Tree<?>) o).getChildren().size()) {
+            return false;
+        }
+
+        for (Tree<T> child : children) {
+            boolean flag = false;
+            for (int j = 0; j < ((Tree<?>) o).getChildren().size(); j++) {
+                if (child.equals(((Tree<?>) o).getChildren().get(j))) {
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
