@@ -52,9 +52,11 @@ public class Tree<T> implements Iterable<T> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Tree<?> oTree)) {
+        if (!(o instanceof Tree<?>)) {
             return false;
         }
+
+        Tree<?> oTree = (Tree<?>) o;
         if (nodeName != oTree.getNodeName()) {
             return false;
         }
