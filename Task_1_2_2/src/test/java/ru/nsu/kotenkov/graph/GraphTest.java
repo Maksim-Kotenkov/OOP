@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -411,5 +412,55 @@ public class GraphTest {
                 + "N: 5\n"
                 + "A: 3\n"
                 + "B: 23\n", path);
+    }
+
+    @Test
+    @DisplayName("File check easy")
+    void checkWithFile() {
+        GraphReader reader = new GraphReader("inpEasy.txt");
+        Graph<String> graph = reader.read();
+
+        long startTime = System.nanoTime();
+
+        DijkstraPathfinder<String> pathfinder = new DijkstraPathfinder<>(graph,
+                DijkstraPathfinder.StoringTypes.INCIDENCE);
+        String path = pathfinder.paths(0);
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+
+        System.out.println("INCIDENCE DIJKSTRA w file");
+        System.out.println(path + duration + "ms\n");
+        assertEquals("Paths from S:\n"
+                + "N: 5\n"
+                + "A: 3\n"
+                + "B: 23\n", path);
+    }
+
+    @Test
+    @DisplayName("File check complicated")
+    void checkWithFile2() {
+        GraphReader reader = new GraphReader("inpComplicated.txt");
+        Graph<String> graph = reader.read();
+
+        long startTime = System.nanoTime();
+
+        DijkstraPathfinder<String> pathfinder = new DijkstraPathfinder<>(graph,
+                DijkstraPathfinder.StoringTypes.INCIDENCE);
+        String path = pathfinder.paths(0);
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+
+        System.out.println("INCIDENCE DIJKSTRA w file");
+        System.out.println(path + duration + "ms\n");
+        assertEquals("Paths from S:\n"
+                + "A: 8\n"
+                + "B: 18\n"
+                + "C: 40\n"
+                + "D: 2\n"
+                + "E: 4\n"
+                + "F: 6\n"
+                + "G: 5\n", path);
     }
 }

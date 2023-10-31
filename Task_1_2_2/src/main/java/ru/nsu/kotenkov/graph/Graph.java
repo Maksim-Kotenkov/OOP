@@ -37,6 +37,9 @@ public class Graph<T> {
         this.neighboursList.addNode(startNode);
     }
 
+    public Graph() {
+    }
+
     /**
      * Getter for nodeList.
      *
