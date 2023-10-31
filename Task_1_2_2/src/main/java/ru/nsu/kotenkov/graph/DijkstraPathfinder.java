@@ -20,9 +20,9 @@ public class DijkstraPathfinder<T> {
     }
 
     /**
-     * weights - Connectivity matrix
-     * nodeList - list of nodes for node indexes
-     * StoringTypes - wht kind of matrix should we use for initializing
+     * weights - Connectivity matrix.
+     * nodeList - list of nodes for node indexes.
+     * StoringTypes - wht kind of matrix should we use for initializing.
      */
     private int[][] weights;
     private final List<Node<T>> nodeList;
