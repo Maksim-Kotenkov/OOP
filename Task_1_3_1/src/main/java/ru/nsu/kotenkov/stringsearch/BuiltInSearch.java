@@ -13,7 +13,7 @@ public class BuiltInSearch {
     private final String path;
     private int batchSize = 20;
 
-    public BuiltInSearch(String filename, String target, int batchSize) {
+    public BuiltInSearch(String filename, String target) {
         this.target = target;
         this.path = filename;
         if (this.batchSize < target.length()) {
@@ -29,11 +29,12 @@ public class BuiltInSearch {
         String prevStr = "";
 
         try (InputStream stream = this.getClass().getResourceAsStream("/" + path)) {
-            assert stream != null;
+            assert stream != null : "Stream init failure";
 
             System.out.println("Find run");
 
-            while (stream.available() != 0) {
+            System.out.println(stream.available() + " symbols in the file");
+            while (stream.available() > 0) {
                 String content = "";
                 int gotFromPrev = 0;
 
@@ -53,12 +54,12 @@ public class BuiltInSearch {
                     concatenated++;
                 }
                 content = content.concat(sb.toString());
-                System.out.println("Batch red: " + content);
+//                System.out.println("Batch red: " + content);
 
                 if (!content.isEmpty()) {
                     found = content.lastIndexOf(this.target);
                     while (found != -1) {
-                        System.out.println("Found " + (prevConcatCache + found - gotFromPrev));
+//                        System.out.println("Found " + (prevConcatCache + found - gotFromPrev));
                         result.add(prevConcatCache + found - gotFromPrev);
                         found = content.lastIndexOf(this.target, found - 1);
                     }
