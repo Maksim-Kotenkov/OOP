@@ -10,9 +10,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
+/**
+ * Tester class.
+ */
 public class StringTest {
     @Test
-    public void Test1() {
+    public void checkTest1() {
         long startTime = System.nanoTime();
 
         final String target = "a";
@@ -34,7 +37,7 @@ public class StringTest {
 
     @Test
     @DisplayName("Pair of symbols at the edge of batches")
-    public void TestAs() {
+    public void checkTestAs() {
         long startTime = System.nanoTime();
 
         final String target = "as";
@@ -56,7 +59,7 @@ public class StringTest {
 
     @Test
     @DisplayName("Many l")
-    public void TestL() {
+    public void checkTestL() {
         long startTime = System.nanoTime();
 
         final String target = "l";
@@ -78,7 +81,7 @@ public class StringTest {
 
     @Test
     @DisplayName("StressTest")
-    public void StressTest() {
+    public void checkStressTest() {
         long startTime = System.nanoTime();
 
         final String target = "PORN";
