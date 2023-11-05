@@ -39,7 +39,8 @@ public class BuiltInSearch {
 
     /**
      * A method that finds all occurrences of a substring. It maintains reading batch-by-batch,
-     * concatenating tail of previous batch to the current batch (not to miss a substring that has a part in previous),
+     * concatenating tail of previous batch to the current batch
+     * (not to miss a substring that has a part in previous),
      * and it stores all indices we found with shifts we've got from batch-reading.
      *
      * @return List of Integers
