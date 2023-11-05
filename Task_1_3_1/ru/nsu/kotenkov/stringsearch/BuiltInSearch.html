@@ -132,6 +132,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">BuiltInSearch</span>
 extends java.lang.Object</pre>
+<div class="block">A class for finding all indices of substring in a string.
+ This class uses built-in lastIndexOf method of java Strings +
+ can read huge files because of batch-reading implementation.</div>
 </li>
 </ul>
 </div>
@@ -154,7 +157,9 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.String)">BuiltInSearch</a></span>&#8203;(java.lang.String&nbsp;filename,
              java.lang.String&nbsp;target)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A constructor to initialize filename and target string.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -177,7 +182,9 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#find()">find</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A method that finds all occurrences of a substring.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -211,6 +218,12 @@ extends java.lang.Object</pre>
 <h4>BuiltInSearch</h4>
 <pre>public&nbsp;BuiltInSearch&#8203;(java.lang.String&nbsp;filename,
                      java.lang.String&nbsp;target)</pre>
+<div class="block">A constructor to initialize filename and target string.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>filename</code> - name of the input file</dd>
+<dd><code>target</code> - substring that we want to search for</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -230,6 +243,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>find</h4>
 <pre class="methodSignature">public&nbsp;java.util.List&lt;java.lang.Integer&gt;&nbsp;find()</pre>
+<div class="block">A method that finds all occurrences of a substring. It maintains reading batch-by-batch,
+ concatenating tail of previous batch to the current batch (not to miss a substring that has a part in previous),
+ and it stores all indices we found with shifts we've got from batch-reading.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>List of Integers</dd>
+</dl>
 </li>
 </ul>
 </li>
