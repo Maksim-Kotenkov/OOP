@@ -1,8 +1,8 @@
 package ru.nsu.kotenkov.stringsearch;
 
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +21,7 @@ public class BuiltInSearch {
      */
     private final String target;
     private final String filename;
-    private int batchSize = 20;
+    private int batchSize = 1000;
 
     /**
      * A constructor to initialize filename and target string.
@@ -48,12 +48,10 @@ public class BuiltInSearch {
     public List<Integer> find() {
         List<Integer> result = new ArrayList<>();
         int found;
-        int concatenated = 0;
         int prevConcatCache = 0;
         String prevStr = "";
 
-        try (InputStream stream = this.getClass().getResourceAsStream("/" + filename)) {
-            assert stream != null : "Stream init failure";
+        try (FileInputStream stream = new FileInputStream(filename)) {
 
             System.out.println("Find run");
 
@@ -70,14 +68,10 @@ public class BuiltInSearch {
                 }
 
                 // reading a batch of text
-                byte[] buffer = new byte[1];
+                byte[] buffer = new byte[this.batchSize];
                 StringBuilder sb = new StringBuilder();
-                while (stream.available() != 0 && concatenated < batchSize) {
-                    stream.read(buffer);
-                    sb.append(new String(buffer));
-                    buffer = new byte[1];
-                    concatenated++;
-                }
+                stream.read(buffer);
+                sb.append(new String(buffer));
                 content = content.concat(sb.toString());
                 // System.out.println("Batch red: " + content);
 
@@ -90,8 +84,7 @@ public class BuiltInSearch {
                     }
                 }
 
-                prevConcatCache += concatenated;
-                concatenated = 0;
+                prevConcatCache += this.batchSize;
                 prevStr = content;
             }
         } catch (IOException e) {
