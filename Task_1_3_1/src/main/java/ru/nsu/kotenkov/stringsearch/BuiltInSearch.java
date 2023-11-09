@@ -52,10 +52,6 @@ public class BuiltInSearch {
         String prevStr = "";
 
         try (FileInputStream stream = new FileInputStream(filename)) {
-
-            System.out.println("Find run");
-
-            System.out.println(stream.available() + " symbols in the file");
             while (stream.available() > 0) {
                 String content = "";
                 int gotFromPrev = 0;
