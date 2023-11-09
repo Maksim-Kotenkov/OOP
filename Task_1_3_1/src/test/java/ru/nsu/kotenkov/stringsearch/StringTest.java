@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -28,11 +27,11 @@ public class StringTest {
 
         BuiltInSearch algo = new BuiltInSearch("Test1.txt", target);
         int[] ints = {3, 19, 31};
-        List<Integer> expected = new ArrayList<>(ints.length);
+        final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
             expected.add(i);
         }
-        List<Integer> actual = algo.find();
+        final List<Integer> actual = algo.find();
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -50,11 +49,11 @@ public class StringTest {
 
         BuiltInSearch algo = new BuiltInSearch("Test1.txt", target);
         int[] ints = {19};
-        List<Integer> expected = new ArrayList<>(ints.length);
+        final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
             expected.add(i);
         }
-        List<Integer> actual = algo.find();
+        final List<Integer> actual = algo.find();
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -72,11 +71,11 @@ public class StringTest {
 
         BuiltInSearch algo = new BuiltInSearch("Test1.txt", target);
         int[] ints = {11, 15, 16, 17, 18, 22, 23};
-        List<Integer> expected = new ArrayList<>(ints.length);
+        final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
             expected.add(i);
         }
-        List<Integer> actual = algo.find();
+        final List<Integer> actual = algo.find();
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -94,7 +93,7 @@ public class StringTest {
 
         BuiltInSearch algo = new BuiltInSearch("EGE_24.txt", target);
         int expected = 19386;
-        List<Integer> actual = algo.find();
+        final List<Integer> actual = algo.find();
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -127,7 +126,7 @@ public class StringTest {
         final String target = "something";
 
         BuiltInSearch algo = new BuiltInSearch("bigfile.txt", target);
-        List<Integer> actual = algo.find();
+        final List<Integer> actual = algo.find();
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -135,13 +134,12 @@ public class StringTest {
 
         if (file.delete()) {
             System.out.println("File deleted successfully");
-        }
-        else {
+        } else {
             System.out.println("Failed to delete the file");
         }
 
         int[] ints = {1000000000};
-        List<Integer> expected = new ArrayList<>(ints.length);
+        final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
             expected.add(i);
         }
@@ -172,7 +170,7 @@ public class StringTest {
         final String target = "111";
 
         BuiltInSearch algo = new BuiltInSearch("bigfile.txt", target);
-        List<Integer> actual = algo.find();
+        final List<Integer> actual = algo.find();
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -180,13 +178,12 @@ public class StringTest {
 
         if (file.delete()) {
             System.out.println("File deleted successfully");
-        }
-        else {
+        } else {
             System.out.println("Failed to delete the file");
         }
 
         int[] ints = {1000000000};
-        List<Integer> expected = new ArrayList<>(ints.length);
+        final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
             expected.add(i);
         }
@@ -208,7 +205,7 @@ public class StringTest {
         final String target = "допустим";
 
         BuiltInSearch algo = new BuiltInSearch("bigfile.txt", target);
-        List<Integer> actual = algo.find();
+        final List<Integer> actual = algo.find();
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -216,13 +213,12 @@ public class StringTest {
 
         if (file.delete()) {
             System.out.println("File deleted successfully");
-        }
-        else {
+        } else {
             System.out.println("Failed to delete the file");
         }
 
         int[] ints = {8};
-        List<Integer> expected = new ArrayList<>(ints.length);
+        final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
             expected.add(i);
         }
@@ -251,7 +247,7 @@ public class StringTest {
         final String target = "something";
 
         BuiltInSearch algo = new BuiltInSearch("bigfile.txt", target);
-        List<Integer> actual = algo.find();
+        final List<Integer> actual = algo.find();
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -259,13 +255,12 @@ public class StringTest {
 
         if (file.delete()) {
             System.out.println("File deleted successfully");
-        }
-        else {
+        } else {
             System.out.println("Failed to delete the file");
         }
 
         int[] ints = {2115098112};
-        List<Integer> expected = new ArrayList<>(ints.length);
+        final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
             expected.add(i);
         }
