@@ -269,16 +269,15 @@ public class StringTest {
     }
 
     @Test
-    @DisplayName("Stress test generated")
+    @DisplayName("Checking with file output")
     public void checkFileOutput() throws IOException {
         File file = new File("bigfile.txt");
         PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
 
-        for (int i = 0; i < 1000000000; i++) {
-            writer.print('a');
+        for (int i = 0; i < 100000000; i++) {
+            writer.print("aaaaaaaaaaa");
         }
 
-        writer.print("something");
         writer.close();
         System.out.println(file.length() / (1024 * 1024) + "Mb");
 
@@ -298,8 +297,8 @@ public class StringTest {
             System.out.println("Failed to delete the file");
         }
 
-        final List<Integer> expected = new ArrayList<>(1000);
-        for (int i = 0; i < 10000; i++) {
+        final List<Integer> expected = new ArrayList<>(1000000);
+        for (int i = 0; i < 1000000; i++) {
             expected.add(i);
         }
 

@@ -24,6 +24,7 @@ public class BuiltInSearch {
      */
     private final String filename;
     private int batchSize = 1000;
+    private final int listLimit = 1000000;
 
     /**
      * A constructor to initialize filename and target string.
@@ -40,6 +41,7 @@ public class BuiltInSearch {
      * (not to miss a substring that has a part in previous),
      * and it stores all indices we found with shifts we've got from batch-reading.
      *
+     * @param target the substring we are trying to find
      * @return List of Integers
      */
     public List<Integer> find(String target) {
@@ -51,14 +53,13 @@ public class BuiltInSearch {
         int found;
         int prevConcatCache = 0;
         String prevStr = "";
-        int listLimit = 10000;
 
         try (FileInputStream stream = new FileInputStream(filename)) {
             PrintWriter writer = null;
             File file = new File("out.txt");
             while (stream.available() > 0) {
 
-                if (result.size() >= listLimit && writer == null) {
+                if (result.size() >= this.listLimit && writer == null) {
                     writer = new PrintWriter(file, StandardCharsets.UTF_8);
                 }
 
@@ -66,9 +67,9 @@ public class BuiltInSearch {
                 int gotFromPrev = 0;
 
                 // get a part from previous batch to check if a part of a target is in there
-                if (prevStr.length() - target.length() + 1 > 0) {
-                    content = content.concat(prevStr.substring(
-                            prevStr.length() - target.length() + 1));
+                int part = prevStr.length() - target.length() + 1;
+                if (part > 0) {
+                    content = content.concat(prevStr.substring(part));
                     gotFromPrev = target.length() - 1;
                 }
 
@@ -81,7 +82,7 @@ public class BuiltInSearch {
 
                 if (!content.isEmpty()) {
                     found = content.lastIndexOf(target);
-                    if (result.size() >= listLimit) {
+                    if (result.size() >= this.listLimit) {
                         while (found != -1) {
                             writer.print(prevConcatCache + found - gotFromPrev);
                             writer.print(" ");
