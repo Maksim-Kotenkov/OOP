@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"ru.nsu.kotenkov.stringsearch","c":"BuiltInSearch","l":"BuiltInSearch(String, String)","url":"%3Cinit%3E(java.lang.String,java.lang.String)"},{"p":"ru.nsu.kotenkov.stringsearch","c":"BuiltInSearch","l":"find()"}]
+memberSearchIndex = [{"p":"ru.nsu.kotenkov.stringsearch","c":"BuiltInSearch","l":"BuiltInSearch(String)","url":"%3Cinit%3E(java.lang.String)"},{"p":"ru.nsu.kotenkov.stringsearch","c":"BuiltInSearch","l":"find(String)","url":"find(java.lang.String)"}]
