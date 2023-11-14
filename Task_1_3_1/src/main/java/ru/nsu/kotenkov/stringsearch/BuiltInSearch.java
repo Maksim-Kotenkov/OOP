@@ -15,6 +15,7 @@ import java.util.List;
  * A class for finding all indices of substring in a string.
  * This class uses built-in lastIndexOf method of java Strings +
  * can read huge files because of batch-reading implementation.
+ * First 1mil results will be returned, other - stored in the out.txt file.
  */
 public class BuiltInSearch {
     /**
@@ -40,6 +41,8 @@ public class BuiltInSearch {
      * concatenating tail of previous batch to the current batch
      * (not to miss a substring that has a part in previous),
      * and it stores all indices we found with shifts we've got from batch-reading.
+     * First 1mil indices are stored in the List we return,
+     * others (if there are so many indices) are stored in out.txt
      *
      * @param target the substring we are trying to find
      * @return List of Integers
