@@ -23,8 +23,6 @@ import org.junit.jupiter.api.Test;
 public class StringTest {
     @Test
     public void checkTest1() throws IOException {
-        long startTime = System.nanoTime();
-
         final String target = "a";
 
         File file = new File("bigfile.txt");
@@ -32,6 +30,7 @@ public class StringTest {
         writer.print("qqqamthondflksnllllassllndjejksa");
         writer.close();
 
+        long startTime = System.nanoTime();
         BuiltInSearch algo = new BuiltInSearch("bigfile.txt");
         int[] ints = {3, 19, 31};
         final List<Integer> expected = new ArrayList<>(ints.length);
@@ -55,8 +54,6 @@ public class StringTest {
     @Test
     @DisplayName("Pair of symbols at the edge of batches")
     public void checkTestAs() throws IOException {
-        long startTime = System.nanoTime();
-
         final String target = "as";
 
         File file = new File("bigfile.txt");
@@ -64,6 +61,7 @@ public class StringTest {
         writer.print("qqqamthondflksnllllassllndjejksa");
         writer.close();
 
+        long startTime = System.nanoTime();
         BuiltInSearch algo = new BuiltInSearch("bigfile.txt");
         int[] ints = {19};
         final List<Integer> expected = new ArrayList<>(ints.length);
@@ -88,8 +86,6 @@ public class StringTest {
     @Test
     @DisplayName("Many l")
     public void checkTestL() throws IOException {
-        long startTime = System.nanoTime();
-
         final String target = "l";
 
         File file = new File("bigfile.txt");
@@ -97,6 +93,7 @@ public class StringTest {
         writer.print("qqqamthondflksnllllassllndjejksa");
         writer.close();
 
+        long startTime = System.nanoTime();
         BuiltInSearch algo = new BuiltInSearch("bigfile.txt");
         int[] ints = {11, 15, 16, 17, 18, 22, 23};
         final List<Integer> expected = new ArrayList<>(ints.length);
