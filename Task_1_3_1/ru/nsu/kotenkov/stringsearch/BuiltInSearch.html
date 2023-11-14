@@ -134,7 +134,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 extends java.lang.Object</pre>
 <div class="block">A class for finding all indices of substring in a string.
  This class uses built-in lastIndexOf method of java Strings +
- can read huge files because of batch-reading implementation.</div>
+ can read huge files because of batch-reading implementation.
+ First 1mil results will be returned, other - stored in the out.txt file.</div>
 </li>
 </ul>
 </div>
@@ -243,7 +244,9 @@ extends java.lang.Object</pre>
 <div class="block">A method that finds all occurrences of a substring. It maintains reading batch-by-batch,
  concatenating tail of previous batch to the current batch
  (not to miss a substring that has a part in previous),
- and it stores all indices we found with shifts we've got from batch-reading.</div>
+ and it stores all indices we found with shifts we've got from batch-reading.
+ First 1mil indices are stored in the List we return,
+ others (if there are so many indices) are stored in out.txt</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>target</code> - the substring we are trying to find</dd>
