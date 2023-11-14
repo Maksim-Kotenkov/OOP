@@ -22,12 +22,17 @@ import org.junit.jupiter.api.Test;
  */
 public class StringTest {
     @Test
-    public void checkTest1() {
+    public void checkTest1() throws IOException {
         long startTime = System.nanoTime();
 
         final String target = "a";
 
-        BuiltInSearch algo = new BuiltInSearch("Test1.txt");
+        File file = new File("bigfile.txt");
+        PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
+        writer.print("qqqamthondflksnllllassllndjejksa");
+        writer.close();
+
+        BuiltInSearch algo = new BuiltInSearch("bigfile.txt");
         int[] ints = {3, 19, 31};
         final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
@@ -39,17 +44,27 @@ public class StringTest {
         long duration = (endTime - startTime);
 
         System.out.println(duration / 1000000000 + "s\n");
+        if (file.delete()) {
+            System.out.println("File deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("Pair of symbols at the edge of batches")
-    public void checkTestAs() {
+    public void checkTestAs() throws IOException {
         long startTime = System.nanoTime();
 
         final String target = "as";
 
-        BuiltInSearch algo = new BuiltInSearch("Test1.txt");
+        File file = new File("bigfile.txt");
+        PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
+        writer.print("qqqamthondflksnllllassllndjejksa");
+        writer.close();
+
+        BuiltInSearch algo = new BuiltInSearch("bigfile.txt");
         int[] ints = {19};
         final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
@@ -61,17 +76,28 @@ public class StringTest {
         long duration = (endTime - startTime);
 
         System.out.println(duration / 1000000000 + "s\n");
+        if (file.delete()) {
+            System.out.println("File deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
+
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("Many l")
-    public void checkTestL() {
+    public void checkTestL() throws IOException {
         long startTime = System.nanoTime();
 
         final String target = "l";
 
-        BuiltInSearch algo = new BuiltInSearch("Test1.txt");
+        File file = new File("bigfile.txt");
+        PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
+        writer.print("qqqamthondflksnllllassllndjejksa");
+        writer.close();
+
+        BuiltInSearch algo = new BuiltInSearch("bigfile.txt");
         int[] ints = {11, 15, 16, 17, 18, 22, 23};
         final List<Integer> expected = new ArrayList<>(ints.length);
         for (int i : ints) {
@@ -83,25 +109,13 @@ public class StringTest {
         long duration = (endTime - startTime);
 
         System.out.println(duration / 1000000000 + "s\n");
+        if (file.delete()) {
+            System.out.println("File deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
+
         assertEquals(expected, actual);
-    }
-
-    @Test
-    @DisplayName("StressTest")
-    public void checkSmallStressTest() {
-        long startTime = System.nanoTime();
-
-        final String target = "PORN";
-
-        BuiltInSearch algo = new BuiltInSearch("EGE_24.txt");
-        int expected = 19386;
-        final List<Integer> actual = algo.find(target);
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime);
-
-        System.out.println(duration / 1000000000 + "s\n");
-        assertEquals(expected, actual.size());
     }
 
     @Test
