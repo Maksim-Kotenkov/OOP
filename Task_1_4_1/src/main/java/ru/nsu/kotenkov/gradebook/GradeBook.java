@@ -32,4 +32,15 @@ public class GradeBook {
             }
         }
     }
+
+    public float getAverage() {
+        float res = 0;
+        for (String key : this.gradeBook.keySet()) {
+            res = res + this.gradeBook.get(key).get(gradeBook.get(key).size() - 1);
+        }
+
+        res = res / this.gradeBook.size();
+
+        return res;
+    }
 }

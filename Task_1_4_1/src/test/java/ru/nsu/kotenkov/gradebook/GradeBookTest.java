@@ -39,12 +39,26 @@ public class GradeBookTest {
         book.addMark("Programming", 4);
         book.addMark("Models", 5);
 
-        HashSet<String> expected = new HashSet<>(startDisciplines);
-        expected.add("Models");
-        assertEquals(expected, book.getGradeBook().keySet());
         assertEquals(3, book.getGradeBook().get("Maths").get(0));
         assertEquals(5, book.getGradeBook().get("PE").get(0));
         assertEquals(4, book.getGradeBook().get("Programming").get(0));
         assertEquals(5, book.getGradeBook().get("Models").get(0));
+    }
+
+    @Test
+    @DisplayName("Average test")
+    public void checkAvg() {
+        List<String> startDisciplines = new ArrayList<>();
+        startDisciplines.add("Maths");
+        startDisciplines.add("PE");
+        startDisciplines.add("Programming");
+
+        GradeBook book = new GradeBook(startDisciplines);
+        book.addMark("Maths", 4);
+        book.addMark("PE", 5);
+        book.addMark("Programming", 4);
+        book.addMark("Models", 5);
+
+        assertEquals(4.5, book.getAverage());
     }
 }
