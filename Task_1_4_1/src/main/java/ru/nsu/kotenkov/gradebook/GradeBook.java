@@ -1,13 +1,16 @@
 package ru.nsu.kotenkov.gradebook;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class GradeBook {
     private final HashMap<String, List<Integer>> gradeBook;
 
     public GradeBook(List<String> disciplines) {
-        gradeBook = HashMap.newHashMap(100);
+        gradeBook = new HashMap<>(100);
         for (String str : disciplines) {
             gradeBook.put(str, new ArrayList<>());
         }
@@ -66,7 +69,7 @@ public class GradeBook {
     }
 
     public boolean increasedScholarship() {
-        Set<Integer> setMarks = new HashSet<>(this.getLastMarks());
+        HashSet<Integer> setMarks = new HashSet<>(this.getLastMarks());
 
         return setMarks.equals(new HashSet<>(List.of(5)));
     }
