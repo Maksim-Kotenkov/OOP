@@ -46,7 +46,7 @@ public class GradeBook {
      * @param mark int value in bounds [2, 5]
      * @throws IncorrectMarkException is thrown if the mark value is out of bounds
      */
-    public void addMark(String discipline, int mark) throws IncorrectMarkException{
+    public void addMark(String discipline, int mark) throws IncorrectMarkException {
         if (!(2 <= mark && mark <= 5)) {
             throw new IncorrectMarkException("Incorrect mark");
         } else {
