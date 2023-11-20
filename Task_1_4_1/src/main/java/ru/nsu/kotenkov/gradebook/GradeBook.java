@@ -6,9 +6,22 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+
+/**
+ * GradeBook class that can help with computing average gradebook
+ * mark and student's chances to get red diploma or increased scholarship.
+ */
 public class GradeBook {
+    /**
+     * To store marks class uses HashMap.
+     */
     private final HashMap<String, List<Integer>> gradeBook;
 
+    /**
+     * Constructor that fills HashMap with start disciplines.
+     *
+     * @param disciplines list of Strings
+     */
     public GradeBook(List<String> disciplines) {
         gradeBook = new HashMap<>(100);
         for (String str : disciplines) {
@@ -16,10 +29,23 @@ public class GradeBook {
         }
     }
 
+    /**
+     * Basic getter.
+     *
+     * @return hashMap of disciplines and marks
+     */
     public HashMap<String, List<Integer>> getGradeBook() {
         return gradeBook;
     }
 
+    /**
+     * Adding a new mark.
+     * The discipline can already exist and can be new, both ways are implemented.
+     *
+     * @param discipline string name of a discipline
+     * @param mark int value in bounds [2, 5]
+     * @throws IncorrectMarkException is thrown if the mark value is out of bounds
+     */
     public void addMark(String discipline, int mark) throws IncorrectMarkException{
         if (!(2 <= mark && mark <= 5)) {
             throw new IncorrectMarkException("Incorrect mark");
@@ -34,6 +60,11 @@ public class GradeBook {
         }
     }
 
+    /**
+     * A method to get last marks in every discipline.
+     *
+     * @return List of integers in bounds [2, 5]
+     */
     public List<Integer> getLastMarks() {
         List<Integer> res = new ArrayList<>();
         for (String key : this.gradeBook.keySet()) {
@@ -43,6 +74,11 @@ public class GradeBook {
         return res;
     }
 
+    /**
+     * A method to get double value of an average of all marks.
+     *
+     * @return double value
+     */
     public double getAverage() {
         List<Integer> lastMarks = this.getLastMarks();
         int res = 0;
@@ -54,6 +90,11 @@ public class GradeBook {
         return (double) res / lastMarks.size();
     }
 
+    /**
+     * A method to check if it's possible to get a red diploma.
+     *
+     * @return true/false
+     */
     public boolean redDiploma() {
         List<Integer> lastMarks = this.getLastMarks();
 
@@ -68,6 +109,11 @@ public class GradeBook {
         return Double.compare((double) res / lastMarks.size(), 0.75) >= 0;
     }
 
+    /**
+     * A method to check if it's possible to get increased scholarship according to last marks.
+     *
+     * @return true/false
+     */
     public boolean increasedScholarship() {
         HashSet<Integer> setMarks = new HashSet<>(this.getLastMarks());
 

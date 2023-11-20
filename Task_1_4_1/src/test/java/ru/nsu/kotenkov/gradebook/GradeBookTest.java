@@ -3,6 +3,7 @@ package ru.nsu.kotenkov.gradebook;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +12,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+
+/**
+ * Tester class.
+ *
+ */
 public class GradeBookTest {
     @Test
     @DisplayName("Init test")
@@ -147,5 +153,16 @@ public class GradeBookTest {
         book.addMark("Models", 5);
 
         assertFalse(book.increasedScholarship());
+    }
+
+    @Test
+    @DisplayName("Exception test")
+    public void checkException() {
+        List<String> startDisciplines = new ArrayList<>();
+        startDisciplines.add("Maths");
+
+        GradeBook book = new GradeBook(startDisciplines);
+
+        assertThrowsExactly(IncorrectMarkException.class, () -> book.addMark("Maths", 9));
     }
 }
