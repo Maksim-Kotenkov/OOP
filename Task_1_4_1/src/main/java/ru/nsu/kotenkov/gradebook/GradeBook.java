@@ -1,9 +1,7 @@
 package ru.nsu.kotenkov.gradebook;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class GradeBook {
     private final HashMap<String, List<Integer>> gradeBook;
@@ -33,14 +31,43 @@ public class GradeBook {
         }
     }
 
-    public float getAverage() {
-        float res = 0;
+    public List<Integer> getLastMarks() {
+        List<Integer> res = new ArrayList<>();
         for (String key : this.gradeBook.keySet()) {
-            res = res + this.gradeBook.get(key).get(gradeBook.get(key).size() - 1);
+            res.add(this.gradeBook.get(key).get(gradeBook.get(key).size() - 1));
         }
 
-        res = res / this.gradeBook.size();
-
         return res;
+    }
+
+    public double getAverage() {
+        List<Integer> lastMarks = this.getLastMarks();
+        int res = 0;
+
+        for (Integer val : lastMarks) {
+            res = res + val;
+        }
+
+        return (double) res / lastMarks.size();
+    }
+
+    public boolean redDiploma() {
+        List<Integer> lastMarks = this.getLastMarks();
+
+        int res = 0;
+
+        for (Integer val : lastMarks) {
+            if (val == 5) {
+                res++;
+            }
+        }
+
+        return Double.compare((double) res / lastMarks.size(), 0.75) >= 0;
+    }
+
+    public boolean increasedScholarship() {
+        Set<Integer> setMarks = new HashSet<>(this.getLastMarks());
+
+        return setMarks.equals(new HashSet<>(List.of(5)));
     }
 }
