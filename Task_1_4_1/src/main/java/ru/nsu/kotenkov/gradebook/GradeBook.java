@@ -17,6 +17,8 @@ public class GradeBook {
      */
     private final HashMap<Integer, HashMap<String, List<Integer>>> gradeBook;
     private final String username;
+    private final int disciplineCapacity = 100;
+    private final int marksCapacity = 30;
 
     /**
      * Constructor that fills HashMap with start disciplines.
@@ -25,11 +27,17 @@ public class GradeBook {
      */
     public GradeBook(String username, List<String> disciplines) {
         this.username = username;
-        gradeBook = new HashMap<>(100);
+        gradeBook = new HashMap<>(this.disciplineCapacity);
         gradeBook.put(1, new HashMap<>());
         for (String str : disciplines) {
             gradeBook.get(1).put(str, new ArrayList<>());
         }
+    }
+
+    public GradeBook(String username) {
+        this.username = username;
+        gradeBook = new HashMap<>(100);
+        gradeBook.put(1, new HashMap<>(30));
     }
 
     /**
@@ -73,6 +81,9 @@ public class GradeBook {
         if (!(2 <= mark && mark <= 5)) {
             throw new IncorrectMarkException("Incorrect mark");
         } else {
+            if (!this.gradeBook.containsKey(semester)) {
+                this.gradeBook.put(semester, new HashMap<>(this.marksCapacity));
+            }
             if (this.gradeBook.get(semester).containsKey(discipline)) {
                 this.gradeBook.get(semester).get(discipline).add(mark);
             } else {
@@ -92,7 +103,10 @@ public class GradeBook {
     public List<Integer> getLastMarks(int semester) {
         List<Integer> res = new ArrayList<>();
         for (String key : this.gradeBook.get(semester).keySet()) {
-            res.add(this.gradeBook.get(semester).get(key).get(gradeBook.get(semester).get(key).size() - 1));
+            res.add(this.gradeBook.get(semester).get(key).get(
+                        gradeBook.get(semester).get(key).size() - 1
+                    )
+            );
         }
 
         return res;
@@ -121,7 +135,8 @@ public class GradeBook {
      * @return true/false
      */
     public boolean redDiploma() {
-        int res = 0, totalNumber = 0;
+        int res = 0;
+        int totalNumber = 0;
         for (int semester : this.gradeBook.keySet()) {
             List<Integer> lastMarks = this.getLastMarks(semester);
 

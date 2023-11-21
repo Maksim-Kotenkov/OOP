@@ -33,6 +33,14 @@ public class GradeBookTest {
     }
 
     @Test
+    @DisplayName("Username test")
+    public void checkUsername() {
+        GradeBook book = new GradeBook("Cringe Again");
+
+        assertEquals("Cringe Again", book.getUsername());
+    }
+
+    @Test
     @DisplayName("Add mark test")
     public void checkAdd() {
         List<String> startDisciplines = new ArrayList<>();
@@ -46,10 +54,10 @@ public class GradeBookTest {
         book.addMark(1, "Programming", 4);
         book.addMark(1, "Models", 5);
 
-        assertEquals(3, book.getGradeBook().get(1).get("Maths").get(0));
-        assertEquals(5, book.getGradeBook().get(1).get("PE").get(0));
-        assertEquals(4, book.getGradeBook().get(1).get("Programming").get(0));
-        assertEquals(5, book.getGradeBook().get(1).get("Models").get(0));
+        assertEquals(3, book.getSemesterMarks(1).get("Maths").get(0));
+        assertEquals(5, book.getSemesterMarks(1).get("PE").get(0));
+        assertEquals(4, book.getSemesterMarks(1).get("Programming").get(0));
+        assertEquals(5, book.getSemesterMarks(1).get("Models").get(0));
     }
 
     @Test
