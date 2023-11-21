@@ -155,7 +155,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String)">GradeBook</a></span>&#8203;(java.lang.String&nbsp;username)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor without pre-initialized disciplines.</div>
+</td>
 </tr>
 <tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.util.List)">GradeBook</a></span>&#8203;(java.lang.String&nbsp;username,
@@ -213,17 +215,17 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOwnerName()">getOwnerName</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for user name.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSemesterMarks(int)">getSemesterMarks</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">Getter for one semester.</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUsername()">getUsername</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Getter for user name.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
@@ -286,6 +288,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>GradeBook</h4>
 <pre>public&nbsp;GradeBook&#8203;(java.lang.String&nbsp;username)</pre>
+<div class="block">Constructor without pre-initialized disciplines.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>username</code> - String name of the owner</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -298,13 +305,13 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getUsername()">
+<a id="getOwnerName()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getUsername</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getUsername()</pre>
+<h4>getOwnerName</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getOwnerName()</pre>
 <div class="block">Getter for user name.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
