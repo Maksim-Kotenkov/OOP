@@ -37,7 +37,7 @@ public class GradeBookTest {
     public void checkUsername() {
         GradeBook book = new GradeBook("Cringe Again");
 
-        assertEquals("Cringe Again", book.getUsername());
+        assertEquals("Cringe Again", book.getOwnerName());
     }
 
     @Test
@@ -172,5 +172,16 @@ public class GradeBookTest {
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
 
         assertThrowsExactly(IncorrectMarkException.class, () -> book.addMark(1, "Maths", 9));
+    }
+
+    @Test
+    @DisplayName("Semester exception test")
+    public void checkSemesterException() {
+        List<String> startDisciplines = new ArrayList<>();
+        startDisciplines.add("Maths");
+
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+
+        assertThrowsExactly(IncorrectSemesterException.class, () -> book.addMark(13, "Maths", 3));
     }
 }

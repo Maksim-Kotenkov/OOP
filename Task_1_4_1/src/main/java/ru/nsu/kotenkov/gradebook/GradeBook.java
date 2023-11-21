@@ -16,7 +16,7 @@ public class GradeBook {
      * To store marks class uses HashMap.
      */
     private final HashMap<Integer, HashMap<String, List<Integer>>> gradeBook;
-    private final String username;
+    private final String ownerName;
     private final int disciplineCapacity = 100;
     private final int marksCapacity = 30;
 
@@ -26,7 +26,7 @@ public class GradeBook {
      * @param disciplines list of Strings
      */
     public GradeBook(String username, List<String> disciplines) {
-        this.username = username;
+        this.ownerName = username;
         gradeBook = new HashMap<>(this.disciplineCapacity);
         gradeBook.put(1, new HashMap<>());
         for (String str : disciplines) {
@@ -34,8 +34,13 @@ public class GradeBook {
         }
     }
 
+    /**
+     * Constructor without pre-initialized disciplines.
+     *
+     * @param username String name of the owner
+     */
     public GradeBook(String username) {
-        this.username = username;
+        this.ownerName = username;
         gradeBook = new HashMap<>(100);
         gradeBook.put(1, new HashMap<>(30));
     }
@@ -45,8 +50,8 @@ public class GradeBook {
      *
      * @return String username
      */
-    public String getUsername() {
-        return username;
+    public String getOwnerName() {
+        return ownerName;
     }
 
     /**
@@ -80,6 +85,8 @@ public class GradeBook {
     public void addMark(int semester, String discipline, int mark) throws IncorrectMarkException {
         if (!(2 <= mark && mark <= 5)) {
             throw new IncorrectMarkException("Incorrect mark");
+        } else if (!(1 <= semester && semester <= 12)) {
+            throw new IncorrectSemesterException("Incorrect semester");
         } else {
             if (!this.gradeBook.containsKey(semester)) {
                 this.gradeBook.put(semester, new HashMap<>(this.marksCapacity));
