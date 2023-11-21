@@ -26,10 +26,10 @@ public class GradeBookTest {
         startDisciplines.add("PE");
         startDisciplines.add("Programming");
 
-        GradeBook book = new GradeBook(startDisciplines);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
 
         HashSet<String> expected = new HashSet<>(startDisciplines);
-        assertEquals(expected, book.getGradeBook().keySet());
+        assertEquals(expected, book.getGradeBook().get(1).keySet());
     }
 
     @Test
@@ -40,16 +40,16 @@ public class GradeBookTest {
         startDisciplines.add("PE");
         startDisciplines.add("Programming");
 
-        GradeBook book = new GradeBook(startDisciplines);
-        book.addMark("Maths", 3);
-        book.addMark("PE", 5);
-        book.addMark("Programming", 4);
-        book.addMark("Models", 5);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", 3);
+        book.addMark(1, "PE", 5);
+        book.addMark(1, "Programming", 4);
+        book.addMark(1, "Models", 5);
 
-        assertEquals(3, book.getGradeBook().get("Maths").get(0));
-        assertEquals(5, book.getGradeBook().get("PE").get(0));
-        assertEquals(4, book.getGradeBook().get("Programming").get(0));
-        assertEquals(5, book.getGradeBook().get("Models").get(0));
+        assertEquals(3, book.getGradeBook().get(1).get("Maths").get(0));
+        assertEquals(5, book.getGradeBook().get(1).get("PE").get(0));
+        assertEquals(4, book.getGradeBook().get(1).get("Programming").get(0));
+        assertEquals(5, book.getGradeBook().get(1).get("Models").get(0));
     }
 
     @Test
@@ -60,13 +60,13 @@ public class GradeBookTest {
         startDisciplines.add("PE");
         startDisciplines.add("Programming");
 
-        GradeBook book = new GradeBook(startDisciplines);
-        book.addMark("Maths", 4);
-        book.addMark("PE", 5);
-        book.addMark("Programming", 4);
-        book.addMark("Models", 5);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", 4);
+        book.addMark(1, "PE", 5);
+        book.addMark(1, "Programming", 4);
+        book.addMark(1, "Models", 5);
 
-        assertEquals(4.5, book.getAverage());
+        assertEquals(4.5, book.getAverage(1));
     }
 
     @Test
@@ -77,11 +77,11 @@ public class GradeBookTest {
         startDisciplines.add("PE");
         startDisciplines.add("Programming");
 
-        GradeBook book = new GradeBook(startDisciplines);
-        book.addMark("Maths", 4);
-        book.addMark("PE", 5);
-        book.addMark("Programming", 4);
-        book.addMark("Models", 5);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", 4);
+        book.addMark(1, "PE", 5);
+        book.addMark(1, "Programming", 4);
+        book.addMark(1, "Models", 5);
 
         assertFalse(book.redDiploma());
     }
@@ -94,12 +94,12 @@ public class GradeBookTest {
         startDisciplines.add("PE");
         startDisciplines.add("Programming");
 
-        GradeBook book = new GradeBook(startDisciplines);
-        book.addMark("Maths", 4);
-        book.addMark("PE", 5);
-        book.addMark("Programming", 5);
-        book.addMark("Models", 5);
-        book.addMark("Some strange trash", 3);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", 4);
+        book.addMark(1, "PE", 5);
+        book.addMark(1, "Programming", 5);
+        book.addMark(1, "Models", 5);
+        book.addMark(1, "Some strange trash", 3);
 
         assertFalse(book.redDiploma());
     }
@@ -112,11 +112,11 @@ public class GradeBookTest {
         startDisciplines.add("PE");
         startDisciplines.add("Programming");
 
-        GradeBook book = new GradeBook(startDisciplines);
-        book.addMark("Maths", 4);
-        book.addMark("PE", 5);
-        book.addMark("Programming", 5);
-        book.addMark("Models", 5);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", 4);
+        book.addMark(1, "PE", 5);
+        book.addMark(1, "Programming", 5);
+        book.addMark(1, "Models", 5);
 
         assertTrue(book.redDiploma());
     }
@@ -129,13 +129,13 @@ public class GradeBookTest {
         startDisciplines.add("PE");
         startDisciplines.add("Programming");
 
-        GradeBook book = new GradeBook(startDisciplines);
-        book.addMark("Maths", 5);
-        book.addMark("PE", 5);
-        book.addMark("Programming", 5);
-        book.addMark("Models", 5);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", 5);
+        book.addMark(1, "PE", 5);
+        book.addMark(1, "Programming", 5);
+        book.addMark(1, "Models", 5);
 
-        assertTrue(book.increasedScholarship());
+        assertTrue(book.increasedScholarship(1));
     }
 
     @Test
@@ -146,13 +146,13 @@ public class GradeBookTest {
         startDisciplines.add("PE");
         startDisciplines.add("Programming");
 
-        GradeBook book = new GradeBook(startDisciplines);
-        book.addMark("Maths", 4);
-        book.addMark("PE", 5);
-        book.addMark("Programming", 5);
-        book.addMark("Models", 5);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", 4);
+        book.addMark(1, "PE", 5);
+        book.addMark(1, "Programming", 5);
+        book.addMark(1, "Models", 5);
 
-        assertFalse(book.increasedScholarship());
+        assertFalse(book.increasedScholarship(1));
     }
 
     @Test
@@ -161,8 +161,8 @@ public class GradeBookTest {
         List<String> startDisciplines = new ArrayList<>();
         startDisciplines.add("Maths");
 
-        GradeBook book = new GradeBook(startDisciplines);
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
 
-        assertThrowsExactly(IncorrectMarkException.class, () -> book.addMark("Maths", 9));
+        assertThrowsExactly(IncorrectMarkException.class, () -> book.addMark(1, "Maths", 9));
     }
 }
