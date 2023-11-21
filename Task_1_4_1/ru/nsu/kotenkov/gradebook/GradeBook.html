@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -154,7 +154,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.List)">GradeBook</a></span>&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;disciplines)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.util.List)">GradeBook</a></span>&#8203;(java.lang.String&nbsp;username,
+         java.util.List&lt;java.lang.String&gt;&nbsp;disciplines)</code></th>
 <td class="colLast">
 <div class="block">Constructor that fills HashMap with start disciplines.</div>
 </td>
@@ -179,7 +180,8 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addMark(java.lang.String,int)">addMark</a></span>&#8203;(java.lang.String&nbsp;discipline,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addMark(int,java.lang.String,int)">addMark</a></span>&#8203;(int&nbsp;semester,
+       java.lang.String&nbsp;discipline,
        int&nbsp;mark)</code></th>
 <td class="colLast">
 <div class="block">Adding a new mark.</div>
@@ -187,13 +189,13 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAverage()">getAverage</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAverage(int)">getAverage</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">A method to get double value of an average of all marks.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;</code></td>
+<td class="colFirst"><code>java.util.HashMap&lt;java.lang.Integer,&#8203;java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGradeBook()">getGradeBook</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Basic getter.</div>
@@ -201,19 +203,33 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.Integer&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastMarks()">getLastMarks</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastMarks(int)">getLastMarks</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">A method to get last marks in every discipline.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSemesterMarks(int)">getSemesterMarks</a></span>&#8203;(int&nbsp;semester)</code></th>
+<td class="colLast">
+<div class="block">Getter for one semester.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUsername()">getUsername</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for user name.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#increasedScholarship()">increasedScholarship</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#increasedScholarship(int)">increasedScholarship</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">A method to check if it's possible to get increased scholarship according to last marks.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#redDiploma()">redDiploma</a></span>()</code></th>
 <td class="colLast">
@@ -244,13 +260,14 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(java.util.List)">
+<a id="&lt;init&gt;(java.lang.String,java.util.List)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GradeBook</h4>
-<pre>public&nbsp;GradeBook&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;disciplines)</pre>
+<pre>public&nbsp;GradeBook&#8203;(java.lang.String&nbsp;username,
+                 java.util.List&lt;java.lang.String&gt;&nbsp;disciplines)</pre>
 <div class="block">Constructor that fills HashMap with start disciplines.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -268,33 +285,65 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="getUsername()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUsername</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getUsername()</pre>
+<div class="block">Getter for user name.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>String username</dd>
+</dl>
+</li>
+</ul>
 <a id="getGradeBook()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getGradeBook</h4>
-<pre class="methodSignature">public&nbsp;java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;&nbsp;getGradeBook()</pre>
+<pre class="methodSignature">public&nbsp;java.util.HashMap&lt;java.lang.Integer,&#8203;java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;&gt;&nbsp;getGradeBook()</pre>
 <div class="block">Basic getter.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>hashMap of disciplines and marks</dd>
+<dd>hashMap of semesters with disciplines and marks</dd>
 </dl>
 </li>
 </ul>
-<a id="addMark(java.lang.String,int)">
+<a id="getSemesterMarks(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSemesterMarks</h4>
+<pre class="methodSignature">public&nbsp;java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;&nbsp;getSemesterMarks&#8203;(int&nbsp;semester)</pre>
+<div class="block">Getter for one semester.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - the number of the semester</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>HashMap of disciplines and marks</dd>
+</dl>
+</li>
+</ul>
+<a id="addMark(int,java.lang.String,int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addMark</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addMark&#8203;(java.lang.String&nbsp;discipline,
+<pre class="methodSignature">public&nbsp;void&nbsp;addMark&#8203;(int&nbsp;semester,
+                    java.lang.String&nbsp;discipline,
                     int&nbsp;mark)
              throws <a href="IncorrectMarkException.html" title="class in ru.nsu.kotenkov.gradebook">IncorrectMarkException</a></pre>
 <div class="block">Adding a new mark.
  The discipline can already exist and can be new, both ways are implemented.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - the number of the semester</dd>
 <dd><code>discipline</code> - string name of a discipline</dd>
 <dd><code>mark</code> - int value in bounds [2, 5]</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -302,29 +351,33 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="getLastMarks()">
+<a id="getLastMarks(int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getLastMarks</h4>
-<pre class="methodSignature">public&nbsp;java.util.List&lt;java.lang.Integer&gt;&nbsp;getLastMarks()</pre>
+<pre class="methodSignature">public&nbsp;java.util.List&lt;java.lang.Integer&gt;&nbsp;getLastMarks&#8203;(int&nbsp;semester)</pre>
 <div class="block">A method to get last marks in every discipline.</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - the number of the semester</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>List of integers in bounds [2, 5]</dd>
 </dl>
 </li>
 </ul>
-<a id="getAverage()">
+<a id="getAverage(int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getAverage</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;getAverage()</pre>
+<pre class="methodSignature">public&nbsp;double&nbsp;getAverage&#8203;(int&nbsp;semester)</pre>
 <div class="block">A method to get double value of an average of all marks.</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - the number of the semester</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>double value</dd>
 </dl>
@@ -344,15 +397,17 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="increasedScholarship()">
+<a id="increasedScholarship(int)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>increasedScholarship</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;increasedScholarship()</pre>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;increasedScholarship&#8203;(int&nbsp;semester)</pre>
 <div class="block">A method to check if it's possible to get increased scholarship according to last marks.</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - the number of the semester</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true/false</dd>
 </dl>
