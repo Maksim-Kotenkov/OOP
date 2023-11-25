@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -180,7 +181,7 @@ public class GradeBook {
         int totalNumber = 0;
 
         int[] semesters = {1, 2, 3, 4, 5, 6, 7, 8};
-        List<Integer> list = Arrays.stream(semesters).boxed().toList();
+        List<Integer> list = Arrays.stream(semesters).boxed().collect(Collectors.toList());
 
         if (!this.gradeBook.keySet().equals(new HashSet<>(list))) {
             return false;
