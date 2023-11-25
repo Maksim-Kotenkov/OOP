@@ -87,7 +87,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -140,6 +140,31 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="memberSummary">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a></span></code></th>
+<td class="colLast">
+<div class="block">Enum for marks and pass.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -186,9 +211,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addMark(int,java.lang.String,int)">addMark</a></span>&#8203;(int&nbsp;semester,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addMark(int,java.lang.String,ru.nsu.kotenkov.gradebook.GradeBook.Mark)">addMark</a></span>&#8203;(int&nbsp;semester,
        java.lang.String&nbsp;discipline,
-       int&nbsp;mark)</code></th>
+       <a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&nbsp;mark)</code></th>
 <td class="colLast">
 <div class="block">Adding a new mark.</div>
 </td>
@@ -201,14 +226,14 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.HashMap&lt;java.lang.Integer,&#8203;java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;&gt;</code></td>
+<td class="colFirst"><code>java.util.Map&lt;java.lang.Integer,&#8203;java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGradeBook()">getGradeBook</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Basic getter.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;java.lang.Integer&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastMarks(int)">getLastMarks</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">A method to get last marks in every discipline.</div>
@@ -222,7 +247,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;</code></td>
+<td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSemesterMarks(int)">getSemesterMarks</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">Getter for one semester.</div>
@@ -325,7 +350,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getGradeBook</h4>
-<pre class="methodSignature">public&nbsp;java.util.HashMap&lt;java.lang.Integer,&#8203;java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;&gt;&nbsp;getGradeBook()</pre>
+<pre class="methodSignature">public&nbsp;java.util.Map&lt;java.lang.Integer,&#8203;java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&gt;&gt;&nbsp;getGradeBook()</pre>
 <div class="block">Basic getter.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -339,7 +364,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getSemesterMarks</h4>
-<pre class="methodSignature">public&nbsp;java.util.HashMap&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;&nbsp;getSemesterMarks&#8203;(int&nbsp;semester)</pre>
+<pre class="methodSignature">public&nbsp;java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&gt;&nbsp;getSemesterMarks&#8203;(int&nbsp;semester)</pre>
 <div class="block">Getter for one semester.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -349,7 +374,7 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="addMark(int,java.lang.String,int)">
+<a id="addMark(int,java.lang.String,ru.nsu.kotenkov.gradebook.GradeBook.Mark)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -357,8 +382,8 @@ extends java.lang.Object</pre>
 <h4>addMark</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addMark&#8203;(int&nbsp;semester,
                     java.lang.String&nbsp;discipline,
-                    int&nbsp;mark)
-             throws <a href="IncorrectMarkException.html" title="class in ru.nsu.kotenkov.gradebook">IncorrectMarkException</a></pre>
+                    <a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&nbsp;mark)
+             throws <a href="IncorrectSemesterException.html" title="class in ru.nsu.kotenkov.gradebook">IncorrectSemesterException</a></pre>
 <div class="block">Adding a new mark.
  The discipline can already exist and can be new, both ways are implemented.</div>
 <dl>
@@ -367,7 +392,7 @@ extends java.lang.Object</pre>
 <dd><code>discipline</code> - string name of a discipline</dd>
 <dd><code>mark</code> - int value in bounds [2, 5]</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="IncorrectMarkException.html" title="class in ru.nsu.kotenkov.gradebook">IncorrectMarkException</a></code> - is thrown if the mark value is out of bounds</dd>
+<dd><code><a href="IncorrectSemesterException.html" title="class in ru.nsu.kotenkov.gradebook">IncorrectSemesterException</a></code> - is thrown if the semester value is out of bounds</dd>
 </dl>
 </li>
 </ul>
@@ -377,7 +402,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getLastMarks</h4>
-<pre class="methodSignature">public&nbsp;java.util.List&lt;java.lang.Integer&gt;&nbsp;getLastMarks&#8203;(int&nbsp;semester)</pre>
+<pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&nbsp;getLastMarks&#8203;(int&nbsp;semester)</pre>
 <div class="block">A method to get last marks in every discipline.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -483,7 +508,7 @@ extends java.lang.Object</pre>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

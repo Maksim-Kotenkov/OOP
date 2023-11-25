@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.kotenkov.gradebook","l":"GradeBook"},{"p":"ru.nsu.kotenkov.gradebook","l":"IncorrectMarkException"},{"p":"ru.nsu.kotenkov.gradebook","l":"IncorrectSemesterException"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.kotenkov.gradebook","l":"GradeBook"},{"p":"ru.nsu.kotenkov.gradebook","l":"IncorrectSemesterException"},{"p":"ru.nsu.kotenkov.gradebook","l":"GradeBook.Mark"}]
