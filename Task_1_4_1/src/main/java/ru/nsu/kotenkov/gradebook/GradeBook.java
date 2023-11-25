@@ -33,7 +33,7 @@ public class GradeBook {
          *
          * @param i the value that is assigned to the enum value
          */
-        Mark (int i) {
+        Mark(int i) {
             this.val = i;
         }
 
@@ -117,7 +117,8 @@ public class GradeBook {
      * @param mark int value in bounds [2, 5]
      * @throws IncorrectSemesterException is thrown if the semester value is out of bounds
      */
-    public void addMark(int semester, String discipline, Mark mark) throws IncorrectSemesterException {
+    public void addMark(int semester, String discipline, Mark mark)
+            throws IncorrectSemesterException {
         if (!(1 <= semester && semester <= 12)) {
             throw new IncorrectSemesterException("Incorrect semester");
         } else {
