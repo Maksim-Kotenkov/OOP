@@ -49,15 +49,15 @@ public class GradeBookTest {
         startDisciplines.add("Programming");
 
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
-        book.addMark(1, "Maths", 3);
-        book.addMark(1, "PE", 5);
-        book.addMark(1, "Programming", 4);
-        book.addMark(1, "Models", 5);
+        book.addMark(1, "Maths", GradeBook.Mark.NOPASS);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.TWO);
+        book.addMark(1, "Models", GradeBook.Mark.FOUR);
 
-        assertEquals(3, book.getSemesterMarks(1).get("Maths").get(0));
-        assertEquals(5, book.getSemesterMarks(1).get("PE").get(0));
-        assertEquals(4, book.getSemesterMarks(1).get("Programming").get(0));
-        assertEquals(5, book.getSemesterMarks(1).get("Models").get(0));
+        assertEquals(GradeBook.Mark.NOPASS, book.getSemesterMarks(1).get("Maths").get(0));
+        assertEquals(GradeBook.Mark.FIVE, book.getSemesterMarks(1).get("PE").get(0));
+        assertEquals(GradeBook.Mark.TWO, book.getSemesterMarks(1).get("Programming").get(0));
+        assertEquals(GradeBook.Mark.FOUR, book.getSemesterMarks(1).get("Models").get(0));
     }
 
     @Test
@@ -69,10 +69,10 @@ public class GradeBookTest {
         startDisciplines.add("Programming");
 
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
-        book.addMark(1, "Maths", 4);
-        book.addMark(1, "PE", 5);
-        book.addMark(1, "Programming", 4);
-        book.addMark(1, "Models", 5);
+        book.addMark(1, "Maths", GradeBook.Mark.FOUR);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.FOUR);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
 
         assertEquals(4.5, book.getAverage(1));
     }
@@ -86,10 +86,10 @@ public class GradeBookTest {
         startDisciplines.add("Programming");
 
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
-        book.addMark(1, "Maths", 4);
-        book.addMark(1, "PE", 5);
-        book.addMark(1, "Programming", 4);
-        book.addMark(1, "Models", 5);
+        book.addMark(1, "Maths", GradeBook.Mark.FOUR);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.FOUR);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
 
         assertFalse(book.redDiploma());
     }
@@ -103,11 +103,29 @@ public class GradeBookTest {
         startDisciplines.add("Programming");
 
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
-        book.addMark(1, "Maths", 4);
-        book.addMark(1, "PE", 5);
-        book.addMark(1, "Programming", 5);
-        book.addMark(1, "Models", 5);
-        book.addMark(1, "Some strange trash", 3);
+        book.addMark(1, "Maths", GradeBook.Mark.FOUR);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.FIVE);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
+        book.addMark(1, "Some strange trash", GradeBook.Mark.THREE);
+
+        assertFalse(book.redDiploma());
+    }
+
+    @Test
+    @DisplayName("Red diploma false because of not all semesters test")
+    public void checkFalseDiploma3() {
+        List<String> startDisciplines = new ArrayList<>();
+        startDisciplines.add("Maths");
+        startDisciplines.add("PE");
+        startDisciplines.add("Programming");
+
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", GradeBook.Mark.FOUR);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.FIVE);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
 
         assertFalse(book.redDiploma());
     }
@@ -121,10 +139,17 @@ public class GradeBookTest {
         startDisciplines.add("Programming");
 
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
-        book.addMark(1, "Maths", 4);
-        book.addMark(1, "PE", 5);
-        book.addMark(1, "Programming", 5);
-        book.addMark(1, "Models", 5);
+        book.addMark(1, "Maths", GradeBook.Mark.FOUR);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.FIVE);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
+        book.addMark(2, "Models", GradeBook.Mark.FIVE);
+        book.addMark(3, "Models", GradeBook.Mark.FIVE);
+        book.addMark(4, "Something", GradeBook.Mark.PASS);
+        book.addMark(5, "Models", GradeBook.Mark.FIVE);
+        book.addMark(6, "Models", GradeBook.Mark.FIVE);
+        book.addMark(7, "Models", GradeBook.Mark.FIVE);
+        book.addMark(8, "Models", GradeBook.Mark.FIVE);
 
         assertTrue(book.redDiploma());
     }
@@ -138,10 +163,10 @@ public class GradeBookTest {
         startDisciplines.add("Programming");
 
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
-        book.addMark(1, "Maths", 5);
-        book.addMark(1, "PE", 5);
-        book.addMark(1, "Programming", 5);
-        book.addMark(1, "Models", 5);
+        book.addMark(1, "Maths", GradeBook.Mark.FIVE);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.FIVE);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
 
         assertTrue(book.increasedScholarship(1));
     }
@@ -155,23 +180,12 @@ public class GradeBookTest {
         startDisciplines.add("Programming");
 
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
-        book.addMark(1, "Maths", 4);
-        book.addMark(1, "PE", 5);
-        book.addMark(1, "Programming", 5);
-        book.addMark(1, "Models", 5);
+        book.addMark(1, "Maths", GradeBook.Mark.FOUR);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.FIVE);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
 
         assertFalse(book.increasedScholarship(1));
-    }
-
-    @Test
-    @DisplayName("Exception test")
-    public void checkException() {
-        List<String> startDisciplines = new ArrayList<>();
-        startDisciplines.add("Maths");
-
-        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
-
-        assertThrowsExactly(IncorrectMarkException.class, () -> book.addMark(1, "Maths", 9));
     }
 
     @Test
@@ -182,6 +196,8 @@ public class GradeBookTest {
 
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
 
-        assertThrowsExactly(IncorrectSemesterException.class, () -> book.addMark(13, "Maths", 3));
+        assertThrowsExactly(IncorrectSemesterException.class,
+                () -> book.addMark(13, "Maths", GradeBook.Mark.THREE)
+        );
     }
 }

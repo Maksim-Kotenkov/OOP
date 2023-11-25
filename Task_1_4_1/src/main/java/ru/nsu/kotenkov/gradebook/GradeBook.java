@@ -2,9 +2,11 @@ package ru.nsu.kotenkov.gradebook;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -13,9 +15,41 @@ import java.util.List;
  */
 public class GradeBook {
     /**
+     * Enum for marks and pass.
+     */
+    public enum Mark {
+        FIVE(5),
+        FOUR(4),
+        THREE(3),
+        TWO(2),
+        PASS(1),
+        NOPASS(0);
+
+        public final int val;
+
+        /**
+         * Constructor to store int values in enum.
+         *
+         * @param i the value that is assigned to the enum value
+         */
+        Mark (int i) {
+            this.val = i;
+        }
+
+        /**
+         * Getter for int values.
+         *
+         * @return int
+         */
+        public int getVal() {
+            return val;
+        }
+    }
+
+    /**
      * To store marks class uses HashMap.
      */
-    private final HashMap<Integer, HashMap<String, List<Integer>>> gradeBook;
+    private final Map<Integer, Map<String, List<Mark>>> gradeBook;
     private final String ownerName;
     private final int disciplineCapacity = 100;
     private final int marksCapacity = 30;
@@ -41,8 +75,8 @@ public class GradeBook {
      */
     public GradeBook(String username) {
         this.ownerName = username;
-        gradeBook = new HashMap<>(100);
-        gradeBook.put(1, new HashMap<>(30));
+        gradeBook = new HashMap<>(this.disciplineCapacity);
+        gradeBook.put(1, new HashMap<>(this.marksCapacity));
     }
 
     /**
@@ -59,7 +93,7 @@ public class GradeBook {
      *
      * @return hashMap of semesters with disciplines and marks
      */
-    public HashMap<Integer, HashMap<String, List<Integer>>> getGradeBook() {
+    public Map<Integer, Map<String, List<Mark>>> getGradeBook() {
         return gradeBook;
     }
 
@@ -69,7 +103,7 @@ public class GradeBook {
      * @param semester the number of the semester
      * @return HashMap of disciplines and marks
      */
-    public HashMap<String, List<Integer>> getSemesterMarks(int semester) {
+    public Map<String, List<Mark>> getSemesterMarks(int semester) {
         return this.gradeBook.get(semester);
     }
 
@@ -80,12 +114,10 @@ public class GradeBook {
      * @param semester the number of the semester
      * @param discipline string name of a discipline
      * @param mark int value in bounds [2, 5]
-     * @throws IncorrectMarkException is thrown if the mark value is out of bounds
+     * @throws IncorrectSemesterException is thrown if the semester value is out of bounds
      */
-    public void addMark(int semester, String discipline, int mark) throws IncorrectMarkException {
-        if (!(2 <= mark && mark <= 5)) {
-            throw new IncorrectMarkException("Incorrect mark");
-        } else if (!(1 <= semester && semester <= 12)) {
+    public void addMark(int semester, String discipline, Mark mark) throws IncorrectSemesterException {
+        if (!(1 <= semester && semester <= 12)) {
             throw new IncorrectSemesterException("Incorrect semester");
         } else {
             if (!this.gradeBook.containsKey(semester)) {
@@ -94,7 +126,7 @@ public class GradeBook {
             if (this.gradeBook.get(semester).containsKey(discipline)) {
                 this.gradeBook.get(semester).get(discipline).add(mark);
             } else {
-                List<Integer> newMark = new ArrayList<>();
+                List<Mark> newMark = new ArrayList<>();
                 newMark.add(mark);
                 this.gradeBook.get(semester).put(discipline, newMark);
             }
@@ -107,11 +139,12 @@ public class GradeBook {
      * @param semester the number of the semester
      * @return List of integers in bounds [2, 5]
      */
-    public List<Integer> getLastMarks(int semester) {
-        List<Integer> res = new ArrayList<>();
+    public List<Mark> getLastMarks(int semester) {
+        List<Mark> res = new ArrayList<>();
         for (String key : this.gradeBook.get(semester).keySet()) {
-            res.add(this.gradeBook.get(semester).get(key).get(
-                        gradeBook.get(semester).get(key).size() - 1
+            final var marks = this.gradeBook.get(semester).get(key);
+            res.add(marks.get(
+                        marks.size() - 1
                     )
             );
         }
@@ -126,12 +159,13 @@ public class GradeBook {
      * @return double value
      */
     public double getAverage(int semester) {
-        List<Integer> lastMarks = this.getLastMarks(semester);
-        int res = 0;
+        List<Mark> lastMarks = this.getLastMarks(semester);
+        int res;
 
-        for (Integer val : lastMarks) {
-            res = res + val;
-        }
+        res = lastMarks.stream()
+                .filter(a -> a.getVal() != 0 && a.getVal() != 1)
+                .mapToInt(Mark::getVal)
+                .sum();
 
         return (double) res / lastMarks.size();
     }
@@ -142,17 +176,23 @@ public class GradeBook {
      * @return true/false
      */
     public boolean redDiploma() {
-        int res = 0;
+        long res = 0;
         int totalNumber = 0;
-        for (int semester : this.gradeBook.keySet()) {
-            List<Integer> lastMarks = this.getLastMarks(semester);
 
-            for (Integer val : lastMarks) {
-                if (val == 5) {
-                    res++;
-                }
-                totalNumber++;
-            }
+        int[] semesters = {1, 2, 3, 4, 5, 6, 7, 8};
+        List<Integer> list = Arrays.stream(semesters).boxed().toList();
+
+        if (!this.gradeBook.keySet().equals(new HashSet<>(list))) {
+            return false;
+        }
+
+        for (int semester : this.gradeBook.keySet()) {
+            List<Mark> lastMarks = this.getLastMarks(semester);
+
+            res += lastMarks.stream()
+                    .filter(a -> a.getVal() == 5 || a.getVal() == 1)
+                    .count();
+            totalNumber += lastMarks.size();
         }
 
         return Double.compare((double) res / totalNumber, 0.75) >= 0;
@@ -165,8 +205,8 @@ public class GradeBook {
      * @return true/false
      */
     public boolean increasedScholarship(int semester) {
-        HashSet<Integer> setMarks = new HashSet<>(this.getLastMarks(semester));
+        HashSet<Mark> setMarks = new HashSet<>(this.getLastMarks(semester));
 
-        return setMarks.equals(new HashSet<>(List.of(5)));
+        return setMarks.equals(new HashSet<>(List.of(Mark.FIVE)));
     }
 }
