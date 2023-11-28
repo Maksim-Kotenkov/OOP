@@ -73,7 +73,9 @@ public class GradeBook {
      */
     public GradeBook(String username) {
         this.ownerName = username;
-        gradeBook = new GradeBookMap(new ArrayList<>(0), this.disciplineCapacity, this.marksCapacity);
+        gradeBook = new GradeBookMap(new ArrayList<>(0),
+                this.disciplineCapacity,
+                this.marksCapacity);
     }
 
     /**
@@ -143,7 +145,7 @@ public class GradeBook {
         return semesterMarks.keySet()
                 .stream()
                 .map(x -> getLastMark(semesterMarks.get(x)))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     /**
