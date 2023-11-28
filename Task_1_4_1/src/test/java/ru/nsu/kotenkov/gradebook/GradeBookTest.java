@@ -29,7 +29,7 @@ public class GradeBookTest {
         GradeBook book = new GradeBook("Cringe Again", startDisciplines);
 
         HashSet<String> expected = new HashSet<>(startDisciplines);
-        assertEquals(expected, book.getGradeBook().get(1).keySet());
+        assertEquals(expected, book.getSemesterMarks(1).keySet());
     }
 
     @Test

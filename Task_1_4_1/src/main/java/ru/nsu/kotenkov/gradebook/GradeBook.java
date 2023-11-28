@@ -3,16 +3,17 @@ package ru.nsu.kotenkov.gradebook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
 /**
  * GradeBook class that can help with computing average gradebook
  * mark and student's chances to get red diploma or increased scholarship.
+ *
  */
 public class GradeBook {
     /**
@@ -50,7 +51,7 @@ public class GradeBook {
     /**
      * To store marks class uses HashMap.
      */
-    private final Map<Integer, Map<String, List<Mark>>> gradeBook;
+    private final GradeBookMap gradeBook;
     private final String ownerName;
     private final int disciplineCapacity = 100;
     private final int marksCapacity = 30;
@@ -62,11 +63,7 @@ public class GradeBook {
      */
     public GradeBook(String username, List<String> disciplines) {
         this.ownerName = username;
-        gradeBook = new HashMap<>(this.disciplineCapacity);
-        gradeBook.put(1, new HashMap<>());
-        for (String str : disciplines) {
-            gradeBook.get(1).put(str, new ArrayList<>());
-        }
+        gradeBook = new GradeBookMap(disciplines, this.disciplineCapacity, this.marksCapacity);
     }
 
     /**
@@ -76,8 +73,7 @@ public class GradeBook {
      */
     public GradeBook(String username) {
         this.ownerName = username;
-        gradeBook = new HashMap<>(this.disciplineCapacity);
-        gradeBook.put(1, new HashMap<>(this.marksCapacity));
+        gradeBook = new GradeBookMap(new ArrayList<>(0), this.disciplineCapacity, this.marksCapacity);
     }
 
     /**
@@ -94,7 +90,7 @@ public class GradeBook {
      *
      * @return hashMap of semesters with disciplines and marks
      */
-    public Map<Integer, Map<String, List<Mark>>> getGradeBook() {
+    public GradeBookMap getGradeBook() {
         return gradeBook;
     }
 
@@ -105,7 +101,7 @@ public class GradeBook {
      * @return HashMap of disciplines and marks
      */
     public Map<String, List<Mark>> getSemesterMarks(int semester) {
-        return this.gradeBook.get(semester);
+        return this.gradeBook.getSemester(semester);
     }
 
     /**
@@ -122,17 +118,18 @@ public class GradeBook {
         if (!(1 <= semester && semester <= 12)) {
             throw new IncorrectSemesterException("Incorrect semester");
         } else {
-            if (!this.gradeBook.containsKey(semester)) {
-                this.gradeBook.put(semester, new HashMap<>(this.marksCapacity));
-            }
-            if (this.gradeBook.get(semester).containsKey(discipline)) {
-                this.gradeBook.get(semester).get(discipline).add(mark);
-            } else {
-                List<Mark> newMark = new ArrayList<>();
-                newMark.add(mark);
-                this.gradeBook.get(semester).put(discipline, newMark);
-            }
+            this.gradeBook.putMark(semester, discipline, mark);
         }
+    }
+
+    /**
+     * We need static method to get last element of a list.
+     *
+     * @param list the list
+     * @return one last Mark
+     */
+    public static Mark getLastMark(List<Mark> list) {
+        return list.get(list.size() - 1);
     }
 
     /**
@@ -142,16 +139,11 @@ public class GradeBook {
      * @return List of integers in bounds [2, 5]
      */
     public List<Mark> getLastMarks(int semester) {
-        List<Mark> res = new ArrayList<>();
-        for (String key : this.gradeBook.get(semester).keySet()) {
-            final var marks = this.gradeBook.get(semester).get(key);
-            res.add(marks.get(
-                        marks.size() - 1
-                    )
-            );
-        }
-
-        return res;
+        Map<String, List<GradeBook.Mark>> semesterMarks = this.gradeBook.getSemester(semester);
+        return semesterMarks.keySet()
+                .stream()
+                .map(x -> getLastMark(semesterMarks.get(x)))
+                .toList();
     }
 
     /**
@@ -184,11 +176,12 @@ public class GradeBook {
         int[] semesters = {1, 2, 3, 4, 5, 6, 7, 8};
         List<Integer> list = Arrays.stream(semesters).boxed().collect(Collectors.toList());
 
-        if (!this.gradeBook.keySet().equals(new HashSet<>(list))) {
+        Set<Integer> semesterSet = this.getGradeBook().getSemesterSet();
+        if (!semesterSet.equals(new HashSet<>(list))) {
             return false;
         }
 
-        for (int semester : this.gradeBook.keySet()) {
+        for (int semester : semesterSet) {
             List<Mark> lastMarks = this.getLastMarks(semester);
 
             res += lastMarks.stream()
