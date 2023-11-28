@@ -131,6 +131,11 @@ public class GradeBook {
      * @return one last Mark
      */
     public static Mark getLastMark(List<Mark> list) {
+        Set<Mark> setMarks = new HashSet<>(list);
+        if (setMarks.contains(Mark.TWO) || setMarks.contains(Mark.NOPASS)) {
+            return Mark.TWO;
+        }
+
         return list.get(list.size() - 1);
     }
 

@@ -189,6 +189,24 @@ public class GradeBookTest {
     }
 
     @Test
+    @DisplayName("False Increased scholarship because of perezdacha")
+    public void checkScholarshipFalse2() {
+        List<String> startDisciplines = new ArrayList<>();
+        startDisciplines.add("Maths");
+        startDisciplines.add("PE");
+        startDisciplines.add("Programming");
+
+        GradeBook book = new GradeBook("Cringe Again", startDisciplines);
+        book.addMark(1, "Maths", GradeBook.Mark.TWO);
+        book.addMark(1, "Maths", GradeBook.Mark.FIVE);
+        book.addMark(1, "PE", GradeBook.Mark.FIVE);
+        book.addMark(1, "Programming", GradeBook.Mark.FIVE);
+        book.addMark(1, "Models", GradeBook.Mark.FIVE);
+
+        assertFalse(book.increasedScholarship(1));
+    }
+
+    @Test
     @DisplayName("Semester exception test")
     public void checkSemesterException() {
         List<String> startDisciplines = new ArrayList<>();
