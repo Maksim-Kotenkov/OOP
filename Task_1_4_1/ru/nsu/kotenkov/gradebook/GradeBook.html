@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":10,"i2":10,"i3":9,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -203,7 +203,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -226,41 +226,48 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.Map&lt;java.lang.Integer,&#8203;java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&gt;&gt;</code></td>
+<td class="colFirst"><code><a href="GradeBookMap.html" title="class in ru.nsu.kotenkov.gradebook">GradeBookMap</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGradeBook()">getGradeBook</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Basic getter.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>static <a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastMark(java.util.List)">getLastMark</a></span>&#8203;(java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&nbsp;list)</code></th>
+<td class="colLast">
+<div class="block">We need static method to get last element of a list.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastMarks(int)">getLastMarks</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">A method to get last marks in every discipline.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOwnerName()">getOwnerName</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for user name.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSemesterMarks(int)">getSemesterMarks</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">Getter for one semester.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#increasedScholarship(int)">increasedScholarship</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">A method to check if it's possible to get increased scholarship according to last marks.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#redDiploma()">redDiploma</a></span>()</code></th>
 <td class="colLast">
@@ -350,7 +357,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getGradeBook</h4>
-<pre class="methodSignature">public&nbsp;java.util.Map&lt;java.lang.Integer,&#8203;java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&gt;&gt;&nbsp;getGradeBook()</pre>
+<pre class="methodSignature">public&nbsp;<a href="GradeBookMap.html" title="class in ru.nsu.kotenkov.gradebook">GradeBookMap</a>&nbsp;getGradeBook()</pre>
 <div class="block">Basic getter.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -393,6 +400,22 @@ extends java.lang.Object</pre>
 <dd><code>mark</code> - int value in bounds [2, 5]</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="IncorrectSemesterException.html" title="class in ru.nsu.kotenkov.gradebook">IncorrectSemesterException</a></code> - is thrown if the semester value is out of bounds</dd>
+</dl>
+</li>
+</ul>
+<a id="getLastMark(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLastMark</h4>
+<pre class="methodSignature">public static&nbsp;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&nbsp;getLastMark&#8203;(java.util.List&lt;<a href="GradeBook.Mark.html" title="enum in ru.nsu.kotenkov.gradebook">GradeBook.Mark</a>&gt;&nbsp;list)</pre>
+<div class="block">We need static method to get last element of a list.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>list</code> - the list</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>one last Mark</dd>
 </dl>
 </li>
 </ul>
