@@ -1,85 +1,44 @@
 package ru.nsu.kotenkov.calculator;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Stack;
 
 
+/**
+ * Calculator class, that calculate prompts in prefix form.
+ */
 public class Calculator {
 
-    private enum Operation {
-        SIN(1),
-        COS(1),
-        POW(2),
-        PLUS(2),
-        MINUS(2),
-        MUL(2),
-        DIV(2);
-
-        private final int val;
-
-        /**
-         * Constructor to store operations with their valences.
-         *
-         * @param i the valence that is assigned to the enum value
-         */
-        Operation(int i) {
-            this.val = i;
-        }
-
-        /**
-         * Getter for valences of operation.
-         *
-         * @return int
-         */
-        public int getValence() {
-            return val;
-        }
-
-        public double apply(List<Double> args) {
-            return switch (this) {
-                case PLUS -> calcPlus(args);
-                case MINUS -> calcMinus(args);
-                case MUL -> calcMul(args);
-                case DIV -> calcDiv(args);
-                default -> 0;
-            };
-        }
-
-        private double calcPlus(List<Double> args) {
-            return args.get(0) + args.get(1);
-        }
-
-        private double calcMinus(List<Double> args) {
-            return args.get(0) - args.get(1);
-        }
-
-        private double calcMul(List<Double> args) {
-            return args.get(0) * args.get(1);
-        }
-
-        private double calcDiv(List<Double> args) {
-            return args.get(0) / args.get(1);
-        }
-    }
-
-    private Stack<Object> operationStack;
-
-    public void run() {
+    /**
+     * Main method that is responsible for I/O and calling the solver.
+     */
+    public void run() throws WrongCommandException{
         Scanner inpScan = new Scanner(System.in);
         String prompt = inpScan.nextLine();
         double result = this.solve(prompt);
         System.out.println("The result: " + result);
     }
 
-    private double solve(String prompt) {
-        this.operationStack = eval(prompt);
-
-//        System.out.println(operationStack);
+    /**
+     * Solver method, that calculate the result.
+     * It works with tokenized input string.
+     * The tokenized form is a stack of Doubles and Operations (enum).
+     * Every number from the stack of tokens is moved to the numStack
+     * and every operation-token pops the number of numbers it needs from the numStack.
+     *
+     * @param prompt the string from input
+     * @return the result
+     */
+    private double solve(String prompt) throws WrongCommandException{
+        Stack<Object> tokenStack = tokenize(prompt);
 
         Stack<Double> numStack = new Stack<>();
 
-        while (!operationStack.empty()) {
-            Object stackObj = operationStack.pop();
+        while (!tokenStack.empty()) {
+            Object stackObj = tokenStack.pop();
 
             if (stackObj.getClass() == Double.class) {
                 numStack.add((Double) stackObj);
@@ -90,14 +49,20 @@ public class Calculator {
                     args.add(numStack.pop());
                 }
 
-                numStack.add(currOperation.apply(args));
+                numStack.add(currOperation.operationHandling(args));
             }
         }
 
         return numStack.pop();
     }
 
-    private Stack<Object> eval(String prompt) {
+    /**
+     * The tokenizer method, that forms a stack of numbers and operations from the String.
+     *
+     * @param prompt the string to be tokenized
+     * @return the stack of tokens
+     */
+    private Stack<Object> tokenize(String prompt) throws WrongCommandException{
         Stack<Object> newStack = new Stack<>();
 
         while (!prompt.isEmpty()) {
@@ -136,6 +101,12 @@ public class Calculator {
         return newStack;
     }
 
+    /**
+     * Checker for numbers.
+     *
+     * @param number str form of possibly a number
+     * @return true/false
+     */
     private boolean checkNumber(String number) {
         for (int ch = 0; ch < number.length(); ch++) {
             if (!('0' <= number.charAt(ch) && number.charAt(ch) <= '9')) {
@@ -146,6 +117,12 @@ public class Calculator {
         return true;
     }
 
+    /**
+     * A method that morphs string-like form of an operation to Operation enum.
+     *
+     * @param command string form of an operation
+     * @return enum Operation
+     */
     private Operation evalOperation(String command) {
         return switch (command) {
             case "+" -> Operation.PLUS;
