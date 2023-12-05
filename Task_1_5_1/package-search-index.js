@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.kotenkov.calculator"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.kotenkov.calculator"},{"l":"ru.nsu.kotenkov.calculator.exceptions"}];updateSearchResults();
