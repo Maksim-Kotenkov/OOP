@@ -6,6 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
+import ru.nsu.kotenkov.calculator.exceptions.WrongCommandException;
+import ru.nsu.kotenkov.calculator.exceptions.WrongPromptOrderException;
+
 
 /**
  * Empty yet.
@@ -232,5 +236,31 @@ public class CalculatorTest {
             Calculator app = new Calculator();
             app.run("+ sin 0 + 1");
         });
+    }
+
+    @Test
+    @DisplayName("Dividing by zero exception")
+    void checkDividingByZero() {
+        assertThrowsExactly(ArithmeticalException.class,
+                () -> {
+                        Calculator app = new Calculator();
+                        app.run("/ 1000 0");
+                    },
+                "Wrong arguments for an operation: DIV\n"
+                        + "Arguments: [1000.0, 0.0]"
+        );
+    }
+
+    @Test
+    @DisplayName("Log from a negative number")
+    void checkNegativeLog() {
+        assertThrowsExactly(ArithmeticalException.class,
+                () -> {
+                        Calculator app = new Calculator();
+                        app.run("log -2");
+                        },
+                "Wrong arguments for an operation: LOG\n"
+                        + "Arguments: [-2.0]"
+        );
     }
 }

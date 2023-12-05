@@ -1,6 +1,10 @@
 package ru.nsu.kotenkov.calculator;
 
+
+import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
+
 import java.util.List;
+
 
 /**
  * Enum for operating with math operations.
@@ -105,6 +109,9 @@ public enum Operation {
      * @return the result
      */
     private double calcDiv(List<Double> args) {
+        if (args.get(1) == 0) {
+            throw new ArithmeticalException("Dividing by zero");
+        }
         return args.get(0) / args.get(1);
     }
 
@@ -135,6 +142,9 @@ public enum Operation {
      * @return the result
      */
     private double calcLog(List<Double> args) {
+        if (args.get(0) <= 0) {
+            throw new ArithmeticalException("Log from negative");
+        }
         return Math.log(args.get(0));
     }
 

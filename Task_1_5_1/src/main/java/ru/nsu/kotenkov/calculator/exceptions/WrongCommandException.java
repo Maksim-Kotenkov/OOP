@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.calculator;
+package ru.nsu.kotenkov.calculator.exceptions;
 
 
 /**

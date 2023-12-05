@@ -1,6 +1,10 @@
 package ru.nsu.kotenkov.calculator;
 
 
+import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
+import ru.nsu.kotenkov.calculator.exceptions.WrongCommandException;
+import ru.nsu.kotenkov.calculator.exceptions.WrongPromptOrderException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -41,7 +45,15 @@ public class Calculator {
                     args.add(numStack.pop());
                 }
 
-                numStack.add(currOperation.operationHandling(args));
+                try {
+                    numStack.add(currOperation.operationHandling(args));
+                } catch (Exception ZeroDivException) {
+                    System.out.println("Wrong arguments for an operation: "
+                            + currOperation
+                            + "\nArguments: "
+                            + args);
+                    throw new ArithmeticalException("Handled arithmetical exception");
+                }
             }
         }
 
@@ -74,11 +86,7 @@ public class Calculator {
                 newStack.add(Double.parseDouble(evaledString));
             } else {
                 Operation command = evalOperation(evaledString);
-                if (command != null) {
-                    newStack.add(command);
-                } else {
-                    throw new WrongCommandException(evaledString);
-                }
+                newStack.add(command);
             }
         }
 
@@ -120,7 +128,7 @@ public class Calculator {
             case "cos" -> Operation.COS;
             case "pow" -> Operation.POW;
             case "log" -> Operation.LOG;
-            default -> null;
+            default -> throw new WrongCommandException("Wrong operation");
         };
     }
 }
