@@ -5,7 +5,7 @@ package ru.nsu.kotenkov.calculator;
  * Custom exception for wrong operation commands.
  *
  */
-public class WrongCommandException extends RuntimeException{
+public class WrongCommandException extends RuntimeException {
     /**
      * Constructor.
      *

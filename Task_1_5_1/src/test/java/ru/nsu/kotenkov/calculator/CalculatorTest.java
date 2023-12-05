@@ -12,6 +12,22 @@ import org.junit.jupiter.api.Test;
  */
 public class CalculatorTest {
     @Test
+    @DisplayName("Operation class valence check")
+    void checkOperation() {
+        Operation op = Operation.LOG;
+
+        assertEquals(1, op.getValence());
+    }
+
+    @Test
+    @DisplayName("Operation class valence check")
+    void checkOperation2() {
+        Operation op = Operation.PLUS;
+
+        assertEquals(2, op.getValence());
+    }
+
+    @Test
     @DisplayName("Test the number")
     void checkNumber() {
         Calculator app = new Calculator();

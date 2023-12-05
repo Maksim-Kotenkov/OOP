@@ -21,7 +21,7 @@ public class Calculator {
      * @param prompt the string from input
      * @return the result
      */
-    public double run(String prompt) throws WrongCommandException{
+    public double run(String prompt) throws WrongCommandException {
         Stack<Object> tokenStack = tokenize(prompt);
 
         Stack<Double> numStack = new Stack<>();
@@ -54,7 +54,7 @@ public class Calculator {
      * @param prompt the string to be tokenized
      * @return the stack of tokens
      */
-    private Stack<Object> tokenize(String prompt) throws WrongCommandException{
+    private Stack<Object> tokenize(String prompt) throws WrongCommandException {
         Stack<Object> newStack = new Stack<>();
 
         while (!prompt.isEmpty()) {
@@ -93,7 +93,8 @@ public class Calculator {
      */
     private boolean checkNumber(String number) {
         for (int ch = 0; ch < number.length(); ch++) {
-            if (!(('0' <= number.charAt(ch) && number.charAt(ch) <= '9') || number.charAt(ch) == '.')) {
+            if (!(('0' <= number.charAt(ch) && number.charAt(ch) <= '9')
+                    || number.charAt(ch) == '.')) {
                 if (!(ch == 0 && number.charAt(ch) == '-' && number.length() > 1)) {
                     return false;
                 }
