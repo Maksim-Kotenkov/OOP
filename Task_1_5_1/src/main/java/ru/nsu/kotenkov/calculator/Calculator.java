@@ -3,7 +3,6 @@ package ru.nsu.kotenkov.calculator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Stack;
 
 
@@ -11,16 +10,6 @@ import java.util.Stack;
  * Calculator class, that calculate prompts in prefix form.
  */
 public class Calculator {
-
-    /**
-     * Main method that is responsible for I/O and calling the solver.
-     */
-    public void run() throws WrongCommandException{
-        Scanner inpScan = new Scanner(System.in);
-        String prompt = inpScan.nextLine();
-        double result = this.solve(prompt);
-        System.out.println("The result: " + result);
-    }
 
     /**
      * Solver method, that calculate the result.
@@ -32,7 +21,7 @@ public class Calculator {
      * @param prompt the string from input
      * @return the result
      */
-    private double solve(String prompt) throws WrongCommandException{
+    public double run(String prompt) throws WrongCommandException{
         Stack<Object> tokenStack = tokenize(prompt);
 
         Stack<Double> numStack = new Stack<>();
@@ -45,6 +34,9 @@ public class Calculator {
             } else {
                 Operation currOperation = (Operation) stackObj;
                 List<Double> args = new ArrayList<>();
+                if (numStack.size() < currOperation.getValence()) {
+                    throw new WrongPromptOrderException("Wrong operations order in a given prompt");
+                }
                 for (int i = 0; i < currOperation.getValence(); i++) {
                     args.add(numStack.pop());
                 }
@@ -71,30 +63,22 @@ public class Calculator {
             }
 
             StringBuilder evalAnything = new StringBuilder();
-            while (!prompt.isEmpty() && '0' <= prompt.charAt(0) && prompt.charAt(0) <= '9') {
-                evalAnything.append(prompt.charAt(0));
-                prompt = prompt.substring(1);
-            }
-            if (!evalAnything.isEmpty()) {
-                String possiblyNumber = evalAnything.toString();
-                if (checkNumber(possiblyNumber)) {
-                    newStack.add(Double.parseDouble(possiblyNumber));
-                    continue;
-                } else {
-                    throw new WrongCommandException(possiblyNumber);
-                }
-            }
 
             while (!prompt.isEmpty() && prompt.charAt(0) != ' ') {
                 evalAnything.append(prompt.charAt(0));
                 prompt = prompt.substring(1);
             }
 
-            Operation command = evalOperation(evalAnything.toString());
-            if (command != null) {
-                newStack.add(command);
+            String evaledString = evalAnything.toString();
+            if (checkNumber(evaledString)) {
+                newStack.add(Double.parseDouble(evaledString));
             } else {
-                throw new WrongCommandException(evalAnything.toString());
+                Operation command = evalOperation(evaledString);
+                if (command != null) {
+                    newStack.add(command);
+                } else {
+                    throw new WrongCommandException(evaledString);
+                }
             }
         }
 
@@ -109,8 +93,10 @@ public class Calculator {
      */
     private boolean checkNumber(String number) {
         for (int ch = 0; ch < number.length(); ch++) {
-            if (!('0' <= number.charAt(ch) && number.charAt(ch) <= '9')) {
-                return false;
+            if (!(('0' <= number.charAt(ch) && number.charAt(ch) <= '9') || number.charAt(ch) == '.')) {
+                if (!(ch == 0 && number.charAt(ch) == '-' && number.length() > 1)) {
+                    return false;
+                }
             }
         }
 
@@ -132,6 +118,7 @@ public class Calculator {
             case "sin" -> Operation.SIN;
             case "cos" -> Operation.COS;
             case "pow" -> Operation.POW;
+            case "log" -> Operation.LOG;
             default -> null;
         };
     }
