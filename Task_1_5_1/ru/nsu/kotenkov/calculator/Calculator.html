@@ -104,10 +104,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#run()" class="member-name-link">run</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#run(java.lang.String)" class="member-name-link">run</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prompt)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Main method that is responsible for I/O and calling the solver.</div>
+<div class="block">Solver method, that calculate the result.</div>
 </div>
 </div>
 </div>
@@ -141,12 +141,20 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="run()">
+<section class="detail" id="run(java.lang.String)">
 <h3>run</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">run</span>()
-         throws <span class="exceptions"><a href="WrongCommandException.html" title="class in ru.nsu.kotenkov.calculator">WrongCommandException</a></span></div>
-<div class="block">Main method that is responsible for I/O and calling the solver.</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">run</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prompt)</span>
+           throws <span class="exceptions"><a href="WrongCommandException.html" title="class in ru.nsu.kotenkov.calculator">WrongCommandException</a></span></div>
+<div class="block">Solver method, that calculate the result.
+ It works with tokenized input string.
+ The tokenized form is a stack of Doubles and Operations (enum).
+ Every number from the stack of tokens is moved to the numStack
+ and every operation-token pops the number of numbers it needs from the numStack.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>prompt</code> - the string from input</dd>
+<dt>Returns:</dt>
+<dd>the result</dd>
 <dt>Throws:</dt>
 <dd><code><a href="WrongCommandException.html" title="class in ru.nsu.kotenkov.calculator">WrongCommandException</a></code></dd>
 </dl>
