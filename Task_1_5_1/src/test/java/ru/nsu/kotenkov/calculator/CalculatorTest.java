@@ -243,9 +243,9 @@ public class CalculatorTest {
     void checkDividingByZero() {
         assertThrowsExactly(ArithmeticalException.class,
                 () -> {
-                        Calculator app = new Calculator();
-                        app.run("/ 1000 0");
-                    },
+            Calculator app = new Calculator();
+            app.run("/ 1000 0");
+            },
                 "Wrong arguments for an operation: DIV\n"
                         + "Arguments: [1000.0, 0.0]"
         );
@@ -256,9 +256,9 @@ public class CalculatorTest {
     void checkNegativeLog() {
         assertThrowsExactly(ArithmeticalException.class,
                 () -> {
-                        Calculator app = new Calculator();
-                        app.run("log -2");
-                        },
+            Calculator app = new Calculator();
+            app.run("log -2");
+            },
                 "Wrong arguments for an operation: LOG\n"
                         + "Arguments: [-2.0]"
         );

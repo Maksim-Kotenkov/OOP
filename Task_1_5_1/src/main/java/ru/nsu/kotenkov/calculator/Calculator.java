@@ -1,13 +1,12 @@
 package ru.nsu.kotenkov.calculator;
 
 
-import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
-import ru.nsu.kotenkov.calculator.exceptions.WrongCommandException;
-import ru.nsu.kotenkov.calculator.exceptions.WrongPromptOrderException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
+import ru.nsu.kotenkov.calculator.exceptions.WrongCommandException;
+import ru.nsu.kotenkov.calculator.exceptions.WrongPromptOrderException;
 
 
 /**
@@ -47,12 +46,12 @@ public class Calculator {
 
                 try {
                     numStack.add(currOperation.operationHandling(args));
-                } catch (Exception ZeroDivException) {
+                } catch (ArithmeticalException exception) {
                     System.out.println("Wrong arguments for an operation: "
                             + currOperation
                             + "\nArguments: "
                             + args);
-                    throw new ArithmeticalException("Handled arithmetical exception");
+                    throw exception;
                 }
             }
         }

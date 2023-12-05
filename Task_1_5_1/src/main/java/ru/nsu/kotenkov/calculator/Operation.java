@@ -1,9 +1,8 @@
 package ru.nsu.kotenkov.calculator;
 
 
-import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
-
 import java.util.List;
+import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
 
 
 /**

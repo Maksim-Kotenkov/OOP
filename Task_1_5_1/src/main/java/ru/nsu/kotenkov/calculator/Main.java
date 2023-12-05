@@ -1,11 +1,10 @@
 package ru.nsu.kotenkov.calculator;
 
 
+import java.util.Scanner;
 import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
 import ru.nsu.kotenkov.calculator.exceptions.WrongCommandException;
 import ru.nsu.kotenkov.calculator.exceptions.WrongPromptOrderException;
-
-import java.util.Scanner;
 
 
 /**
