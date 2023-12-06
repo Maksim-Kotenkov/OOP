@@ -26,8 +26,8 @@ public class Calculator {
      */
     public double run(String prompt) throws WrongCommandException {
         Stack<Object> tokenStack = tokenize(prompt);
-
         Stack<Double> numStack = new Stack<>();
+        boolean unMinusSet = false;
 
         while (!tokenStack.empty()) {
             Object stackObj = tokenStack.pop();
@@ -45,7 +45,16 @@ public class Calculator {
                 }
 
                 try {
-                    numStack.add(currOperation.operationHandling(args));
+                    if (currOperation == Operation.UNMINUS) {
+                        unMinusSet = true;
+                        continue;
+                    }
+                    if (unMinusSet) {
+                        numStack.add(-1 * currOperation.operationHandling(args));
+                        unMinusSet = false;
+                    } else {
+                        numStack.add(currOperation.operationHandling(args));
+                    }
                 } catch (ArithmeticalException exception) {
                     System.out.println("Wrong arguments for an operation: "
                             + currOperation
@@ -84,8 +93,16 @@ public class Calculator {
             if (checkNumber(evaledString)) {
                 newStack.add(Double.parseDouble(evaledString));
             } else {
-                Operation command = evalOperation(evaledString);
-                newStack.add(command);
+                Operation command;
+                if (evaledString.charAt(0) == '-' && evaledString.length() > 1) {
+                    evaledString = evaledString.substring(1);
+                    command = evalOperation(evaledString);
+                    newStack.add(command);
+                    newStack.add(Operation.UNMINUS);
+                } else {
+                    command = evalOperation(evaledString);
+                    newStack.add(command);
+                }
             }
         }
 

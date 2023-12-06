@@ -22,7 +22,8 @@ public enum Operation {
     PLUS(2),
     MINUS(2),
     MUL(2),
-    DIV(2);
+    DIV(2),
+    UNMINUS(0);
 
     /**
      * Valence field for taking numbers from the stack
@@ -68,6 +69,7 @@ public enum Operation {
             case COS -> calcCos(args);
             case POW -> calcPow(args);
             case LOG -> calcLog(args);
+            case UNMINUS -> -1;
         };
     }
 

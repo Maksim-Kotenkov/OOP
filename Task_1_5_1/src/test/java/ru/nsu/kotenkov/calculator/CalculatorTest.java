@@ -158,6 +158,15 @@ public class CalculatorTest {
     }
 
     @Test
+    @DisplayName("Test a negative number in power with unary minus")
+    void checkPowNegativeToPositiveUnary() {
+        Calculator app = new Calculator();
+        double result = app.run("-pow -2 4");
+
+        assertEquals(-16, result);
+    }
+
+    @Test
     @DisplayName("Test a sin operation")
     void checkSin() {
         Calculator app = new Calculator();
@@ -173,6 +182,15 @@ public class CalculatorTest {
         double result = app.run("cos + 1 -1");
 
         assertEquals(1, result);
+    }
+
+    @Test
+    @DisplayName("Test a cos with unary minus")
+    void checkCosUnary() {
+        Calculator app = new Calculator();
+        double result = app.run("-cos + 1 -1");
+
+        assertEquals(-1, result);
     }
 
     @Test
