@@ -2,8 +2,14 @@ package ru.nsu.kotenkov.calculator;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import ru.nsu.kotenkov.calculator.exceptions.ArithmeticalException;
 import ru.nsu.kotenkov.calculator.exceptions.WrongCommandException;
 import ru.nsu.kotenkov.calculator.exceptions.WrongPromptOrderException;
@@ -32,9 +38,10 @@ public class Calculator {
         while (!tokenStack.empty()) {
             Object stackObj = tokenStack.pop();
 
-            if (stackObj.getClass() == Double.class) {
-                numStack.add((Double) stackObj);
+            if (stackObj instanceof Double value) {
+                numStack.add(value);
             } else {
+                assert stackObj instanceof Operation;
                 Operation currOperation = (Operation) stackObj;
                 List<Double> args = new ArrayList<>();
                 if (numStack.size() < currOperation.getValence()) {
@@ -50,10 +57,10 @@ public class Calculator {
                         continue;
                     }
                     if (unMinusSet) {
-                        numStack.add(-1 * currOperation.operationHandling(args));
+                        numStack.add(-1 * currOperation.calc(args));
                         unMinusSet = false;
                     } else {
-                        numStack.add(currOperation.operationHandling(args));
+                        numStack.add(currOperation.calc(args));
                     }
                 } catch (ArithmeticalException exception) {
                     System.out.println("Wrong arguments for an operation: "
@@ -116,16 +123,27 @@ public class Calculator {
      * @return true/false
      */
     private boolean checkNumber(String number) {
-        for (int ch = 0; ch < number.length(); ch++) {
-            if (!(('0' <= number.charAt(ch) && number.charAt(ch) <= '9')
-                    || number.charAt(ch) == '.')) {
-                if (!(ch == 0 && number.charAt(ch) == '-' && number.length() > 1)) {
-                    return false;
-                }
+        if (number.charAt(0) == '-') {
+            if (number.length() == 1) {
+                return false;
+            } else {
+                number = number.substring(1);
             }
         }
+        Stream<Character> stringStream = number.codePoints()
+                .mapToObj(c -> (char) c);
 
-        return true;
+        List<Character> allowedChars = Arrays
+                .asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.');
+        Set<Character> allowedSet = new HashSet<>(allowedChars);
+
+        Set<Boolean> result = stringStream
+                .collect(Collectors.toSet())
+                .stream()
+                .map(allowedSet::contains)
+                .collect(Collectors.toSet());
+
+        return !result.contains(false);
     }
 
     /**

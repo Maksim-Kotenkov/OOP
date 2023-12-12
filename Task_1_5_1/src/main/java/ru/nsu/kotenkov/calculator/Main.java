@@ -26,12 +26,12 @@ public class Main {
                 double result = app.run(prompt);
                 System.out.println("The result: " + result);
             } catch (WrongCommandException exception) {
-                System.out.println("You gave the calculator a wrong prompt. Try again.");
+                System.err.println("You gave the calculator a wrong prompt. Try again.");
             } catch (WrongPromptOrderException exception) {
-                System.out.println("You gave the calculator a prompt with "
+                System.err.println("You gave the calculator a prompt with "
                         + "wrong order of operations. Try again.");
             } catch  (ArithmeticalException exception) {
-                System.out.println("You gave the calculator a prompt with "
+                System.err.println("You gave the calculator a prompt with "
                         + "dividing by zero. Try again.");
             }
         }
