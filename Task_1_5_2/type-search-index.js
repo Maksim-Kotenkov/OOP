@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.kotenkov.notebook","l":"Notebook"},{"p":"ru.nsu.kotenkov.notebook","l":"Operation"},{"p":"ru.nsu.kotenkov.notebook.exceptions","l":"WrongCommandException"}];updateSearchResults();
