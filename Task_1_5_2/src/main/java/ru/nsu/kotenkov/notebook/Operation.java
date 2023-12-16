@@ -1,16 +1,48 @@
 package ru.nsu.kotenkov.notebook;
 
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
+
+
+/**
+ * Operation enum, that connects string form of a command with operation object.
+ */
 public enum Operation {
     ADD(2) {
         @Override
-        void action(String[] args) {
-            System.out.println("addddddd");
+        void action(List<String> args) throws IOException {
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode root = mapper.readValue(Paths.get("notebook.json").toFile(), ObjectNode.class);
+//            ObjectNode root = mapper.createObjectNode();
+            root.put(args.get(0), args.get(1));
+
+            mapper.writeValue(Paths.get("notebook.json").toFile(), root);
+        }
+    },
+    SHOW(0) {
+        @Override
+        void action(List<String> args) throws IOException {
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode root = mapper.readValue(Paths.get("notebook.json").toFile(), ObjectNode.class);
+
+            String result = mapper.writeValueAsString(root);
+            System.out.println(result);
         }
     },
     RM(1) {
         @Override
-        void action(String[] args) {
-            System.out.println("RMRMRMRMMR");
+        void action(List<String> args) throws IOException {
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode root = mapper.readValue(Paths.get("notebook.json").toFile(), ObjectNode.class);
+
+            root.remove(args.get(0));
+            mapper.writeValue(Paths.get("notebook.json").toFile(), root);
         }
     };
 
@@ -42,5 +74,5 @@ public enum Operation {
      *
      * @param args List of args (number of args already correct)
      */
-    abstract void action(String[] args);
+    abstract void action(List<String> args) throws IOException;
 }
