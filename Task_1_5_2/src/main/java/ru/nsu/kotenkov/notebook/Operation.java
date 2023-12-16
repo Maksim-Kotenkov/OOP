@@ -4,7 +4,6 @@ package ru.nsu.kotenkov.notebook;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;

@@ -4,28 +4,27 @@ package ru.nsu.kotenkov.notebook;
 import static org.kohsuke.args4j.ExampleMode.ALL;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import ru.nsu.kotenkov.notebook.exceptions.WrongCommandException;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * Notebook class, that manage CL arguments and call operations.
  */
 public class Notebook {
-    @Option(name="-add", usage = "Command to add an element: -add [key] [value]")
+    @Option(name = "-add", usage = "Command to add an element: -add [key] [value]")
     private boolean addCommand;
 
-    @Option(name="-show", usage = "Command to show all: -show")
+    @Option(name = "-show", usage = "Command to show all: -show")
     private boolean ShowCommand;
 
-    @Option(name="-rm", usage = "Command to delete an element: -rm [key]")
+    @Option(name = "-rm", usage = "Command to delete an element: -rm [key]")
     private boolean RmCommand;
 
     @Argument
