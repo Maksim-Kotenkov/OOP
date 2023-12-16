@@ -119,7 +119,8 @@ public enum Operation {
     },
     UNMINUS(0) {
         /**
-         * Just a something to return...
+         * Just a something to return.
+         *
          * @param args okay args... but empty
          * @return -1
          */
