@@ -2,6 +2,7 @@ package ru.nsu.kotenkov.notebook;
 
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.kohsuke.args4j.Argument;
@@ -32,18 +33,21 @@ public class Notebook {
     /**
      * Build the tool wia ./gradlew jar.
      * Run via java -jar ./build/libs/Notebook-1.0.jar --> WORKS FINE!!!
-     * <p>
      *     or
-     * <p>
      * Run from IDEA with arguments.                    --> WORKS FINE!!!
      *
      * @param args command line args
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         new Notebook().doMain(args);
     }
 
-    public void doMain(String[] args) throws IOException {
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
+    public void doMain(String[] args) throws IOException, ParseException {
         CmdLineParser parser = new CmdLineParser(this);
 
         try {
@@ -51,10 +55,7 @@ public class Notebook {
 
         } catch(CmdLineException e) {
             System.err.println(e.getMessage());
-            System.err.println("java SampleMain [options...] arguments...");
             parser.printUsage(System.err);
-            System.err.println();
-
             return;
         }
 

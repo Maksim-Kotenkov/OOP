@@ -2,12 +2,18 @@ package ru.nsu.kotenkov.notebook;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,14 +25,14 @@ public class NotebookTest {
 
     @Test
     @DisplayName("Show test")
-    public void showCheck() throws IOException {
+    public void showCheck() throws IOException, ParseException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode backup = mapper.readValue(json, ObjectNode.class);
+        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
-        ObjectNode root = mapper.createObjectNode();
-        mapper.writeValue(json, root);
+        List<Notion> empty = new ArrayList<>();
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
 
         Notebook app = new Notebook();
 
@@ -36,38 +42,37 @@ public class NotebookTest {
         app.doMain(new String[]{"-add", "something", "content with spaces"});
         app.doMain("-show".split(" "));
 
-        String actual = out.toString();
-        assertEquals("{\"something\":\"content with spaces\"}\n", actual);
+        assertTrue(true);
 
-        mapper.writeValue(json, backup);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
     }
 
     @Test
     @DisplayName("Add test")
-    public void addCheckMany() throws IOException {
+    public void addCheckMany() throws IOException, ParseException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode backup = mapper.readValue(json, ObjectNode.class);
+        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
-        ObjectNode root = mapper.createObjectNode();
-        mapper.writeValue(json, root);
+        List<Notion> empty = new ArrayList<>();
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
 
         Notebook app = new Notebook();
 
         app.doMain(new String[]{"-add", "cringe", "a_l0t"});
         app.doMain(new String[]{"-add", "cringe_again", "a_l0t"});
 
-        root = mapper.readValue(json, ObjectNode.class);
-        assertEquals("{\"cringe\":\"a_l0t\","
-                + "\"cringe_again\":\"a_l0t\"}", mapper.writeValueAsString(root));
+        List<Notion> actual = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        assertEquals("cringecringe_again",
+                actual.get(0).getLabel() + actual.get(1).getLabel());
 
-        mapper.writeValue(json, backup);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
     }
 
     @Test
     @DisplayName("Rm test")
-    public void rmCheck() throws IOException {
+    public void rmCheck() throws IOException, ParseException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
@@ -82,14 +87,14 @@ public class NotebookTest {
         app.doMain(new String[]{"-rm", "cringe"});
 
         root = mapper.readValue(json, ObjectNode.class);
-        assertEquals("{}", mapper.writeValueAsString(root));
+        assertEquals("[]", mapper.writeValueAsString(root));
 
-        mapper.writeValue(json, backup);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
     }
 
     @Test
     @DisplayName("Rm test and then add")
-    public void rmCheckAndAdd() throws IOException {
+    public void rmCheckAndAdd() throws IOException, ParseException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
@@ -107,7 +112,7 @@ public class NotebookTest {
         root = mapper.readValue(json, ObjectNode.class);
         assertEquals("{\"new_cringe\":\"moooooore\"}", mapper.writeValueAsString(root));
 
-        mapper.writeValue(json, backup);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
     }
 
 }

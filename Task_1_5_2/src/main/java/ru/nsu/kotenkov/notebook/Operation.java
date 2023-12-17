@@ -6,6 +6,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
@@ -19,35 +24,58 @@ public enum Operation {
     ADD(2) {
         /**
          * Add action.
-         *
+         *SimpleDateFormat("dd.MM.yyyy HH.mm")
          * @param args List of args (number of args already correct)
          * @throws IOException if the notebook.json file doesn't exist
          */
         @Override
         void action(List<String> args) throws IOException {
+            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+
+            Notion newNotion = new Notion();
+            newNotion.setLabel(args.get(0));
+            newNotion.setDescription(args.get(1));
+            newNotion.setDate(format.format(new java.util.Date()));
+
             File json = Paths.get("notebook.json").toFile();
             ObjectMapper mapper = new ObjectMapper();
-            ObjectNode root = mapper.readValue(json, ObjectNode.class);
-//            ObjectNode root = mapper.createObjectNode();
-            root.put(args.get(0), args.get(1));
+            List<Notion> listNotions = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
 
-            mapper.writeValue(json, root);
+            listNotions.add(newNotion);
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(json, listNotions);
         }
     },
-    SHOW(0) {
+    SHOW(2) {
         /**
-         * Show action.
+         * Show actions within time bounds.
          *
          * @param args List of args (number of args already correct)
          * @throws IOException if the notebook.json file doesn't exist
          */
         @Override
-        void action(List<String> args) throws IOException {
+        void action(List<String> args) throws IOException, ParseException {
             File json = Paths.get("notebook.json").toFile();
             ObjectMapper mapper = new ObjectMapper();
-            ObjectNode root = mapper.readValue(json, ObjectNode.class);
+            List<Notion> listNotions = Arrays.asList(mapper.readValue(json, Notion[].class));
+            List<Notion> outputNotions = new ArrayList<>();
 
-            String result = mapper.writeValueAsString(root);
+            if (!args.isEmpty()) {
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+                Date from = format.parse(args.get(0));
+                Date to = format.parse(args.get(1));
+
+                for (Notion notion: listNotions) {
+                    Date date = format.parse(notion.getDate());
+                    if (date.after(from) && to.after(date)) {
+                        outputNotions.add(notion);
+                    }
+                }
+            } else {
+                outputNotions = listNotions;
+            }
+
+            String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(outputNotions);
             System.out.println(result);
         }
     },
@@ -65,7 +93,7 @@ public enum Operation {
             ObjectNode root = mapper.readValue(json, ObjectNode.class);
 
             root.remove(args.get(0));
-            mapper.writeValue(json, root);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(json, root);
         }
     };
 
@@ -97,5 +125,5 @@ public enum Operation {
      *
      * @param args List of args (number of args already correct)
      */
-    abstract void action(List<String> args) throws IOException;
+    abstract void action(List<String> args) throws IOException, ParseException;
 }
