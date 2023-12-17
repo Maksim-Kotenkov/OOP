@@ -2,14 +2,13 @@ package ru.nsu.kotenkov.notebook;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public enum Operation {
          */
         @Override
         void action(List<String> args) throws IOException {
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
             Notion newNotion = new Notion();
             newNotion.setLabel(args.get(0));
@@ -60,8 +59,8 @@ public enum Operation {
             List<Notion> listNotions = Arrays.asList(mapper.readValue(json, Notion[].class));
             List<Notion> outputNotions = new ArrayList<>();
 
-            if (!args.isEmpty()) {
-                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            if (args.size() >= 2) {
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
                 Date from = format.parse(args.get(0));
                 Date to = format.parse(args.get(1));
 
@@ -71,12 +70,30 @@ public enum Operation {
                         outputNotions.add(notion);
                     }
                 }
+
+                if (args.size() > 2) {
+                    for (String keyword : args.subList(2, args.size())) {
+                        outputNotions = outputNotions.stream()
+                                .filter(a -> a.getLabel().contains(keyword))
+                                .toList();
+                    }
+                }
             } else {
                 outputNotions = listNotions;
             }
 
-            String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(outputNotions);
-            System.out.println(result);
+            List<Notion> result = outputNotions
+                    .stream()
+                    .sorted(Notion::compareTo)
+                    .toList();
+            System.out.println("=== YOUR NOTEBOOK ===");
+            for (Notion res : result) {
+                System.out.println("---");
+                System.out.println(res.getDate());
+                System.out.println(res.getLabel() + ":");
+                System.out.println("    " + res.getDescription());
+                System.out.println("---");
+            }
         }
     },
     RM(1) {
@@ -90,10 +107,12 @@ public enum Operation {
         void action(List<String> args) throws IOException {
             File json = Paths.get("notebook.json").toFile();
             ObjectMapper mapper = new ObjectMapper();
-            ObjectNode root = mapper.readValue(json, ObjectNode.class);
+            List<Notion> listNotions = Arrays.asList(mapper.readValue(json, Notion[].class));
 
-            root.remove(args.get(0));
-            mapper.writerWithDefaultPrettyPrinter().writeValue(json, root);
+            List<Notion> newListNotions = listNotions.stream()
+                    .filter(a -> !a.getLabel().equals(args.get(0)))
+                    .toList();
+            mapper.writerWithDefaultPrettyPrinter().writeValue(json, newListNotions);
         }
     };
 

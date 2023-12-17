@@ -1,7 +1,11 @@
 package ru.nsu.kotenkov.notebook;
 
 
-public class Notion {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Notion implements Comparable<Notion> {
     private String label;
     private String date;
     private String description;
@@ -28,5 +32,19 @@ public class Notion {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public int compareTo(Notion notion) {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+
+        try {
+            Date thisDate = format.parse(this.date);
+            Date otherDate = format.parse(notion.getDate());
+
+            return thisDate.compareTo(otherDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
