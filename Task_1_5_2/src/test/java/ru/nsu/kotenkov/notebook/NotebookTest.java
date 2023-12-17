@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -19,7 +19,7 @@ public class NotebookTest {
 
     @Test
     @DisplayName("Show test")
-    public void ShowCheck() throws IOException {
+    public void showCheck() throws IOException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +44,7 @@ public class NotebookTest {
 
     @Test
     @DisplayName("Add test")
-    public void AddCheckMany() throws IOException {
+    public void addCheckMany() throws IOException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
@@ -67,7 +67,7 @@ public class NotebookTest {
 
     @Test
     @DisplayName("Rm test")
-    public void RmCheck() throws IOException {
+    public void rmCheck() throws IOException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
@@ -89,7 +89,7 @@ public class NotebookTest {
 
     @Test
     @DisplayName("Rm test and then add")
-    public void RmCheckAndAdd() throws IOException {
+    public void rmCheckAndAdd() throws IOException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
