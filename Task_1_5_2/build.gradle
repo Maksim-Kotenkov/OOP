@@ -28,8 +28,13 @@ dependencies {
 }
 
 jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': 'ru.nsu.kotenkov.notebook.Notebook'
+    }
+    archiveBaseName = 'Notebook'
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
     }
 }
 

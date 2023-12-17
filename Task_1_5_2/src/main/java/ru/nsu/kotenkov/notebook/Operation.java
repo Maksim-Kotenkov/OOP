@@ -1,9 +1,9 @@
 package ru.nsu.kotenkov.notebook;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -13,35 +13,59 @@ import java.util.List;
  * Operation enum, that connects string form of a command with operation object.
  */
 public enum Operation {
+    /**
+     * Operations for working with the notebook.
+     */
     ADD(2) {
+        /**
+         * Add action.
+         *
+         * @param args List of args (number of args already correct)
+         * @throws IOException if the notebook.json file doesn't exist
+         */
         @Override
         void action(List<String> args) throws IOException {
+            File json = Paths.get("notebook.json").toFile();
             ObjectMapper mapper = new ObjectMapper();
-            ObjectNode root = mapper.readValue(Paths.get("notebook.json").toFile(), ObjectNode.class);
+            ObjectNode root = mapper.readValue(json, ObjectNode.class);
 //            ObjectNode root = mapper.createObjectNode();
             root.put(args.get(0), args.get(1));
 
-            mapper.writeValue(Paths.get("notebook.json").toFile(), root);
+            mapper.writeValue(json, root);
         }
     },
     SHOW(0) {
+        /**
+         * Show action.
+         *
+         * @param args List of args (number of args already correct)
+         * @throws IOException if the notebook.json file doesn't exist
+         */
         @Override
         void action(List<String> args) throws IOException {
+            File json = Paths.get("notebook.json").toFile();
             ObjectMapper mapper = new ObjectMapper();
-            ObjectNode root = mapper.readValue(Paths.get("notebook.json").toFile(), ObjectNode.class);
+            ObjectNode root = mapper.readValue(json, ObjectNode.class);
 
             String result = mapper.writeValueAsString(root);
             System.out.println(result);
         }
     },
     RM(1) {
+        /**
+         * Deleting action.
+         *
+         * @param args List of args (number of args already correct)
+         * @throws IOException if the notebook.json file doesn't exist
+         */
         @Override
         void action(List<String> args) throws IOException {
+            File json = Paths.get("notebook.json").toFile();
             ObjectMapper mapper = new ObjectMapper();
-            ObjectNode root = mapper.readValue(Paths.get("notebook.json").toFile(), ObjectNode.class);
+            ObjectNode root = mapper.readValue(json, ObjectNode.class);
 
             root.remove(args.get(0));
-            mapper.writeValue(Paths.get("notebook.json").toFile(), root);
+            mapper.writeValue(json, root);
         }
     };
 
