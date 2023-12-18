@@ -170,7 +170,8 @@ public class NotebookTest {
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
         @SuppressWarnings("all")
-        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
@@ -210,7 +211,8 @@ public class NotebookTest {
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
         @SuppressWarnings("all")
-        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
@@ -220,7 +222,8 @@ public class NotebookTest {
         app.doMain(new String[]{"-add", "cringe", "a_l0t"});
         app.doMain(new String[]{"-rm", "cringe"});
 
-        List<Notion> actual = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        List<Notion> actual = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         assertTrue(actual.isEmpty());
 
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
@@ -233,7 +236,8 @@ public class NotebookTest {
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
         @SuppressWarnings("all")
-        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
@@ -244,7 +248,8 @@ public class NotebookTest {
         app.doMain(new String[]{"-rm", "cringe"});
         app.doMain(new String[]{"-add", "new_cringe", "moooooore"});
 
-        List<Notion> actual = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        List<Notion> actual = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         assertFalse(actual.isEmpty());
         assertEquals("new_cringe", actual.get(0).getLabel());
 
