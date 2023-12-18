@@ -29,7 +29,9 @@ public class NotebookTest {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
-        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        @SuppressWarnings("all")
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
@@ -39,7 +41,8 @@ public class NotebookTest {
         app.doMain(new String[]{"-add", "cringe", "a_l0t"});
         app.doMain(new String[]{"-add", "cringe_again", "a_l0t"});
 
-        List<Notion> actual = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        List<Notion> actual = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         assertFalse(actual.isEmpty());
         assertEquals("cringecringe_again",
                 actual.get(0).getLabel() + actual.get(1).getLabel());
@@ -53,7 +56,9 @@ public class NotebookTest {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
-        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        @SuppressWarnings("all")
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
@@ -88,7 +93,9 @@ public class NotebookTest {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
-        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        @SuppressWarnings("all")
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
@@ -114,11 +121,15 @@ public class NotebookTest {
 
     @Test
     @DisplayName("Show with dates test with output")
-    public void showWithDateCheckResults() throws IOException, ParseException, InterruptedException {
+    public void showWithDateCheckResults() throws IOException,
+            ParseException,
+            InterruptedException {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
-        List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+        @SuppressWarnings("all")
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
@@ -158,6 +169,7 @@ public class NotebookTest {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
+        @SuppressWarnings("all")
         List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
@@ -197,6 +209,7 @@ public class NotebookTest {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
+        @SuppressWarnings("all")
         List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
@@ -219,6 +232,7 @@ public class NotebookTest {
         File json = Paths.get("notebook.json").toFile();
         // save the previous version of notebook.json
         ObjectMapper mapper = new ObjectMapper();
+        @SuppressWarnings("all")
         List<Notion> backup = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
         // rewrite notebook.json
         List<Notion> empty = new ArrayList<>();
