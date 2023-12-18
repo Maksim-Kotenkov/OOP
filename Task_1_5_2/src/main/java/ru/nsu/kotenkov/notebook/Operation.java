@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public enum Operation {
     ADD(2) {
         /**
          * Add action.
-         *SimpleDateFormat("dd.MM.yyyy HH.mm")
+         *
          * @param args List of args (number of args already correct)
          * @throws IOException if the notebook.json file doesn't exist
          */
@@ -38,7 +38,8 @@ public enum Operation {
 
             File json = Paths.get("notebook.json").toFile();
             ObjectMapper mapper = new ObjectMapper();
-            List<Notion> listNotions = new ArrayList<>(Arrays.asList(mapper.readValue(json, Notion[].class)));
+            List<Notion> listNotions = new ArrayList<>(Arrays.asList(
+                    mapper.readValue(json, Notion[].class)));
 
             listNotions.add(newNotion);
 
@@ -64,7 +65,7 @@ public enum Operation {
                 Date from = format.parse(args.get(0));
                 Date to = format.parse(args.get(1));
 
-                for (Notion notion: listNotions) {
+                for (Notion notion : listNotions) {
                     Date date = format.parse(notion.getDate());
                     if (date.after(from) && to.after(date)) {
                         outputNotions.add(notion);

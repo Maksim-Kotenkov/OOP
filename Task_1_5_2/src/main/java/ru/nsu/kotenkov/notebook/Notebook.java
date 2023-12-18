@@ -57,7 +57,7 @@ public class Notebook {
         try {
             parser.parseArgument(args);
 
-        } catch(CmdLineException e) {
+        } catch (CmdLineException e) {
             System.err.println(e.getMessage());
             parser.printUsage(System.err);
             return;

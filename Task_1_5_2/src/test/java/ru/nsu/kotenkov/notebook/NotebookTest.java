@@ -140,8 +140,10 @@ public class NotebookTest {
         System.setOut(new java.io.PrintStream(out));
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        @SuppressWarnings("all")
         String timeFrom = format.format(new java.util.Date());
         TimeUnit.SECONDS.sleep(2);
+        @SuppressWarnings("all")
         String time = format.format(new java.util.Date());
         app.doMain(new String[]{"-add", "something that is outdated", "some info"});
         TimeUnit.SECONDS.sleep(5);
@@ -182,7 +184,9 @@ public class NotebookTest {
         System.setOut(new java.io.PrintStream(out));
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        @SuppressWarnings("all")
         String timeTo = "20.04.2100 10:20:00";
+        @SuppressWarnings("all")
         String timeFrom = format.format(new java.util.Date());
         TimeUnit.SECONDS.sleep(5);
         String time = format.format(new java.util.Date());
