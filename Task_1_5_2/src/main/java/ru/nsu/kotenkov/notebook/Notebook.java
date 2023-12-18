@@ -33,19 +33,23 @@ public class Notebook {
     /**
      * Build the tool wia ./gradlew jar.
      * Run via java -jar ./build/libs/Notebook-1.0.jar --> WORKS FINE!!!
-     *     or
+     * or
      * Run from IDEA with arguments.                    --> WORKS FINE!!!
      *
      * @param args command line args
+     * @throws IOException for reading/writing into the file
+     * @throws ParseException exception for args4j
      */
     public static void main(String[] args) throws IOException, ParseException {
         new Notebook().doMain(args);
     }
 
     /**
+     * Kinda another main.
      *
-     * @param args
-     * @throws IOException
+     * @param args command line args
+     * @throws IOException for reading/writing into the file
+     * @throws ParseException exception for args4j
      */
     public void doMain(String[] args) throws IOException, ParseException {
         CmdLineParser parser = new CmdLineParser(this);
