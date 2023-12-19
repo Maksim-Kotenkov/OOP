@@ -260,4 +260,87 @@ public class NotebookTest {
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
     }
 
+    @Test
+    @DisplayName("Wrong number of parameters for add check")
+    public void checkAddError() throws IOException, ParseException {
+        File json = Paths.get("notebook.json").toFile();
+        // save the previous version of notebook.json
+        ObjectMapper mapper = new ObjectMapper();
+        @SuppressWarnings("all")
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
+        // rewrite notebook.json
+        List<Notion> empty = new ArrayList<>();
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
+
+        Notebook app = new Notebook();
+
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        System.setErr(new java.io.PrintStream(out));
+
+        app.doMain(new String[]{"-add", "something"});
+
+        String expected = "Wrong number of arguments for the operation.\n";
+
+        String actual = out.toString();
+        assertEquals(expected, actual);
+
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
+    }
+
+    @Test
+    @DisplayName("Wrong number of parameters for show check")
+    public void checkShowError() throws IOException, ParseException {
+        File json = Paths.get("notebook.json").toFile();
+        // save the previous version of notebook.json
+        ObjectMapper mapper = new ObjectMapper();
+        @SuppressWarnings("all")
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
+        // rewrite notebook.json
+        List<Notion> empty = new ArrayList<>();
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
+
+        Notebook app = new Notebook();
+
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        System.setErr(new java.io.PrintStream(out));
+
+        app.doMain(new String[]{"-show", "something"});
+
+        String expected = "Wrong number of arguments for the operation.\n";
+
+        String actual = out.toString();
+        assertEquals(expected, actual);
+
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
+    }
+
+    @Test
+    @DisplayName("Wrong number of parameters for rm check")
+    public void checkRmError() throws IOException, ParseException {
+        File json = Paths.get("notebook.json").toFile();
+        // save the previous version of notebook.json
+        ObjectMapper mapper = new ObjectMapper();
+        @SuppressWarnings("all")
+        List<Notion> backup = new ArrayList<>(Arrays.asList(
+                mapper.readValue(json, Notion[].class)));
+        // rewrite notebook.json
+        List<Notion> empty = new ArrayList<>();
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, empty);
+
+        Notebook app = new Notebook();
+
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        System.setErr(new java.io.PrintStream(out));
+
+        app.doMain(new String[]{"-rm"});
+
+        String expected = "Wrong number of arguments for the operation.\n";
+
+        String actual = out.toString();
+        assertEquals(expected, actual);
+
+        mapper.writerWithDefaultPrettyPrinter().writeValue(json, backup);
+    }
 }

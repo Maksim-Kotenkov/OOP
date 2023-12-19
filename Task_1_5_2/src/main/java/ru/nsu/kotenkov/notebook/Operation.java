@@ -20,7 +20,7 @@ public enum Operation {
     /**
      * Operations for working with the notebook.
      */
-    ADD(2) {
+    ADD {
         /**
          * Add action.
          *
@@ -45,8 +45,19 @@ public enum Operation {
 
             mapper.writerWithDefaultPrettyPrinter().writeValue(json, listNotions);
         }
+
+        /**
+         * To add anything we need to specify the label and the description.
+         *
+         * @param args List of args (number of args already correct)
+         * @return boolean if args is correct
+         */
+        @Override
+        boolean checkArgs(List<String> args) {
+            return args.size() == 2;
+        }
     },
-    SHOW(2) {
+    SHOW {
         /**
          * Show actions within time bounds.
          *
@@ -96,8 +107,19 @@ public enum Operation {
                 System.out.println("---");
             }
         }
+
+        /**
+         * Show command can be called without arguments, or with timestamp and keywords.
+         *
+         * @param args List of args (number of args already correct)
+         * @return boolean if args is correct
+         */
+        @Override
+        boolean checkArgs(List<String> args) {
+            return args.isEmpty() || args.size() >= 2;
+        }
     },
-    RM(1) {
+    RM {
         /**
          * Deleting action.
          *
@@ -115,30 +137,18 @@ public enum Operation {
                     .toList();
             mapper.writerWithDefaultPrettyPrinter().writeValue(json, newListNotions);
         }
+
+        /**
+         * Rm take only one argument: the label to be deleted.
+         *
+         * @param args List of args (number of args already correct)
+         * @return boolean if args is correct
+         */
+        @Override
+        boolean checkArgs(List<String> args) {
+            return args.size() == 1;
+        }
     };
-
-    /**
-     * THe number of arguments for the operation.
-     */
-    private final int valence;
-
-    /**
-     * Constructor to store operations with their valences.
-     *
-     * @param i the valence that is assigned to the enum value
-     */
-    Operation(int i) {
-        this.valence = i;
-    }
-
-    /**
-     * Getter for valences of operations.
-     *
-     * @return int
-     */
-    public int getValence() {
-        return valence;
-    }
 
     /**
      * Abstract method to do actions according to the Operation type.
@@ -146,4 +156,11 @@ public enum Operation {
      * @param args List of args (number of args already correct)
      */
     abstract void action(List<String> args) throws IOException, ParseException;
+
+    /**
+     * Abstract method to check the number of arguments.
+     *
+     * @param args List of args (number of args already correct)
+     */
+    abstract boolean checkArgs(List<String> args);
 }

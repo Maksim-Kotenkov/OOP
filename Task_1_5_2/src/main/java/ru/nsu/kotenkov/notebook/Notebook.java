@@ -63,6 +63,7 @@ public class Notebook {
             return;
         }
 
+        // Do checks for the number of arguments and create a custom error
         Operation action = null;
         if (addCommand) {
             addCommand = false;
@@ -80,6 +81,10 @@ public class Notebook {
         }
 
         assert action != null;
+        if (!action.checkArgs(arguments)) {
+            System.err.println("Wrong number of arguments for the operation.");
+            return;
+        }
         action.action(arguments);
         arguments.clear();
     }
