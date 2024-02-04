@@ -18,7 +18,8 @@ public class TestDrawing {
     @DisplayName("Drawing")
     void checkDrawing() {
         List<Map<Integer, Integer>> empty = new ArrayList<>();
-        DrawingCharts.draw("test", empty);
+        DrawingCharts drawingCharts = new DrawingCharts("test", "none", empty);
+        drawingCharts.createDataset(empty);
 
         assertTrue(true);
     }
