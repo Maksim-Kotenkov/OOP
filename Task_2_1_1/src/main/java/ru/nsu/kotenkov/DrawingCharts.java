@@ -27,11 +27,12 @@ public class DrawingCharts extends ApplicationFrame {
     /**
      * Constructor for the class.
      *
-     * @param applicationTitle window title
+     * @param applicationTitle window titleimport java.util.ArrayList;
      * @param chartTitle chart title
      * @param dots list of maps (size of array - time in ms)
      */
-    public DrawingCharts(String applicationTitle, String chartTitle, List<Map<Integer, Integer>> dots) {
+    public DrawingCharts(String applicationTitle,
+                         String chartTitle, List<Map<Integer, Integer>> dots) {
         super(applicationTitle);
         JFreeChart chart = ChartFactory.createXYLineChart(
                 chartTitle,

@@ -1,8 +1,8 @@
 package ru.nsu.kotenkov.prime;
 
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,8 @@ public class ExperimentalRun {
      * @return List of results in format List(Map(Size, Time elapsed))
      * @throws InterruptedException because of parallel computations
      */
-    public static List<Map<Integer, Integer>> run(int numberOfExperiments, int[] sizes) throws InterruptedException {
+    public static List<Map<Integer, Integer>> run(int numberOfExperiments, int[] sizes)
+            throws InterruptedException {
         PrimeChecker checker = new PrimeChecker();
         List<Map<Integer, Integer>> resultList = new ArrayList<>(5);  // Always 5 algorithms
         for (int i = 0; i < 5; i++) {

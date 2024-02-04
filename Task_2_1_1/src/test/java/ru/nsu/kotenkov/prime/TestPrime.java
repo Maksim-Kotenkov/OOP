@@ -14,6 +14,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
+/**
+ * Tester for prime package.
+ */
 public class TestPrime {
     @Test
     @DisplayName("Just 4, 5, 7")
@@ -58,7 +61,7 @@ public class TestPrime {
     void checkList2() {
         PrimeChecker checker = new PrimeChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
-                6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
+                                    6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
 
         assertFalse(checker.checkListLinear(testData));
     }
@@ -68,7 +71,7 @@ public class TestPrime {
     void checkListThreads() throws InterruptedException {
         PrimeChecker checker = new PrimeChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
-                6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
+                                    6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
 
         assertFalse(checker.checkWithThreads(testData, 2));
     }
@@ -78,7 +81,7 @@ public class TestPrime {
     void checkListParallelStream() {
         PrimeChecker checker = new PrimeChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
-                6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
+                                    6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
 
         assertFalse(checker.checkWithParallelStream(testData));
     }
@@ -88,7 +91,7 @@ public class TestPrime {
     void checkListParallelStreamTrue() {
         PrimeChecker checker = new PrimeChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
-                6998009, 6998029, 6998039, 20165149, 6998051, 6998053, 6};
+                                    6998009, 6998029, 6998039, 20165149, 6998051, 6998053, 6};
 
         assertTrue(checker.checkWithParallelStream(testData));
     }
@@ -99,8 +102,8 @@ public class TestPrime {
         int[] sizes = new int[] {1000, 10000};
         List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes);
 
-        assertEquals(Arrays.stream(sizes).boxed().collect(Collectors.toCollection(HashSet::new))
-                , resultList.get(0).keySet());
+        assertEquals(Arrays.stream(sizes).boxed().collect(Collectors.toCollection(HashSet::new)),
+                resultList.get(0).keySet());
     }
 
     @Test
@@ -117,7 +120,7 @@ public class TestPrime {
     @DisplayName("Custom thread with possibility to return")
     void checkCustomThread() throws InterruptedException {
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
-                6998009, 6998029, 6998039, 20165149, 6998051, 6998053, 6};
+                                    6998009, 6998029, 6998039, 20165149, 6998051, 6998053, 6};
 
         ThreadWithReturn[] custom = new ThreadWithReturn[1];
         Thread[] threads = new Thread[1];

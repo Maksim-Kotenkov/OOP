@@ -10,6 +10,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
+/**
+ * Tester for drawing.
+ */
 public class TestDrawing {
     @Test
     @DisplayName("Drawing")
