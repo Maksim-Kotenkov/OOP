@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.kotenkov"},{"l":"ru.nsu.kotenkov.prime"}];updateSearchResults();
