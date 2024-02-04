@@ -53,7 +53,7 @@ public class PrimeChecker {
     public boolean checkWithThreads(int[] targets, int numThreads) throws InterruptedException {
         Thread[] threads = new Thread[numThreads];
         ThreadWithReturn[] toReturn = new ThreadWithReturn[numThreads];
-        int batchSize = Math.ceilDiv(targets.length, numThreads);
+        int batchSize = Math.floorDiv(targets.length, numThreads) + 1;
 
         for (int i = 0; i < numThreads; i++) {
             toReturn[i] = new ThreadWithReturn(Arrays.copyOfRange(targets,
