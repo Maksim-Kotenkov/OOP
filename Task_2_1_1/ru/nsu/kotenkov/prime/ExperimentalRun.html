@@ -108,8 +108,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#run(int,int%5B%5D)" class="member-name-link">run</a><wbr>(int&nbsp;numberOfExperiments,
- int[]&nbsp;sizes)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#run(int,int%5B%5D,int,boolean)" class="member-name-link">run</a><wbr>(int&nbsp;numberOfExperiments,
+ int[]&nbsp;sizes,
+ int&nbsp;numberOfRuns,
+ boolean&nbsp;skipLinear)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">The function to be called with parameters of our experiment.</div>
 </div>
@@ -145,16 +147,22 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="run(int,int[])">
+<section class="detail" id="run(int,int[],int,boolean)">
 <h3>run</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&gt;</span>&nbsp;<span class="element-name">run</span><wbr><span class="parameters">(int&nbsp;numberOfExperiments,
- int[]&nbsp;sizes)</span>
+ int[]&nbsp;sizes,
+ int&nbsp;numberOfRuns,
+ boolean&nbsp;skipLinear)</span>
                                       throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
-<div class="block">The function to be called with parameters of our experiment.</div>
+<div class="block">The function to be called with parameters of our experiment.
+ Linear algorithm is very slow and has big numbers on the graphical interpretation, so
+ it's better to skip it and compare other algorithms with close-up graphics.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>numberOfExperiments</code> - number of datasets we'll provide.</dd>
 <dd><code>sizes</code> - int[] of sizes of datasets, that will be filled with prime numbers</dd>
+<dd><code>numberOfRuns</code> - the number of executions for every algo to get the mean result</dd>
+<dd><code>skipLinear</code> - do you want to skip calculations for linear algo?</dd>
 <dt>Returns:</dt>
 <dd>List of results in format List(Map(Size, Time elapsed))</dd>
 <dt>Throws:</dt>
