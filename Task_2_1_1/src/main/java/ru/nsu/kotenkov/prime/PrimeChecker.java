@@ -56,9 +56,9 @@ public class PrimeChecker {
         int batchSize = Math.floorDiv(targets.length, numThreads) + 1;
 
         for (int i = 0; i < numThreads; i++) {
-            toReturn[i] = new ThreadWithReturn(Arrays.copyOfRange(targets,
+            toReturn[i] = new ThreadWithReturn(targets,
                     i * batchSize,
-                    (i + 1) * batchSize));
+                    (i + 1) * batchSize);
         }
 
         for (int i = 0; i < threads.length; i++) {

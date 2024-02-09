@@ -17,9 +17,10 @@ public class Main {
      * @throws InterruptedException because of parallel computations
      */
     public static void main(String[] args) throws InterruptedException {
-        int numberOfExperiments = 8;
-        int[] sizes = new int[] {1000, 10000, 50000, 100000, 200000, 500000, 750000, 1000000};
-        List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes);
+        int numberOfExperiments = 4;
+        int[] sizes = new int[] {2000000, 5000000, 10000000, 20000000};
+        List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes,
+                1, true);
 
         // Statistics output
         DrawingCharts.draw("Results", resultList);

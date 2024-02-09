@@ -8,8 +8,11 @@ public class ThreadWithReturn implements Runnable {
     /**
      * target int[] and the result, that will be saved in the memory
      * and available to be red right after finishing computations.
+     * begin and end for taking only a part.
      */
     int[] target;
+    int begin;
+    int end;
     private volatile boolean result;
 
     /**
@@ -17,8 +20,10 @@ public class ThreadWithReturn implements Runnable {
      *
      * @param listPart our part of a list
      */
-    ThreadWithReturn(int[] listPart) {
+    ThreadWithReturn(int[] listPart, int begin, int end) {
         this.target = listPart;
+        this.begin = begin;
+        this.end = end;
     }
 
     /**
@@ -28,7 +33,16 @@ public class ThreadWithReturn implements Runnable {
     public void run() {
         PrimeChecker checker = new PrimeChecker();
 
-        result = checker.checkListLinear(target);
+//        result = checker.checkListLinear(target);
+
+        for (int elem = this.begin; (elem < this.end) && (elem < this.target.length); elem++) {
+            if (!checker.prime(this.target[elem])) {
+                result = true;
+                return;
+            }
+        }
+
+        result = false;
     }
 
     /**

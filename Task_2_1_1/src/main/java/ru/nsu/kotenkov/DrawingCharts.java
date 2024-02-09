@@ -20,7 +20,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 /**
  * A class for drawing charts.
  * It includes collecting datasets from user's data types, setting up colors, etc...
- * We only can draw 5 lines for 5 types of algorithms,
+ * We only can draw 6 lines for 6 types of algorithms,
  * but it is possible to draw as many as possible results for these algos.
  */
 public class DrawingCharts extends ApplicationFrame {
@@ -64,12 +64,16 @@ public class DrawingCharts extends ApplicationFrame {
         renderer.setSeriesPaint(2, Color.YELLOW);
         renderer.setSeriesPaint(3, Color.BLUE);
         renderer.setSeriesPaint(4, Color.BLACK);
+        renderer.setSeriesPaint(5, Color.GREEN);
+        renderer.setSeriesPaint(6, Color.RED);
 
         renderer.setSeriesStroke(0, new BasicStroke(2.0f));
         renderer.setSeriesStroke(1, new BasicStroke(2.0f));
         renderer.setSeriesStroke(2, new BasicStroke(2.0f));
         renderer.setSeriesStroke(3, new BasicStroke(2.0f));
         renderer.setSeriesStroke(4, new BasicStroke(2.0f));
+        renderer.setSeriesStroke(5, new BasicStroke(2.0f));
+        renderer.setSeriesStroke(6, new BasicStroke(2.0f));
 
         return renderer;
     }
@@ -93,28 +97,41 @@ public class DrawingCharts extends ApplicationFrame {
             s1.add(key, linearMap.get(key));
         }
 
-        XYSeries s2 = new XYSeries("2Threads");
+        XYSeries s2 = new XYSeries("4Threads");
         Map<Integer, Integer> twoThreadsMap = dots.get(1);
         for (Integer key : twoThreadsMap.keySet()) {
             s2.add(key, twoThreadsMap.get(key));
         }
 
-        XYSeries s3 = new XYSeries("3Threads");
-        Map<Integer, Integer> threeThreadsMap = dots.get(2);
-        for (Integer key : threeThreadsMap.keySet()) {
-            s3.add(key, threeThreadsMap.get(key));
-        }
-
-        XYSeries s4 = new XYSeries("4Threads");
-        Map<Integer, Integer> fourThreadsMap = dots.get(3);
+        XYSeries s3 = new XYSeries("8Threads");
+        Map<Integer, Integer> fourThreadsMap = dots.get(2);
         for (Integer key : fourThreadsMap.keySet()) {
-            s4.add(key, fourThreadsMap.get(key));
+            s3.add(key, fourThreadsMap.get(key));
         }
 
-        XYSeries s5 = new XYSeries("ParallelStream");
-        Map<Integer, Integer> parallelStreamMap = dots.get(4);
+        XYSeries s4 = new XYSeries("50Threads");
+        Map<Integer, Integer> eightThreadsMap = dots.get(3);
+        for (Integer key : eightThreadsMap.keySet()) {
+            s4.add(key, eightThreadsMap.get(key));
+        }
+
+        XYSeries s5 = new XYSeries("100Threads");
+        Map<Integer, Integer> fiftyThreadsMap = dots.get(4);
+        for (Integer key : fiftyThreadsMap.keySet()) {
+            s5.add(key, fiftyThreadsMap.get(key));
+        }
+
+        XYSeries s6 = new XYSeries("500Threads");
+        Map<Integer, Integer> hundredThreads = dots.get(5);
+        for (Integer key : hundredThreads.keySet()) {
+            s6.add(key, hundredThreads.get(key));
+        }
+
+        // S7 AIRLINES
+        XYSeries s7 = new XYSeries("ParallelStream");
+        Map<Integer, Integer> parallelStreamMap = dots.get(6);
         for (Integer key : parallelStreamMap.keySet()) {
-            s5.add(key, parallelStreamMap.get(key));
+            s7.add(key, parallelStreamMap.get(key));
         }
 
         dataset.addSeries(s1);
@@ -122,6 +139,8 @@ public class DrawingCharts extends ApplicationFrame {
         dataset.addSeries(s3);
         dataset.addSeries(s4);
         dataset.addSeries(s5);
+        dataset.addSeries(s6);
+        dataset.addSeries(s7);
 
         return dataset;
     }

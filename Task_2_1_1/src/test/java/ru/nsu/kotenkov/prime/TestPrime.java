@@ -100,7 +100,8 @@ public class TestPrime {
     void checkCustom() throws InterruptedException {
         int numberOfExperiments = 2;
         int[] sizes = new int[] {1000, 10000};
-        List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes);
+        List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes,
+                1, false);
 
         assertEquals(Arrays.stream(sizes).boxed().collect(Collectors.toCollection(HashSet::new)),
                 resultList.get(0).keySet());
@@ -111,7 +112,8 @@ public class TestPrime {
     void checkCustom2() throws InterruptedException {
         int numberOfExperiments = 0;
         int[] sizes = new int[0];
-        List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes);
+        List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes,
+                1, false);
 
         assertTrue(resultList.get(0).isEmpty());
     }
@@ -124,12 +126,21 @@ public class TestPrime {
 
         ThreadWithReturn[] custom = new ThreadWithReturn[1];
         Thread[] threads = new Thread[1];
-        custom[0] = new ThreadWithReturn(testData);
+        custom[0] = new ThreadWithReturn(testData, 0, testData.length);
 
         threads[0] = new Thread(custom[0]);
         threads[0].start();
         threads[0].join();
 
         assertTrue(custom[0].isResult());
+    }
+
+    @Test
+    @DisplayName("8 elems 6 threads")
+    void checkStrangeThreads() throws InterruptedException {
+        PrimeChecker checker = new PrimeChecker();
+        int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967};
+
+        assertFalse(checker.checkWithThreads(testData, 8));
     }
 }
