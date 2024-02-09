@@ -33,8 +33,6 @@ public class ThreadWithReturn implements Runnable {
     public void run() {
         PrimeChecker checker = new PrimeChecker();
 
-//        result = checker.checkListLinear(target);
-
         for (int elem = this.begin; (elem < this.end) && (elem < this.target.length); elem++) {
             if (!checker.prime(this.target[elem])) {
                 result = true;

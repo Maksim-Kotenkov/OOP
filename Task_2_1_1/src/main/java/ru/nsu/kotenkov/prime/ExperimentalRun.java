@@ -56,7 +56,8 @@ public class ExperimentalRun {
                     endTime = System.nanoTime();
                     duration[j] = (endTime - startTime) / 1000000;
                 }
-                resultList.get(0).put(dataset.length, (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
+                resultList.get(0).put(dataset.length,
+                        (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
             } else {
                 resultList.get(0).put(dataset.length, 0);
             }
@@ -68,7 +69,8 @@ public class ExperimentalRun {
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
-            resultList.get(1).put(dataset.length, (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
+            resultList.get(1).put(dataset.length,
+                    (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
 
             // EIGHT THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
@@ -77,7 +79,8 @@ public class ExperimentalRun {
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
-            resultList.get(2).put(dataset.length, (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
+            resultList.get(2).put(dataset.length,
+                    (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
 
             // FIFTY THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
@@ -86,7 +89,8 @@ public class ExperimentalRun {
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
-            resultList.get(3).put(dataset.length, (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
+            resultList.get(3).put(dataset.length,
+                    (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
 
             // A HUNDRED THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
@@ -95,7 +99,8 @@ public class ExperimentalRun {
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
-            resultList.get(4).put(dataset.length, (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
+            resultList.get(4).put(dataset.length,
+                    (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
 
             // FIVE HUNDRED THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
@@ -104,7 +109,8 @@ public class ExperimentalRun {
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
-            resultList.get(5).put(dataset.length, (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
+            resultList.get(5).put(dataset.length,
+                    (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
 
             // PARALLEL STREAM CHECK
             for (int j = 0; j < numberOfRuns; j++) {
@@ -113,7 +119,8 @@ public class ExperimentalRun {
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
-            resultList.get(6).put(dataset.length, (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
+            resultList.get(6).put(dataset.length,
+                    (int) Arrays.stream(duration).asDoubleStream().sum() / 5);
         }
 
         return resultList;
