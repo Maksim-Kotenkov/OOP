@@ -192,7 +192,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static org.jfree.chart.JFreeChart</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getChart(java.lang.String,java.util.List)" class="member-name-link">getChart</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;chartTitle,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&gt;&nbsp;dots)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">A method to get a chart to save it to png.</div>
+</div>
 </div>
 </div>
 </div>
@@ -259,6 +261,16 @@ loadScripts(document, 'script');</script>
 <h3>getChart</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">org.jfree.chart.JFreeChart</span>&nbsp;<span class="element-name">getChart</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;chartTitle,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&gt;&nbsp;dots)</span></div>
+<div class="block">A method to get a chart to save it to png.
+ Shouldn't get so long to call it twice, so it's static
+ and is called both in constructor and in draw.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>chartTitle</code> - a title for a chart</dd>
+<dd><code>dots</code> - list of results (size to time elapsed)</dd>
+<dt>Returns:</dt>
+<dd>a chart</dd>
+</dl>
 </section>
 </li>
 <li>
