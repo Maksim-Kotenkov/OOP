@@ -3,11 +3,15 @@ package ru.nsu.kotenkov;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -15,6 +19,8 @@ import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
+import javax.imageio.ImageIO;
 
 
 /**
@@ -34,13 +40,8 @@ public class DrawingCharts extends ApplicationFrame {
     public DrawingCharts(String applicationTitle,
                          String chartTitle, List<Map<Integer, Integer>> dots) {
         super(applicationTitle);
-        JFreeChart chart = ChartFactory.createXYLineChart(
-                chartTitle,
-                "Array size",
-                "Time elapsed, ms",
-                createDataset(dots),
-                PlotOrientation.VERTICAL,
-                true, true, false);
+
+        JFreeChart chart = getChart(chartTitle, dots);
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(1120, 734));
@@ -49,6 +50,18 @@ public class DrawingCharts extends ApplicationFrame {
         XYLineAndShapeRenderer renderer = getXyLineAndShapeRenderer();
         plot.setRenderer(renderer);
         setContentPane(chartPanel);
+    }
+
+    public static JFreeChart getChart(String chartTitle, List<Map<Integer, Integer>> dots) {
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                chartTitle,
+                "Array size",
+                "Time elapsed, ms",
+                createDataset(dots),
+                PlotOrientation.VERTICAL,
+                true, true, false);
+
+        return chart;
     }
 
     /**
@@ -84,7 +97,7 @@ public class DrawingCharts extends ApplicationFrame {
      * @param dots list of our results
      * @return data type for the chart
      */
-    public XYDataset createDataset(List<Map<Integer, Integer>> dots) {
+    public static XYDataset createDataset(List<Map<Integer, Integer>> dots) {
         final XYSeriesCollection dataset = new XYSeriesCollection();
 
         if (dots.isEmpty()) {
@@ -151,9 +164,15 @@ public class DrawingCharts extends ApplicationFrame {
      * @param chartTitle chart title
      * @param dots our statistics
      */
-    public static void draw(String chartTitle, List<Map<Integer, Integer>> dots) {
-        DrawingCharts chart = new DrawingCharts("Statistics", chartTitle, dots);
-        chart.pack();
-        chart.setVisible(true);
+    public static void draw(String chartTitle, List<Map<Integer, Integer>> dots) throws IOException {
+        DrawingCharts toWindow = new DrawingCharts("Statistics", chartTitle, dots);
+        JFreeChart toFile = DrawingCharts.getChart(chartTitle, dots);
+
+        File f = new File("./ResultChart.png");
+        BufferedImage chartImage = toFile.createBufferedImage( 1920, 1080, null);
+        ImageIO.write(chartImage, "png", f);
+
+        toWindow.pack();
+        toWindow.setVisible(true);
     }
 }
