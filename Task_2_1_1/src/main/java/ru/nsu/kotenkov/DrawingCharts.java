@@ -8,10 +8,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import javax.imageio.ImageIO;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -19,8 +19,6 @@ import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
-import javax.imageio.ImageIO;
 
 
 /**
@@ -52,16 +50,23 @@ public class DrawingCharts extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
+    /**
+     * A method to get a chart to save it to png.
+     * Shouldn't get so long to call it twice, so it's static
+     * and is called both in constructor and in draw.
+     *
+     * @param chartTitle a title for a chart
+     * @param dots list of results (size to time elapsed)
+     * @return a chart
+     */
     public static JFreeChart getChart(String chartTitle, List<Map<Integer, Integer>> dots) {
-        JFreeChart chart = ChartFactory.createXYLineChart(
+        return ChartFactory.createXYLineChart(
                 chartTitle,
                 "Array size",
                 "Time elapsed, ms",
                 createDataset(dots),
                 PlotOrientation.VERTICAL,
                 true, true, false);
-
-        return chart;
     }
 
     /**
@@ -164,12 +169,13 @@ public class DrawingCharts extends ApplicationFrame {
      * @param chartTitle chart title
      * @param dots our statistics
      */
-    public static void draw(String chartTitle, List<Map<Integer, Integer>> dots) throws IOException {
+    public static void draw(String chartTitle, List<Map<Integer, Integer>> dots)
+            throws IOException {
         DrawingCharts toWindow = new DrawingCharts("Statistics", chartTitle, dots);
         JFreeChart toFile = DrawingCharts.getChart(chartTitle, dots);
 
         File f = new File("./ResultChart.png");
-        BufferedImage chartImage = toFile.createBufferedImage( 1920, 1080, null);
+        BufferedImage chartImage = toFile.createBufferedImage(1920, 1080, null);
         ImageIO.write(chartImage, "png", f);
 
         toWindow.pack();
