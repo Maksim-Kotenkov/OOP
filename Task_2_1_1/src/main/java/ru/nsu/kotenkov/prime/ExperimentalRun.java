@@ -27,11 +27,18 @@ public class ExperimentalRun {
      */
     public static List<Map<Integer, Integer>> run(int numberOfExperiments, int[] sizes,
                                                   int numberOfRuns, boolean skipLinear) {
-        PrimeChecker checker = new PrimeChecker();
         List<Map<Integer, Integer>> resultList = new ArrayList<>(7);  // Always 7 algorithms
         for (int i = 0; i < 7; i++) {
             resultList.add(new HashMap<>());
         }
+
+        LinearChecker linearChecker;
+        ThreadsChecker threadFour;
+        ThreadsChecker threadEight;
+        ThreadsChecker threadFifteen;
+        ThreadsChecker threadHundred;
+        ThreadsChecker threadFiveHundred;
+        ParallelStreamChecker parallelStreamChecker;
 
         List<int[]> testDatasets = new ArrayList<>(numberOfExperiments);
         for (int i = 0; i < numberOfExperiments; i++) {
@@ -44,14 +51,24 @@ public class ExperimentalRun {
         long endTime;
         long[] duration = new long[7];
 
+        // we should create new objects for checker to avoid caching, because
+        // the input is always same for numberOfRuns runs of any algo.
         for (int i = 0; i < numberOfExperiments; i++) {
+            linearChecker = new LinearChecker();
+            threadFour = new ThreadsChecker(4);
+            threadEight = new ThreadsChecker(8);
+            threadFifteen = new ThreadsChecker(15);
+            threadHundred = new ThreadsChecker(100);
+            threadFiveHundred = new ThreadsChecker(500);
+            parallelStreamChecker = new ParallelStreamChecker();
+
             int[] dataset = testDatasets.get(i);
 
             // LINEAR CHECK
             if (!skipLinear) {
                 for (int j = 0; j < numberOfRuns; j++) {
                     startTime = System.nanoTime();
-                    checker.checkListLinear(dataset);
+                    linearChecker.check(dataset);
                     endTime = System.nanoTime();
                     duration[j] = (endTime - startTime) / 1000000;
                 }
@@ -64,7 +81,7 @@ public class ExperimentalRun {
             // FOUR THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
                 startTime = System.nanoTime();
-                checker.checkWithThreads(dataset, 4);
+                threadFour.check(dataset);
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
@@ -74,7 +91,7 @@ public class ExperimentalRun {
             // EIGHT THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
                 startTime = System.nanoTime();
-                checker.checkWithThreads(dataset, 8);
+                threadEight.check(dataset);
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
@@ -84,7 +101,7 @@ public class ExperimentalRun {
             // FIFTY THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
                 startTime = System.nanoTime();
-                checker.checkWithThreads(dataset, 50);
+                threadFifteen.check(dataset);
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
@@ -94,7 +111,7 @@ public class ExperimentalRun {
             // A HUNDRED THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
                 startTime = System.nanoTime();
-                checker.checkWithThreads(dataset, 100);
+                threadHundred.check(dataset);
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
@@ -104,7 +121,7 @@ public class ExperimentalRun {
             // FIVE HUNDRED THREADS CHECK
             for (int j = 0; j < numberOfRuns; j++) {
                 startTime = System.nanoTime();
-                checker.checkWithThreads(dataset, 500);
+                threadFiveHundred.check(dataset);
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }
@@ -114,7 +131,7 @@ public class ExperimentalRun {
             // PARALLEL STREAM CHECK
             for (int j = 0; j < numberOfRuns; j++) {
                 startTime = System.nanoTime();
-                checker.checkWithParallelStream(dataset);
+                parallelStreamChecker.check(dataset);
                 endTime = System.nanoTime();
                 duration[j] = (endTime - startTime) / 1000000;
             }

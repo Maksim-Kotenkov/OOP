@@ -38,10 +38,8 @@ public class ThreadWithReturn implements Runnable {
      */
     @Override
     public void run() {
-        PrimeChecker checker = new PrimeChecker();
-
         for (int elem = this.begin; (elem < this.end) && (elem < this.target.length); elem++) {
-            if (!checker.prime(this.target[elem])) {
+            if (!PrimeChecker.prime(this.target[elem])) {
                 this.result = true;
                 for (Thread nbThread : this.otherThreads) {
                     nbThread.interrupt();
@@ -49,7 +47,6 @@ public class ThreadWithReturn implements Runnable {
                 return;
             }
             if (this.myself.isInterrupted()) {
-//                System.out.println("Thread is interrupted");
                 break;
             }
         }

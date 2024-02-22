@@ -17,11 +17,8 @@ public class Main {
      * @param args classical things
      */
     public static void main(String[] args){
-//        int numberOfExperiments = 11;
-//        int[] sizes = new int[] {16000000, 17000000, 18000000, 19000000, 20000000, 21000000,
-//                22000000, 23000000, 24000000, 25000000, 26000000};
-        int numberOfExperiments = 3;
-        int[] sizes = new int[] {3000000, 4000000, 5000000};
+        int numberOfExperiments = 5;
+        int[] sizes = new int[] {10000000, 16000000, 22000000, 26000000, 30000000};
 
         try {
             List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes,

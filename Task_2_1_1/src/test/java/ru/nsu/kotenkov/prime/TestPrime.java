@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
+
 /**
  * Tester for prime package.
  */
@@ -21,79 +22,73 @@ public class TestPrime {
     @Test
     @DisplayName("Just 4, 5, 7")
     void checkBasicPrimeCall() {
-        PrimeChecker checker = new PrimeChecker();
-
-        assertFalse(checker.prime(4));
-        assertTrue(checker.prime(5));
-        assertTrue(checker.prime(7));
+        assertFalse(PrimeChecker.prime(4));
+        assertTrue(PrimeChecker.prime(5));
+        assertTrue(PrimeChecker.prime(7));
     }
 
     @Test
     @DisplayName("Just prime 12")
     void checkFalseBasicPrimeCall() {
-        PrimeChecker checker = new PrimeChecker();
-
-        assertFalse(checker.prime(12));
+        assertFalse(PrimeChecker.prime(12));
     }
 
     @Test
     @DisplayName("Border values")
     void checkBorder() {
-        PrimeChecker checker = new PrimeChecker();
-
-        assertTrue(checker.prime(0));
-        assertTrue(checker.prime(1));
-        assertFalse(checker.prime(2));
-        assertTrue(checker.prime(Integer.MAX_VALUE));
+        assertTrue(PrimeChecker.prime(0));
+        assertTrue(PrimeChecker.prime(1));
+        assertFalse(PrimeChecker.prime(2));
+        assertTrue(PrimeChecker.prime(Integer.MAX_VALUE));
     }
 
     @Test
     @DisplayName("List from the task")
     void checkList() {
-        PrimeChecker checker = new PrimeChecker();
+        LinearChecker checker = new LinearChecker();
         int[] testData = new int[] {6, 8, 7, 13, 5, 9, 4};
 
-        assertTrue(checker.checkListLinear(testData));
+        assertTrue(checker.check(testData));
     }
 
     @Test
     @DisplayName("List from the task")
     void checkList2() {
-        PrimeChecker checker = new PrimeChecker();
+        LinearChecker checker = new LinearChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
                                     6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
 
-        assertFalse(checker.checkListLinear(testData));
+        assertFalse(checker.check(testData));
     }
 
     @Test
     @DisplayName("List from the task")
     void checkListThreads() {
-        PrimeChecker checker = new PrimeChecker();
+        ThreadsChecker checker = new ThreadsChecker(2);
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
                                     6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
 
-        assertFalse(checker.checkWithThreads(testData, 2));
+        assertFalse(checker.check(testData));
     }
 
     @Test
     @DisplayName("Parallel stream false from the task")
     void checkListParallelStream() {
-        PrimeChecker checker = new PrimeChecker();
+        ParallelStreamChecker checker = new ParallelStreamChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
                                     6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
 
-        assertFalse(checker.checkWithParallelStream(testData));
+        assertFalse(checker.check(testData));
     }
 
     @Test
     @DisplayName("Parallel stream but true")
     void checkListParallelStreamTrue() {
-        PrimeChecker checker = new PrimeChecker();
+        ParallelStreamChecker checker = new ParallelStreamChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
                                     6998009, 6998029, 6998039, 20165149, 6998051, 6998053, 6};
 
-        assertTrue(checker.checkWithParallelStream(testData));
+        assertTrue(checker.check(testData));
     }
 
     @Test
@@ -129,6 +124,7 @@ public class TestPrime {
         custom[0] = new ThreadWithReturn(testData, 0, testData.length, threads);
 
         threads[0] = new Thread(custom[0]);
+        custom[0].setMyself(threads[0]);
         threads[0].start();
         threads[0].join();
 
@@ -138,18 +134,18 @@ public class TestPrime {
     @Test
     @DisplayName("8 elems 6 threads")
     void checkStrangeThreads() {
-        PrimeChecker checker = new PrimeChecker();
+        ThreadsChecker checker = new ThreadsChecker(8);
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967};
 
-        assertFalse(checker.checkWithThreads(testData, 8));
+        assertFalse(checker.check(testData));
     }
 
     @Test
     @DisplayName("8 elems 100 threads")
     void checkStrangeThreads2() {
-        PrimeChecker checker = new PrimeChecker();
+        ThreadsChecker checker = new ThreadsChecker(100);
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967};
 
-        assertFalse(checker.checkWithThreads(testData, 100));
+        assertFalse(checker.check(testData));
     }
 }
