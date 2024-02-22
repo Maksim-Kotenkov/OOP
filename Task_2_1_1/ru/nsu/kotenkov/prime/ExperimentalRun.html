@@ -152,8 +152,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&gt;</span>&nbsp;<span class="element-name">run</span><wbr><span class="parameters">(int&nbsp;numberOfExperiments,
  int[]&nbsp;sizes,
  int&nbsp;numberOfRuns,
- boolean&nbsp;skipLinear)</span>
-                                      throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+ boolean&nbsp;skipLinear)</span></div>
 <div class="block">The function to be called with parameters of our experiment.
  Linear algorithm is very slow and has big numbers on the graphical interpretation, so
  it's better to skip it and compare other algorithms with close-up graphics.</div>
@@ -165,8 +164,6 @@ loadScripts(document, 'script');</script>
 <dd><code>skipLinear</code> - do you want to skip calculations for linear algo?</dd>
 <dt>Returns:</dt>
 <dd>List of results in format List(Map(Size, Time elapsed))</dd>
-<dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - because of parallel computations</dd>
 </dl>
 </section>
 </li>
