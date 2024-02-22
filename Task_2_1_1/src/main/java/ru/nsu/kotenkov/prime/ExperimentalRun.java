@@ -24,11 +24,9 @@ public class ExperimentalRun {
      * @param numberOfRuns the number of executions for every algo to get the mean result
      * @param skipLinear do you want to skip calculations for linear algo?
      * @return List of results in format List(Map(Size, Time elapsed))
-     * @throws InterruptedException because of parallel computations
      */
     public static List<Map<Integer, Integer>> run(int numberOfExperiments, int[] sizes,
-                                                  int numberOfRuns, boolean skipLinear)
-            throws InterruptedException {
+                                                  int numberOfRuns, boolean skipLinear) {
         PrimeChecker checker = new PrimeChecker();
         List<Map<Integer, Integer>> resultList = new ArrayList<>(7);  // Always 7 algorithms
         for (int i = 0; i < 7; i++) {
@@ -39,6 +37,7 @@ public class ExperimentalRun {
         for (int i = 0; i < numberOfExperiments; i++) {
             testDatasets.add(new int[sizes[i]]);
             Arrays.fill(testDatasets.get(i), 2004991);  // fill with this prime number
+            testDatasets.get(i)[sizes[i] - 1] = 700;
         }
 
         long startTime;

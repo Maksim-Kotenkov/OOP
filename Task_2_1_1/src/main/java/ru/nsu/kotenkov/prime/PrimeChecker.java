@@ -1,7 +1,6 @@
 package ru.nsu.kotenkov.prime;
 
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,26 +47,41 @@ public class PrimeChecker {
      * @param targets int[] of numbers
      * @param numThreads the number of threads we want to use
      * @return is there a non-prime number or not
-     * @throws InterruptedException because of parallel computations
      */
-    public boolean checkWithThreads(int[] targets, int numThreads) throws InterruptedException {
+    public boolean checkWithThreads(int[] targets, int numThreads) {
         Thread[] threads = new Thread[numThreads];
         ThreadWithReturn[] toReturn = new ThreadWithReturn[numThreads];
         int batchSize = Math.floorDiv(targets.length, numThreads) + 1;
 
-        for (int i = 0; i < numThreads; i++) {
+        for (int i = 0; i < numThreads - 1; i++) {
             toReturn[i] = new ThreadWithReturn(targets,
                     i * batchSize,
-                    (i + 1) * batchSize);
+                    (i + 1) * batchSize,
+                    threads);
         }
+        toReturn[numThreads - 1] = new ThreadWithReturn(targets,
+                (numThreads - 2) * batchSize,
+                targets.length,
+                threads);
 
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new Thread(toReturn[i]);
-            threads[i].start();
         }
 
-        for (int i = 0; i < numThreads; i++) {
-            threads[i].join();
+        for (int i = 0; i < threads.length; i++) {
+            toReturn[i].setMyself(threads[i]);
+        }
+
+        for (Thread thread : threads) {
+            thread.start();
+        }
+
+        try {
+            for (int i = 0; i < numThreads; i++) {
+                threads[i].join();
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Got interrupted");
         }
 
         return Arrays.stream(toReturn).anyMatch(ThreadWithReturn::isResult);
@@ -81,10 +95,7 @@ public class PrimeChecker {
      */
     public boolean checkWithParallelStream(int[] targets) {
         List<Integer> targetList = Arrays.stream(targets).boxed().toList();
-        List<Boolean> result = new ArrayList<>(targets.length);
 
-        targetList.parallelStream().forEach(elem -> result.add(prime(elem)));
-
-        return result.stream().anyMatch(Boolean.FALSE::equals);
+        return targetList.parallelStream().map(this::prime).anyMatch(Boolean.FALSE::equals);
     }
 }

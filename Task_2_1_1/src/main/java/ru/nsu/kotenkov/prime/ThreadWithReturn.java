@@ -10,9 +10,11 @@ public class ThreadWithReturn implements Runnable {
      * and available to be red right after finishing computations.
      * begin and end for taking only a part.
      */
-    int[] target;
-    int begin;
-    int end;
+    private final int[] target;
+    private final int begin;
+    private final int end;
+    private final Thread[] otherThreads;
+    private Thread myself;
     private volatile boolean result;
 
     /**
@@ -20,10 +22,15 @@ public class ThreadWithReturn implements Runnable {
      *
      * @param listPart our part of a list
      */
-    ThreadWithReturn(int[] listPart, int begin, int end) {
+    ThreadWithReturn(int[] listPart, int begin, int end, Thread[] otherThreads) {
         this.target = listPart;
         this.begin = begin;
         this.end = end;
+        this.otherThreads = otherThreads;
+    }
+
+    public void setMyself(Thread myself) {
+        this.myself = myself;
     }
 
     /**
@@ -35,12 +42,19 @@ public class ThreadWithReturn implements Runnable {
 
         for (int elem = this.begin; (elem < this.end) && (elem < this.target.length); elem++) {
             if (!checker.prime(this.target[elem])) {
-                result = true;
+                this.result = true;
+                for (Thread nbThread : this.otherThreads) {
+                    nbThread.interrupt();
+                }
                 return;
+            }
+            if (this.myself.isInterrupted()) {
+//                System.out.println("Thread is interrupted");
+                break;
             }
         }
 
-        result = false;
+        this.result = false;
     }
 
     /**

@@ -15,18 +15,19 @@ public class Main {
      * Based main func.
      *
      * @param args classical things
-     * @throws InterruptedException because of parallel computations
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
+//        int numberOfExperiments = 11;
+//        int[] sizes = new int[] {16000000, 17000000, 18000000, 19000000, 20000000, 21000000,
+//                22000000, 23000000, 24000000, 25000000, 26000000};
         int numberOfExperiments = 3;
-        int[] sizes = new int[] {15000000, 18000000, 20000000};
+        int[] sizes = new int[] {3000000, 4000000, 5000000};
+
         try {
             List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes,
-                    1, true);
+                    3, true);
             // Statistics output
             DrawingCharts.draw("Results", resultList);
-        } catch (InterruptedException exception) {
-            System.err.println("Calculations were interrupted: " + exception.getMessage());
         } catch (IOException exception) {
             System.err.println("IO operation was interrupted: " + exception.getMessage());
         }

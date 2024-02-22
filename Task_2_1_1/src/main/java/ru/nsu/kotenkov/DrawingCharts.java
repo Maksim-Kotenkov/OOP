@@ -173,9 +173,13 @@ public class DrawingCharts extends ApplicationFrame {
             throws IOException {
         DrawingCharts toWindow = new DrawingCharts("Statistics", chartTitle, dots);
         JFreeChart toFile = DrawingCharts.getChart(chartTitle, dots);
+        XYLineAndShapeRenderer renderer = getXyLineAndShapeRenderer();
+
+        final XYPlot plot = toFile.getXYPlot();
+        plot.setRenderer(renderer);
 
         File f = new File("./ResultChart.png");
-        BufferedImage chartImage = toFile.createBufferedImage(1920, 1080, null);
+        BufferedImage chartImage = toFile.createBufferedImage(800, 600, null);
         ImageIO.write(chartImage, "png", f);
 
         toWindow.pack();

@@ -68,7 +68,7 @@ public class TestPrime {
 
     @Test
     @DisplayName("List from the task")
-    void checkListThreads() throws InterruptedException {
+    void checkListThreads() {
         PrimeChecker checker = new PrimeChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
                                     6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
@@ -97,7 +97,7 @@ public class TestPrime {
     }
 
     @Test
-    void checkCustom() throws InterruptedException {
+    void checkCustom() {
         int numberOfExperiments = 2;
         int[] sizes = new int[] {1000, 10000};
         List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes,
@@ -109,7 +109,7 @@ public class TestPrime {
 
     @Test
     @DisplayName("Executing experimental run class func")
-    void checkCustom2() throws InterruptedException {
+    void checkCustom2() {
         int numberOfExperiments = 0;
         int[] sizes = new int[0];
         List<Map<Integer, Integer>> resultList = ExperimentalRun.run(numberOfExperiments, sizes,
@@ -122,25 +122,34 @@ public class TestPrime {
     @DisplayName("Custom thread with possibility to return")
     void checkCustomThread() throws InterruptedException {
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
-                                    6998009, 6998029, 6998039, 20165149, 6998051, 6998053, 6};
+                                    6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
 
         ThreadWithReturn[] custom = new ThreadWithReturn[1];
         Thread[] threads = new Thread[1];
-        custom[0] = new ThreadWithReturn(testData, 0, testData.length);
+        custom[0] = new ThreadWithReturn(testData, 0, testData.length, threads);
 
         threads[0] = new Thread(custom[0]);
         threads[0].start();
         threads[0].join();
 
-        assertTrue(custom[0].isResult());
+        assertFalse(custom[0].isResult());
     }
 
     @Test
     @DisplayName("8 elems 6 threads")
-    void checkStrangeThreads() throws InterruptedException {
+    void checkStrangeThreads() {
         PrimeChecker checker = new PrimeChecker();
         int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967};
 
         assertFalse(checker.checkWithThreads(testData, 8));
+    }
+
+    @Test
+    @DisplayName("8 elems 100 threads")
+    void checkStrangeThreads2() {
+        PrimeChecker checker = new PrimeChecker();
+        int[] testData = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967};
+
+        assertFalse(checker.checkWithThreads(testData, 100));
     }
 }
