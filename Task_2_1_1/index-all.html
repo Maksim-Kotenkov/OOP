@@ -49,20 +49,28 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
-<dt><a href="ru/nsu/kotenkov/prime/PrimeChecker.html#checkListLinear(int%5B%5D)" class="member-name-link">checkListLinear(int[])</a> - Method in class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/PrimeChecker.html" title="class in ru.nsu.kotenkov.prime">PrimeChecker</a></dt>
+<dt><a href="ru/nsu/kotenkov/prime/Checker.html#check(int%5B%5D)" class="member-name-link">check(int[])</a> - Method in interface ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/Checker.html" title="interface in ru.nsu.kotenkov.prime">Checker</a></dt>
+<dd>
+<div class="block">The method that should solve all your problems with array and non-prime numbers in it.</div>
+</dd>
+<dt><a href="ru/nsu/kotenkov/prime/LinearChecker.html#check(int%5B%5D)" class="member-name-link">check(int[])</a> - Method in class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/LinearChecker.html" title="class in ru.nsu.kotenkov.prime">LinearChecker</a></dt>
 <dd>
 <div class="block">Linear check of all elements in a list.</div>
 </dd>
-<dt><a href="ru/nsu/kotenkov/prime/PrimeChecker.html#checkWithParallelStream(int%5B%5D)" class="member-name-link">checkWithParallelStream(int[])</a> - Method in class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/PrimeChecker.html" title="class in ru.nsu.kotenkov.prime">PrimeChecker</a></dt>
+<dt><a href="ru/nsu/kotenkov/prime/ParallelStreamChecker.html#check(int%5B%5D)" class="member-name-link">check(int[])</a> - Method in class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/ParallelStreamChecker.html" title="class in ru.nsu.kotenkov.prime">ParallelStreamChecker</a></dt>
 <dd>
 <div class="block">Checking the list with the use of ParallelStream().</div>
 </dd>
-<dt><a href="ru/nsu/kotenkov/prime/PrimeChecker.html#checkWithThreads(int%5B%5D,int)" class="member-name-link">checkWithThreads(int[], int)</a> - Method in class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/PrimeChecker.html" title="class in ru.nsu.kotenkov.prime">PrimeChecker</a></dt>
+<dt><a href="ru/nsu/kotenkov/prime/ThreadsChecker.html#check(int%5B%5D)" class="member-name-link">check(int[])</a> - Method in class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/ThreadsChecker.html" title="class in ru.nsu.kotenkov.prime">ThreadsChecker</a></dt>
 <dd>
 <div class="block">List checking with threads.</div>
+</dd>
+<dt><a href="ru/nsu/kotenkov/prime/Checker.html" class="type-name-link" title="interface in ru.nsu.kotenkov.prime">Checker</a> - Interface in <a href="ru/nsu/kotenkov/prime/package-summary.html">ru.nsu.kotenkov.prime</a></dt>
+<dd>
+<div class="block">Interface for uniting all checkers under one architecture solution with this interface.</div>
 </dd>
 <dt><a href="ru/nsu/kotenkov/DrawingCharts.html#createDataset(java.util.List)" class="member-name-link">createDataset(List&lt;Map&lt;Integer, Integer&gt;&gt;)</a> - Static method in class ru.nsu.kotenkov.<a href="ru/nsu/kotenkov/DrawingCharts.html" title="class in ru.nsu.kotenkov">DrawingCharts</a></dt>
 <dd>
@@ -107,6 +115,15 @@ loadScripts(document, 'script');</script>
 <div class="block">And getter to check the result.</div>
 </dd>
 </dl>
+<h2 class="title" id="I:L">L</h2>
+<dl class="index">
+<dt><a href="ru/nsu/kotenkov/prime/LinearChecker.html" class="type-name-link" title="class in ru.nsu.kotenkov.prime">LinearChecker</a> - Class in <a href="ru/nsu/kotenkov/prime/package-summary.html">ru.nsu.kotenkov.prime</a></dt>
+<dd>
+<div class="block">A linear checker for searching for a non-prime element in an array.</div>
+</dd>
+<dt><a href="ru/nsu/kotenkov/prime/LinearChecker.html#%3Cinit%3E()" class="member-name-link">LinearChecker()</a> - Constructor for class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/LinearChecker.html" title="class in ru.nsu.kotenkov.prime">LinearChecker</a></dt>
+<dd>&nbsp;</dd>
+</dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
 <dt><a href="ru/nsu/kotenkov/Main.html#main(java.lang.String%5B%5D)" class="member-name-link">main(String[])</a> - Static method in class ru.nsu.kotenkov.<a href="ru/nsu/kotenkov/Main.html" title="class in ru.nsu.kotenkov">Main</a></dt>
@@ -122,13 +139,19 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
-<dt><a href="ru/nsu/kotenkov/prime/PrimeChecker.html#prime(int)" class="member-name-link">prime(int)</a> - Method in class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/PrimeChecker.html" title="class in ru.nsu.kotenkov.prime">PrimeChecker</a></dt>
+<dt><a href="ru/nsu/kotenkov/prime/ParallelStreamChecker.html" class="type-name-link" title="class in ru.nsu.kotenkov.prime">ParallelStreamChecker</a> - Class in <a href="ru/nsu/kotenkov/prime/package-summary.html">ru.nsu.kotenkov.prime</a></dt>
+<dd>
+<div class="block">A class for searching for non-prime elements in array with the use of ParallelStream.</div>
+</dd>
+<dt><a href="ru/nsu/kotenkov/prime/ParallelStreamChecker.html#%3Cinit%3E()" class="member-name-link">ParallelStreamChecker()</a> - Constructor for class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/ParallelStreamChecker.html" title="class in ru.nsu.kotenkov.prime">ParallelStreamChecker</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/kotenkov/prime/PrimeChecker.html#prime(int)" class="member-name-link">prime(int)</a> - Static method in class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/PrimeChecker.html" title="class in ru.nsu.kotenkov.prime">PrimeChecker</a></dt>
 <dd>
 <div class="block">Function for direct number check.</div>
 </dd>
 <dt><a href="ru/nsu/kotenkov/prime/PrimeChecker.html" class="type-name-link" title="class in ru.nsu.kotenkov.prime">PrimeChecker</a> - Class in <a href="ru/nsu/kotenkov/prime/package-summary.html">ru.nsu.kotenkov.prime</a></dt>
 <dd>
-<div class="block">Class for checking is there a non-prime number in a List.</div>
+<div class="block">Class for being a prime number.</div>
 </dd>
 <dt><a href="ru/nsu/kotenkov/prime/PrimeChecker.html#%3Cinit%3E()" class="member-name-link">PrimeChecker()</a> - Constructor for class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/PrimeChecker.html" title="class in ru.nsu.kotenkov.prime">PrimeChecker</a></dt>
 <dd>&nbsp;</dd>
@@ -155,12 +178,20 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:T">T</h2>
 <dl class="index">
+<dt><a href="ru/nsu/kotenkov/prime/ThreadsChecker.html" class="type-name-link" title="class in ru.nsu.kotenkov.prime">ThreadsChecker</a> - Class in <a href="ru/nsu/kotenkov/prime/package-summary.html">ru.nsu.kotenkov.prime</a></dt>
+<dd>
+<div class="block">A class for searching for non-prime numbers in arrays with the use of Threads.</div>
+</dd>
+<dt><a href="ru/nsu/kotenkov/prime/ThreadsChecker.html#%3Cinit%3E(int)" class="member-name-link">ThreadsChecker(int)</a> - Constructor for class ru.nsu.kotenkov.prime.<a href="ru/nsu/kotenkov/prime/ThreadsChecker.html" title="class in ru.nsu.kotenkov.prime">ThreadsChecker</a></dt>
+<dd>
+<div class="block">Number of threads that is used in this object should be initialized on creation.</div>
+</dd>
 <dt><a href="ru/nsu/kotenkov/prime/ThreadWithReturn.html" class="type-name-link" title="class in ru.nsu.kotenkov.prime">ThreadWithReturn</a> - Class in <a href="ru/nsu/kotenkov/prime/package-summary.html">ru.nsu.kotenkov.prime</a></dt>
 <dd>
 <div class="block">A class for getting results after computations in threads.</div>
 </dd>
 </dl>
-<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>
