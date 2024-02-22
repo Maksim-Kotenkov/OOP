@@ -1,0 +1,29 @@
+{
+  "bakers_number": 3,
+  "couriers_number": 2,
+  "bakers": [
+    {
+      "efficiency": 1,
+      "workingState": false
+    },
+    {
+      "efficiency": 2,
+      "workingState": false
+    },
+    {
+      "efficiency": 3,
+      "workingState": false
+    }
+  ],
+  "couriers": [
+    {
+      "capacity": 1
+    },
+    {
+      "capacity": 2
+    },
+    {
+      "capacity": 3
+    }
+  ]
+}
