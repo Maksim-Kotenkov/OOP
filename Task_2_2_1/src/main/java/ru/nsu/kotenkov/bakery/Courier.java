@@ -4,16 +4,11 @@ package ru.nsu.kotenkov.bakery;
 import ru.nsu.kotenkov.bakery.exceptions.CourierInterrupted;
 
 
-public class Courier extends Thread {
-    private final int capacity;
+public class Courier implements Runnable {
+    private int capacity;
     private boolean ready;
     private int orderShippingDuration;
-    private final int speed;
-
-    public Courier(int capacity, int speed) {
-        this.capacity = capacity;
-        this.speed = speed;
-    }
+    private int speed;
 
     public int getCapacity() {
         return capacity;

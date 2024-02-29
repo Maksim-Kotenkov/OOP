@@ -10,9 +10,9 @@ public class Main {
         System.out.println("Hello world!");
         try {
             Bakery bakery = new Bakery();
-            for (Baker baker : bakery.getBakers()) {
-                System.out.println(baker.getEfficiency());
-            }
+//            for (Baker baker : bakery.getBakers()) {
+//                System.out.println(baker.getEfficiency());
+//            }
         } catch (IOException exception) {
             System.err.println("IOExceptions occurred during the run");
         }

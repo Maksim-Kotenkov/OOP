@@ -4,16 +4,11 @@ package ru.nsu.kotenkov.bakery;
 import ru.nsu.kotenkov.bakery.exceptions.BakerInterrupted;
 
 
-public class Baker extends Thread {
-    private final int efficiency;
+public class Baker implements Runnable {
+    private int efficiency;
     private boolean ready;
     private int orderCookingDuration;
 
-
-    public Baker(int efficiency) {
-        this.efficiency = efficiency;
-        this.ready = false;
-    }
 
     public void setReady(boolean ready) {
         this.ready = ready;
