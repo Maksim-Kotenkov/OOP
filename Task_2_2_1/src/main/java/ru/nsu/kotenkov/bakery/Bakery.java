@@ -20,27 +20,13 @@ public class Bakery {
 
         File json = Paths.get("config.json").toFile();
 
-        // I need to get a big Map with all parameters and then initialize lists
-        HashMap<String, ArrayList<HashMap<String, Integer>>> staff = mapper.readValue(json,
-                        mapper.getTypeFactory().constructMapLikeType(HashMap.class, String.class, ArrayList.class));
-
-        System.out.println("Couriers: " + staff.get("couriers") + " Bakers: " + staff.get("bakers"));
-        System.out.println(staff.get("couriers").getClass() + " " + staff.get("bakers").getClass());
-        System.out.println(staff.get("couriers").get(0).getClass() + " " + staff.get("bakers").get(0).getClass());
-
-        try {
-            this.bakers = mapper.readValue(staff.get("bakers").toString().replaceAll("=", ":"),
-                    mapper.getTypeFactory().constructCollectionType(ArrayList.class, Baker.class));
-            this.couriers = mapper.readValue(staff.get("couriers").toString().replaceAll("=", ":"),
-                    mapper.getTypeFactory().constructCollectionType(ArrayList.class, Courier.class));
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-
-
+        ConfigMap map = mapper.readValue(json, ConfigMap.class);
+        this.bakers = map.getBakers();
+        this.couriers = map.getCouriers();
         for (Baker b : this.bakers) {
             System.out.println(b.getEfficiency());
         }
+
     }
 
     public ArrayList<Baker> getBakers() {
