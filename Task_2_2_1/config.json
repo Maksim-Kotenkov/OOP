@@ -1,23 +1,29 @@
 {
   "bakers": [
     {
+      "id": 0,
       "efficiency": 1
     },
     {
+      "id": 1,
       "efficiency": 2
     },
     {
+      "id": 2,
       "efficiency": 3
     }
   ],
   "couriers": [
     {
+      "id": 0,
       "capacity": 1
     },
     {
+      "id": 1,
       "capacity": 2
     },
     {
+      "id": 2,
       "capacity": 3
     }
   ]
