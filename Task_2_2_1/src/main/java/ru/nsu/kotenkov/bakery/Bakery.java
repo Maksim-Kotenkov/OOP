@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import static java.lang.Boolean.FALSE;
 
 
 public class Bakery extends Thread {
@@ -48,31 +52,32 @@ public class Bakery extends Thread {
 
         int bakeId = 0;
 
-        // TODO let bakers and couriers know itself
-        ArrayList<Thread> bakerThreads = new ArrayList<>();
+//        ArrayList<Thread> bakerThreads = new ArrayList<>();
         for (BakerThread b : bakers) {
-            bakerThreads.add(new Thread(b));
+            b.setMyself(new Thread(b));
         }
-        ArrayList<Thread> courierThreads = new ArrayList<>();
+//        ArrayList<Thread> courierThreads = new ArrayList<>();
         for (CourierThread c : couriers) {
-            bakerThreads.add(new Thread(c));
+            c.setMyself(new Thread(c));
         }
 
-        // TODO check baker and start itself
         while (bakeId < orders.size()) {
             // give some work for all ready bakers
-            while (bakers.stream().anyMatch(BakerThread::isReady) && bakeId < orders.size()){
-                BakerThread readyBaker = bakers.stream().filter(BakerThread::isReady).findAny().orElse(null);
-                readyBaker.setOrderId(bakeId);
-                readyBaker.setOrderCookingDuration(orders.get(bakeId).getTimeToCook());
-                readyBaker.myself.start();
+            BakerThread readyBaker = null;
+            while ((readyBaker = bakers.stream().filter(BakerThread::isReady).findAny().orElse(null)) != null
+                    && bakeId < orders.size()){
+//                BakerThread readyBaker = bakers.stream().filter(BakerThread::isReady).findAny().orElse(null);
+                readyBaker.setOrder(orders.get(bakeId));
+                readyBaker.setMyself(new Thread(readyBaker));
+                readyBaker.setReady(FALSE);
+                readyBaker.getMyself().start();
 
                 bakeId += 1;
             }
 
         }
 
-        for (Thread t : bakerThreads) {
+        for (Thread t : bakers.stream().map(BakerThread::getMyself).collect(Collectors.toSet())) {
             try {
                 t.join();
             } catch (InterruptedException e) {

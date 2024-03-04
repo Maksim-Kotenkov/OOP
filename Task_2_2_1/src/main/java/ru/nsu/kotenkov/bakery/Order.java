@@ -2,8 +2,13 @@ package ru.nsu.kotenkov.bakery;
 
 
 public class Order {
+    private int id;
     private int timeToCook;
     private int timeToDeliver;
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setTimeToCook(int timeToCook) {
         this.timeToCook = timeToCook;
@@ -19,5 +24,9 @@ public class Order {
 
     public int getTimeToDeliver() {
         return timeToDeliver;
+    }
+
+    public int getId() {
+        return id;
     }
 }
