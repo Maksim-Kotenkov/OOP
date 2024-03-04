@@ -1,6 +1,8 @@
-package ru.nsu.kotenkov.bakery;
+package ru.nsu.kotenkov.bakery.management;
 
+import ru.nsu.kotenkov.bakery.Staff;
 import ru.nsu.kotenkov.bakery.exceptions.CourierInterrupted;
+import ru.nsu.kotenkov.bakery.management.Storage;
 
 public class CourierThread extends Thread implements Staff {
     private Thread myself;

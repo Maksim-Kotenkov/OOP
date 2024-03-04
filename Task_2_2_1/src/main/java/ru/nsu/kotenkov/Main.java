@@ -2,7 +2,6 @@ package ru.nsu.kotenkov;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.nsu.kotenkov.bakery.Baker;
 import ru.nsu.kotenkov.bakery.Bakery;
 import ru.nsu.kotenkov.bakery.Order;
 

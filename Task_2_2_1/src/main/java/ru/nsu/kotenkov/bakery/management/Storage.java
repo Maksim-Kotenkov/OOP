@@ -1,4 +1,6 @@
-package ru.nsu.kotenkov.bakery;
+package ru.nsu.kotenkov.bakery.management;
+
+import ru.nsu.kotenkov.bakery.Order;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;

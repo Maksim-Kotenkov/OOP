@@ -1,9 +1,10 @@
-package ru.nsu.kotenkov.bakery;
+package ru.nsu.kotenkov.bakery.kitchen;
 
 
+import ru.nsu.kotenkov.bakery.Order;
+import ru.nsu.kotenkov.bakery.Staff;
 import ru.nsu.kotenkov.bakery.exceptions.BakerInterrupted;
-
-import javax.sound.midi.SysexMessage;
+import ru.nsu.kotenkov.bakery.management.Storage;
 
 
 public class BakerThread extends Thread implements Staff {
@@ -55,10 +56,11 @@ public class BakerThread extends Thread implements Staff {
 
         if (storage.canStore()) {
             storage.addOrder(order);
+            System.out.println("Baker " + this.id + " stored order " + order.getId());
         } else {
             System.out.println("No space in the storage so I'll eat this Big Kahuna Burger");
         }
-        System.out.println("Baker " + this.id + " stored order " + order.getId());
+
         this.ready = true;
     }
 }

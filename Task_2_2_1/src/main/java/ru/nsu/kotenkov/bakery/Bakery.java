@@ -2,6 +2,13 @@ package ru.nsu.kotenkov.bakery;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ru.nsu.kotenkov.bakery.kitchen.Baker;
+import ru.nsu.kotenkov.bakery.kitchen.BakerThread;
+import ru.nsu.kotenkov.bakery.kitchen.KitchenManager;
+import ru.nsu.kotenkov.bakery.management.Courier;
+import ru.nsu.kotenkov.bakery.management.CourierThread;
+import ru.nsu.kotenkov.bakery.management.DeliveryManager;
+import ru.nsu.kotenkov.bakery.management.Storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,17 +20,16 @@ import static java.lang.Boolean.FALSE;
 
 
 public class Bakery extends Thread {
-    private final ArrayList<BakerThread> bakers;
     private final ArrayList<CourierThread> couriers;
-    private final ArrayList<Order> orders;
-    private Storage storage;
+    private KitchenManager kitchen;
+    private DeliveryManager delivery;
 
 
     public Bakery(ArrayList<Order> orders) {
         ObjectMapper mapper = new ObjectMapper();
-
         File json = Paths.get("config.json").toFile();
         ConfigMap map = null;
+
         try {
             map = mapper.readValue(json, ConfigMap.class);
         } catch (IOException e) {
@@ -31,56 +37,32 @@ public class Bakery extends Thread {
         }
 
         assert map != null;
-        this.bakers = new ArrayList<>();
-        this.storage = new Storage(map.getStorage());
+        Storage storage = new Storage(map.getStorage());
+        ArrayList<BakerThread> bakerThreads = new ArrayList<>();
+        ArrayList<CourierThread> courierThreads = new ArrayList<>();
+
         for (Baker b : map.getBakers()) {
-            this.bakers.add(new BakerThread(b.id, b.efficiency, this.storage));
+            bakerThreads.add(new BakerThread(b.id, b.efficiency, storage));
         }
         this.couriers = new ArrayList<>();
         for (Courier c : map.getCouriers()) {
-            this.couriers.add(new CourierThread(c.id, c.capacity, c.speed, this.storage));
+            courierThreads.add(new CourierThread(c.id, c.capacity, c.speed, storage));
         }
-        this.orders = orders;
+
+        this.kitchen = new KitchenManager(bakerThreads, orders);
+        this.delivery = new DeliveryManager(courierThreads, storage);
     }
 
     @Override
     public void run() {
         System.out.println("Bakery opened");
-        System.out.println("Orders number:" + orders.size());
+        Thread kitchenThread = new Thread(this.kitchen);
+        kitchenThread.start();
 
-        int bakeId = 0;
-
-//        ArrayList<Thread> bakerThreads = new ArrayList<>();
-        for (BakerThread b : bakers) {
-            b.setMyself(new Thread(b));
-        }
-//        ArrayList<Thread> courierThreads = new ArrayList<>();
-        for (CourierThread c : couriers) {
-            c.setMyself(new Thread(c));
-        }
-
-        while (bakeId < orders.size()) {
-            // give some work for all ready bakers
-            BakerThread readyBaker = null;
-            while ((readyBaker = bakers.stream().filter(BakerThread::isReady).findAny().orElse(null)) != null
-                    && bakeId < orders.size()){
-//                BakerThread readyBaker = bakers.stream().filter(BakerThread::isReady).findAny().orElse(null);
-                readyBaker.setOrder(orders.get(bakeId));
-                readyBaker.setMyself(new Thread(readyBaker));
-                readyBaker.setReady(FALSE);
-                readyBaker.getMyself().start();
-
-                bakeId += 1;
-            }
-
-        }
-
-        for (Thread t : bakers.stream().map(BakerThread::getMyself).collect(Collectors.toSet())) {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                System.err.println("Baker interrupted");
-            }
+        try {
+            kitchenThread.join();
+        } catch (InterruptedException e) {
+            System.err.println("Kitchen thread interrupted: " + e.getMessage());
         }
         System.out.println("Bakery finished the day");
     }
