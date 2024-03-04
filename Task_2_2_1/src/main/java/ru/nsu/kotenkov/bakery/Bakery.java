@@ -7,10 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.FALSE;
@@ -20,6 +16,7 @@ public class Bakery extends Thread {
     private final ArrayList<BakerThread> bakers;
     private final ArrayList<CourierThread> couriers;
     private final ArrayList<Order> orders;
+    private Storage storage;
 
 
     public Bakery(ArrayList<Order> orders) {
@@ -35,12 +32,13 @@ public class Bakery extends Thread {
 
         assert map != null;
         this.bakers = new ArrayList<>();
+        this.storage = new Storage(map.getStorage());
         for (Baker b : map.getBakers()) {
-            this.bakers.add(new BakerThread(b.id, b.efficiency));
+            this.bakers.add(new BakerThread(b.id, b.efficiency, this.storage));
         }
         this.couriers = new ArrayList<>();
         for (Courier c : map.getCouriers()) {
-            this.couriers.add(new CourierThread(c.id, c.capacity, c.speed));
+            this.couriers.add(new CourierThread(c.id, c.capacity, c.speed, this.storage));
         }
         this.orders = orders;
     }

@@ -9,11 +9,13 @@ public class CourierThread extends Thread implements Staff {
     private boolean ready = true;
     private int orderShippingDuration;
     private int speed;
+    private Storage storage;
 
-    public CourierThread (int id, int capacity, int orderShippingDuration) {
+    public CourierThread (int id, int capacity, int orderShippingDuration, Storage storage) {
         this.id = id;
         this.capacity = capacity;
         this.orderShippingDuration = orderShippingDuration;
+        this.storage = storage;
     }
 
     public int getCapacity() {
