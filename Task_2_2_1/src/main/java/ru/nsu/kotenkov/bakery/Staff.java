@@ -6,5 +6,7 @@ public interface Staff {
 
     void setReady(boolean ready);
 
+    void setOrder(Order order);
+
     void run();
 }

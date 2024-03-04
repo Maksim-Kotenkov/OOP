@@ -22,10 +22,11 @@ import static java.lang.Boolean.FALSE;
 public class Bakery extends Thread {
     private final ArrayList<CourierThread> couriers;
     private KitchenManager kitchen;
-    private DeliveryManager delivery;
+    private final DeliveryManager delivery;
 
 
     public Bakery(ArrayList<Order> orders) {
+        // TODO create class for parsing
         ObjectMapper mapper = new ObjectMapper();
         File json = Paths.get("config.json").toFile();
         ConfigMap map = null;
@@ -46,24 +47,40 @@ public class Bakery extends Thread {
         }
         this.couriers = new ArrayList<>();
         for (Courier c : map.getCouriers()) {
-            courierThreads.add(new CourierThread(c.id, c.capacity, c.speed, storage));
+            courierThreads.add(new CourierThread(c.id, c.capacity, c.speed));
         }
 
-        this.kitchen = new KitchenManager(bakerThreads, orders);
-        this.delivery = new DeliveryManager(courierThreads, storage);
+        this.kitchen = new KitchenManager(bakerThreads, orders, this);
+        this.delivery = new DeliveryManager(courierThreads, storage, this);
     }
 
     @Override
     public void run() {
-        System.out.println("Bakery opened");
+        System.out.println("OFFICE: Bakery opened");
         Thread kitchenThread = new Thread(this.kitchen);
+        Thread managingThread = new Thread(this.delivery);
+        this.delivery.setMyself(managingThread);
         kitchenThread.start();
+        managingThread.start();
 
         try {
             kitchenThread.join();
+            managingThread.interrupt();
         } catch (InterruptedException e) {
-            System.err.println("Kitchen thread interrupted: " + e.getMessage());
+            System.err.println("OFFICE: Kitchen thread interrupted: " + e.getMessage());
         }
-        System.out.println("Bakery finished the day");
+
+        synchronized (delivery) {
+            try {
+                while (delivery.couriersSurvivingOutside) {
+                    delivery.wait();
+                }
+
+            } catch (InterruptedException e) {
+                System.err.println("OFFICE: Couriers didn't come back... The may be dead by now...");
+            }
+            System.out.println("OFFICE: Bakery finished the day");
+        }
+
     }
 }

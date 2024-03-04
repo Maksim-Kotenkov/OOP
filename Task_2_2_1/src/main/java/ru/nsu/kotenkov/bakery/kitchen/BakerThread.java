@@ -46,20 +46,25 @@ public class BakerThread extends Thread implements Staff {
     @Override
     public void run() {
         this.ready = false;
-        System.out.println("Baker " + this.id + " started cooking order " + order.getId());
+        System.out.println("BAKER: Baker " + this.id + " started cooking order " + order.getId());
         try {
             Thread.sleep((order.getTimeToCook() / this.efficiency) * 1000L);
         } catch (InterruptedException e) {
-            throw new BakerInterrupted("Baker " + this + " was interrupted while cooking.\n");
+            throw new BakerInterrupted("BAKER: Baker " + id + " was interrupted while cooking.\n");
         }
-        System.out.println("Baker " + this.id + " finished cooking order " + order.getId());
+        System.out.println("BAKER: Baker " + this.id + " finished cooking order " + order.getId());
 
-        if (storage.canStore()) {
-            storage.addOrder(order);
-            System.out.println("Baker " + this.id + " stored order " + order.getId());
-        } else {
-            System.out.println("No space in the storage so I'll eat this Big Kahuna Burger");
+        while (true) {
+            if (storage.canStore()) {
+                storage.addOrder(order);
+                System.out.println("BAKER: Baker " + this.id + " stored order " + order.getId());
+                break;
+            }
         }
+
+//        else {
+//            System.out.println("No space in the storage so I'll eat this Big Kahuna Burger");
+//        }
 
         this.ready = true;
     }

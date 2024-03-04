@@ -16,15 +16,18 @@
   "couriers": [
     {
       "id": 0,
-      "capacity": 1
+      "capacity": 1,
+      "speed": 2
     },
     {
       "id": 1,
-      "capacity": 2
+      "capacity": 2,
+      "speed": 2
     },
     {
       "id": 2,
-      "capacity": 3
+      "capacity": 3,
+      "speed": 2
     }
   ],
   "storage": 2

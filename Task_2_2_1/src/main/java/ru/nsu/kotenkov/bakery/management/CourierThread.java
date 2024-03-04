@@ -1,5 +1,6 @@
 package ru.nsu.kotenkov.bakery.management;
 
+import ru.nsu.kotenkov.bakery.Order;
 import ru.nsu.kotenkov.bakery.Staff;
 import ru.nsu.kotenkov.bakery.exceptions.CourierInterrupted;
 import ru.nsu.kotenkov.bakery.management.Storage;
@@ -8,16 +9,14 @@ public class CourierThread extends Thread implements Staff {
     private Thread myself;
     public int id;
     private final int capacity;
+    private int speed = 1;
     private boolean ready = true;
-    private int orderShippingDuration;
-    private int speed;
-    private Storage storage;
+    private Order order;
 
-    public CourierThread (int id, int capacity, int orderShippingDuration, Storage storage) {
+    public CourierThread (int id, int capacity, int speed) {
         this.id = id;
         this.capacity = capacity;
-        this.orderShippingDuration = orderShippingDuration;
-        this.storage = storage;
+        this.speed = speed;
     }
 
     public int getCapacity() {
@@ -46,19 +45,20 @@ public class CourierThread extends Thread implements Staff {
         this.ready = ready;
     }
 
-    public void setOrderShippingDuration(int orderShippingDuration) {
-        this.orderShippingDuration = orderShippingDuration;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
     public synchronized void run() {
         this.ready = false;
+        System.out.println("COURIER: Courier " + id + " took the order " + order.getId() + " with the time to deliver: " + order.getTimeToDeliver());
         try {
-            Thread.sleep(this.orderShippingDuration / this.speed);
+            Thread.sleep(order.getTimeToDeliver() / this.speed);
         } catch (InterruptedException e) {
-            throw new CourierInterrupted("Baker " + this + " was interrupted while cooking.\n");
+            throw new CourierInterrupted("Courier " + id + " was interrupted while delivering.\n");
         }
+        System.out.println("COURIER: Courier " + id + " has delivered order " + order.getId());
         this.ready = true;
-        this.orderShippingDuration = -1;
     }
 }
