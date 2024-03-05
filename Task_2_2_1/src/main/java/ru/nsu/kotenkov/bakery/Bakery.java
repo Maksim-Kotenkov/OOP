@@ -2,6 +2,7 @@ package ru.nsu.kotenkov.bakery;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ru.nsu.kotenkov.bakery.configuring.BakeryConfig;
 import ru.nsu.kotenkov.bakery.kitchen.Baker;
 import ru.nsu.kotenkov.bakery.kitchen.BakerThread;
 import ru.nsu.kotenkov.bakery.kitchen.KitchenManager;
@@ -17,40 +18,17 @@ import java.util.ArrayList;
 
 
 public class Bakery extends Thread {
-    private final ArrayList<CourierThread> couriers;
     private final KitchenManager kitchen;
     private final DeliveryManager delivery;
     private final int workingHours;
 
 
     public Bakery(ArrayList<Order> orders) {
-        // TODO create class for parsing
-        ObjectMapper mapper = new ObjectMapper();
-        File json = Paths.get("config.json").toFile();
-        ConfigMap map = null;
+        BakeryConfig config = new BakeryConfig();
 
-        try {
-            map = mapper.readValue(json, ConfigMap.class);
-        } catch (IOException e) {
-            System.err.println("Cannot read the configuration: " + e.getMessage());
-        }
-
-        assert map != null;
-        Storage storage = new Storage(map.getStorage());
-        ArrayList<BakerThread> bakerThreads = new ArrayList<>();
-        ArrayList<CourierThread> courierThreads = new ArrayList<>();
-
-        for (Baker b : map.getBakers()) {
-            bakerThreads.add(new BakerThread(b.id, b.efficiency, storage));
-        }
-        this.couriers = new ArrayList<>();
-        for (Courier c : map.getCouriers()) {
-            courierThreads.add(new CourierThread(c.id, c.capacity, c.speed));
-        }
-
-        this.kitchen = new KitchenManager(bakerThreads, orders, this);
-        this.delivery = new DeliveryManager(courierThreads, storage, this);
-        this.workingHours = map.getWorkingHours();
+        this.kitchen = new KitchenManager(config.getBakerThreads(), orders, this);
+        this.delivery = new DeliveryManager(config.getCourierThreads(), config.getStorage(), this);
+        this.workingHours = config.getWorkingHours();
     }
 
     @Override
