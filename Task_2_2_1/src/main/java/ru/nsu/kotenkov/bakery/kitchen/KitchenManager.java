@@ -12,6 +12,7 @@ public class KitchenManager extends Thread {
     private final ArrayList<BakerThread> bakers;
     private final ArrayList<Order> orders;
     private final Bakery office;
+    public boolean bakersWorkingHard = true;
 
     public KitchenManager(ArrayList<BakerThread> bakers, ArrayList<Order> orders, Bakery office) {
         this.bakers = bakers;
@@ -26,6 +27,24 @@ public class KitchenManager extends Thread {
         int bakeId = 0;
 
         while (bakeId < orders.size()) {
+            if (interrupted()) {
+                synchronized (this) {
+                    System.out.println("KITCHEN: Waiting for all working bakers to finish baking");
+                    try {
+                        for (BakerThread b : bakers) {
+                            if (b.getMyself() != null) {
+                                b.getMyself().join();
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        System.err.println("KITCHEN: Waiting for all the bakers was interrupted");
+                    }
+                    bakersWorkingHard = false;
+                    notify();
+                }
+                break;
+            }
+
             // give some work for all ready bakers
             BakerThread readyBaker = null;
             while ((readyBaker = bakers.stream().filter(BakerThread::isReady).findAny().orElse(null)) != null
@@ -38,14 +57,26 @@ public class KitchenManager extends Thread {
 
                 bakeId += 1;
             }
-
         }
 
         for (Thread t : bakers.stream().map(BakerThread::getMyself).collect(Collectors.toSet())) {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                System.err.println("KITCHEN: Baker interrupted");
+                synchronized (this) {
+                    System.out.println("KITCHEN: Waiting for all working bakers to finish baking");
+                    try {
+                        for (BakerThread b : bakers) {
+                            if (b.getMyself() != null) {
+                                b.getMyself().join();
+                            }
+                        }
+                    } catch (InterruptedException ex) {
+                        System.err.println("KITCHEN: Waiting for all the bakers was interrupted");
+                    }
+                    bakersWorkingHard = false;
+                    notify();
+                }
             }
         }
     }

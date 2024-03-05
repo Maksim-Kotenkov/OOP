@@ -30,8 +30,8 @@ public class DeliveryManager extends Thread {
     public void run() {
         while (true) {
             if (interrupted()) {
-                System.out.println("DELIVERY: Waiting for all the couriers to finish the work");
                 synchronized (this) {
+                    System.out.println("DELIVERY: Waiting for all the couriers to finish the work");
                     try {
                         for (CourierThread c : couriers) {
                             if (c.getMyself() != null) {

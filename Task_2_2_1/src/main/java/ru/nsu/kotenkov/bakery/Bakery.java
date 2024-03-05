@@ -14,15 +14,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-
-import static java.lang.Boolean.FALSE;
 
 
 public class Bakery extends Thread {
     private final ArrayList<CourierThread> couriers;
-    private KitchenManager kitchen;
+    private final KitchenManager kitchen;
     private final DeliveryManager delivery;
+    private final int workingHours;
 
 
     public Bakery(ArrayList<Order> orders) {
@@ -52,6 +50,7 @@ public class Bakery extends Thread {
 
         this.kitchen = new KitchenManager(bakerThreads, orders, this);
         this.delivery = new DeliveryManager(courierThreads, storage, this);
+        this.workingHours = map.getWorkingHours();
     }
 
     @Override
@@ -64,23 +63,41 @@ public class Bakery extends Thread {
         managingThread.start();
 
         try {
-            kitchenThread.join();
-            managingThread.interrupt();
+            sleep(workingHours * 1000L);
         } catch (InterruptedException e) {
             System.err.println("OFFICE: Kitchen thread interrupted: " + e.getMessage());
         }
 
-        synchronized (delivery) {
-            try {
-                while (delivery.couriersSurvivingOutside) {
-                    delivery.wait();
+        System.out.println("OFFICE: STOPPING THE WORK");
+        // The end of the day
+        synchronized (kitchen) {
+            if (kitchen.bakersWorkingHard) {
+                kitchenThread.interrupt();
+                try {
+                    while (kitchen.bakersWorkingHard) {
+                        kitchen.wait();
+                    }
+                } catch (InterruptedException e) {
+                    System.err.println("OFFICE: Workers interrupted and the office is on fire...");
                 }
-
-            } catch (InterruptedException e) {
-                System.err.println("OFFICE: Couriers didn't come back... The may be dead by now...");
             }
-            System.out.println("OFFICE: Bakery finished the day");
+        }
+        System.out.println("OFFICE: Kitchen finished the day");
+
+        synchronized (delivery) {
+            if (delivery.couriersSurvivingOutside) {
+                managingThread.interrupt();
+                try {
+                    while (delivery.couriersSurvivingOutside) {
+                        delivery.wait();
+                    }
+                } catch (InterruptedException e) {
+                    System.err.println("OFFICE: Couriers didn't come back... The may be dead by now...");
+                }
+            }
+            System.out.println("OFFICE: Delivery finished the day");
         }
 
+        System.out.println("OFFICE: Office finished the day");
     }
 }

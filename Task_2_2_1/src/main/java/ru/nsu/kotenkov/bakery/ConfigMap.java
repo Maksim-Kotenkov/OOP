@@ -11,6 +11,7 @@ public class ConfigMap {
     private ArrayList<Baker> bakers;
     private ArrayList<Courier> couriers;
     private int storage;
+    private int workingHours;
 
     public void setBakers(ArrayList<Baker> bakers) {
         this.bakers = bakers;
@@ -24,6 +25,10 @@ public class ConfigMap {
         this.storage = storage;
     }
 
+    public void setWorkingHours(int workingHours) {
+        this.workingHours = workingHours;
+    }
+
     public ArrayList<Baker> getBakers() {
         return bakers;
     }
@@ -34,5 +39,9 @@ public class ConfigMap {
 
     public int getStorage() {
         return storage;
+    }
+
+    public int getWorkingHours() {
+        return workingHours;
     }
 }

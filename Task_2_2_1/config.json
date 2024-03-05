@@ -30,5 +30,6 @@
       "speed": 2
     }
   ],
-  "storage": 2
+  "storage": 2,
+  "workingHours": 5
 }
