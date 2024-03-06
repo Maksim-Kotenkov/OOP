@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.nsu.kotenkov"},{"l":"ru.nsu.kotenkov.bakery"},{"l":"ru.nsu.kotenkov.bakery.staff"},{"l":"ru.nsu.kotenkov.bakery.staff.configuring"},{"l":"ru.nsu.kotenkov.bakery.staff.kitchen"},{"l":"ru.nsu.kotenkov.bakery.staff.management"}]
