@@ -12,15 +12,19 @@ import java.util.ArrayList;
 public class Bakery extends Thread {
     private final KitchenManager kitchen;
     private final DeliveryManager delivery;
-    private final int workingHours;
+    private int workingHours;
 
 
     public Bakery(ArrayList<Order> orders) {
         BakeryConfig config = new BakeryConfig();
 
-        this.kitchen = new KitchenManager(config.getBakerThreads(), orders, this);
-        this.delivery = new DeliveryManager(config.getCourierThreads(), config.getStorage(), this);
+        this.kitchen = new KitchenManager(config.getBakerThreads(), orders);
+        this.delivery = new DeliveryManager(config.getCourierThreads(), config.getStorage());
         this.workingHours = config.getWorkingHours();
+    }
+
+    public void setWorkingHours(int workingHours) {
+        this.workingHours = workingHours;
     }
 
     @Override
@@ -28,14 +32,13 @@ public class Bakery extends Thread {
         System.out.println("OFFICE: Bakery opened");
         Thread kitchenThread = new Thread(this.kitchen);
         Thread managingThread = new Thread(this.delivery);
-        this.delivery.setMyself(managingThread);
         kitchenThread.start();
         managingThread.start();
 
         try {
             sleep(workingHours * 1000L);
         } catch (InterruptedException e) {
-            System.err.println("OFFICE: Kitchen thread interrupted: " + e.getMessage());
+            System.err.println("OFFICE: Kitchen thread was interrupted during the work");
         }
 
         System.out.println("OFFICE: STOPPING THE WORK");

@@ -16,10 +16,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BakerThreadTest {
-    OutputStream error = new ByteArrayOutputStream();
+    OutputStream error;
 
     @BeforeEach
     public void setUp() {
+        error = new ByteArrayOutputStream();
         System.setErr(new PrintStream(error));
     }
 
@@ -71,5 +72,12 @@ public class BakerThreadTest {
 
         testBaker.getMyself().interrupt();
         assertTrue(testBaker.getMyself().isInterrupted());
+        testBaker.getMyself().interrupt();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        assertEquals("BAKER: Baker 0 was interrupted while cooking.", error.toString().trim());
     }
 }

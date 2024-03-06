@@ -11,13 +11,11 @@ import static java.lang.Boolean.FALSE;
 public class KitchenManager extends Thread {
     private final ArrayList<BakerThread> bakers;
     private final ArrayList<Order> orders;
-    private final Bakery office;
     public boolean bakersWorkingHard = true;
 
-    public KitchenManager(ArrayList<BakerThread> bakers, ArrayList<Order> orders, Bakery office) {
+    public KitchenManager(ArrayList<BakerThread> bakers, ArrayList<Order> orders) {
         this.bakers = bakers;
         this.orders = orders;
-        this.office = office;
     }
 
     @Override
@@ -29,7 +27,7 @@ public class KitchenManager extends Thread {
         while (bakeId < orders.size()) {
             if (interrupted()) {
                 synchronized (this) {
-                    System.out.println("KITCHEN: Waiting for all working bakers to finish baking");
+                    System.out.println("KITCHEN: Waiting for all the working bakers to finish baking");
                     // TODO also store all orders that are left in json
                     // TODO create a class for saving orders
                     try {
@@ -63,10 +61,12 @@ public class KitchenManager extends Thread {
 
         for (Thread t : bakers.stream().map(BakerThread::getMyself).collect(Collectors.toSet())) {
             try {
-                t.join();
+                if (t != null) {
+                    t.join();
+                }
             } catch (InterruptedException e) {
                 synchronized (this) {
-                    System.out.println("KITCHEN: Waiting for all working bakers to finish baking");
+                    System.out.println("KITCHEN: Waiting for all the working bakers to finish baking");
                     try {
                         for (BakerThread b : bakers) {
                             if (b.getMyself() != null) {

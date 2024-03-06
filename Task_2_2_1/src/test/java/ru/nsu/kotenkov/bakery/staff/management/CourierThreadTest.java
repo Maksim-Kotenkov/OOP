@@ -11,10 +11,11 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CourierThreadTest {
-    OutputStream error = new ByteArrayOutputStream();
+    OutputStream error;
 
     @BeforeEach
     public void setUp() {
+        error = new ByteArrayOutputStream();
         System.setErr(new PrintStream(error));
     }
 
@@ -64,5 +65,12 @@ public class CourierThreadTest {
 
         testCourier.getMyself().interrupt();
         assertTrue(testCourier.getMyself().isInterrupted());
+        testCourier.getMyself().interrupt();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        assertEquals("COURIER: Courier 0 was interrupted while delivering.", error.toString().trim());
     }
 }

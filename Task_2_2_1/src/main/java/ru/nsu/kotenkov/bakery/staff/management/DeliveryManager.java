@@ -10,13 +10,11 @@ public class DeliveryManager extends Thread {
     private Thread myself;
     private Storage storage;
     private ArrayList<CourierThread> couriers;
-    private final Bakery office;
     public boolean couriersSurvivingOutside = true;
 
-    public DeliveryManager(ArrayList<CourierThread> couriers, Storage storage, Bakery office) {
+    public DeliveryManager(ArrayList<CourierThread> couriers, Storage storage) {
         this.couriers = couriers;
         this.storage = storage;
-        this.office = office;
     }
 
     public void setMyself(Thread myself) {

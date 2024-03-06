@@ -6,12 +6,17 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Storage {
-    AtomicInteger freeSpace;
-    ArrayList<Order> storage;
+    private AtomicInteger freeSpace;
+    private ArrayList<Order> storage;
 
     public Storage(int freeSpace) {
         this.storage = new ArrayList<>();
-        this.freeSpace = new AtomicInteger(freeSpace);
+        if (freeSpace >= 0) {
+            this.freeSpace = new AtomicInteger(freeSpace);
+        } else {
+            this.freeSpace = new AtomicInteger(0);
+            System.err.println("STORAGE: Trying to init less than 0 capacity storage, capacity set to 0");
+        }
     }
 
     public boolean canStore() {
