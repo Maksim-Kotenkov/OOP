@@ -1,7 +1,4 @@
-package ru.nsu.kotenkov.bakery.management;
-
-
-import ru.nsu.kotenkov.bakery.exceptions.CourierInterrupted;
+package ru.nsu.kotenkov.bakery.staff.management;
 
 
 public class Courier {

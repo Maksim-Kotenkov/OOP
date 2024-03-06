@@ -21,3 +21,14 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = "LINE"
+                minimum = 0.80
+            }
+        }
+    }
+}

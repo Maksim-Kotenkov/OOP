@@ -1,10 +1,7 @@
-package ru.nsu.kotenkov.bakery.management;
+package ru.nsu.kotenkov.bakery.staff.management;
 
 import ru.nsu.kotenkov.bakery.Bakery;
-import ru.nsu.kotenkov.bakery.kitchen.Baker;
-import ru.nsu.kotenkov.bakery.kitchen.BakerThread;
 
-import javax.swing.plaf.basic.BasicEditorPaneUI;
 import java.util.ArrayList;
 
 import static java.lang.Boolean.FALSE;

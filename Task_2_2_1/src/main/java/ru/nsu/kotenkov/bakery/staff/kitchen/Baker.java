@@ -1,7 +1,4 @@
-package ru.nsu.kotenkov.bakery.kitchen;
-
-
-import ru.nsu.kotenkov.bakery.exceptions.BakerInterrupted;
+package ru.nsu.kotenkov.bakery.staff.kitchen;
 
 
 public class Baker {

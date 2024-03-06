@@ -1,12 +1,11 @@
-package ru.nsu.kotenkov.bakery.configuring;
+package ru.nsu.kotenkov.bakery.staff.configuring;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.nsu.kotenkov.bakery.ConfigMap;
-import ru.nsu.kotenkov.bakery.kitchen.Baker;
-import ru.nsu.kotenkov.bakery.kitchen.BakerThread;
-import ru.nsu.kotenkov.bakery.management.Courier;
-import ru.nsu.kotenkov.bakery.management.CourierThread;
-import ru.nsu.kotenkov.bakery.management.Storage;
+import ru.nsu.kotenkov.bakery.staff.kitchen.Baker;
+import ru.nsu.kotenkov.bakery.staff.kitchen.BakerThread;
+import ru.nsu.kotenkov.bakery.staff.management.Courier;
+import ru.nsu.kotenkov.bakery.staff.management.CourierThread;
+import ru.nsu.kotenkov.bakery.staff.management.Storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,10 +13,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class BakeryConfig {
-    private ArrayList<BakerThread> bakerThreads;
-    private ArrayList<CourierThread> courierThreads;
-    private Storage storage;
-    private int workingHours;
+    private ArrayList<BakerThread> bakerThreads = null;
+    private ArrayList<CourierThread> courierThreads = null;
+    private Storage storage = null;
+    private int workingHours = -1;
 
     public BakeryConfig() {
         ObjectMapper mapper = new ObjectMapper();

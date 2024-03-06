@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.bakery;
+package ru.nsu.kotenkov.bakery.staff;
 
 
 public interface Staff {

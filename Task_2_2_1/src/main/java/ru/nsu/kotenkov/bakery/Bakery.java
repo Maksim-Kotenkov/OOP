@@ -1,19 +1,11 @@
 package ru.nsu.kotenkov.bakery;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.nsu.kotenkov.bakery.configuring.BakeryConfig;
-import ru.nsu.kotenkov.bakery.kitchen.Baker;
-import ru.nsu.kotenkov.bakery.kitchen.BakerThread;
-import ru.nsu.kotenkov.bakery.kitchen.KitchenManager;
-import ru.nsu.kotenkov.bakery.management.Courier;
-import ru.nsu.kotenkov.bakery.management.CourierThread;
-import ru.nsu.kotenkov.bakery.management.DeliveryManager;
-import ru.nsu.kotenkov.bakery.management.Storage;
+import ru.nsu.kotenkov.bakery.staff.Order;
+import ru.nsu.kotenkov.bakery.staff.configuring.BakeryConfig;
+import ru.nsu.kotenkov.bakery.staff.kitchen.KitchenManager;
+import ru.nsu.kotenkov.bakery.staff.management.DeliveryManager;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
@@ -47,7 +39,9 @@ public class Bakery extends Thread {
         }
 
         System.out.println("OFFICE: STOPPING THE WORK");
+
         // The end of the day
+        // TODO read more about synchronized
         synchronized (kitchen) {
             if (kitchen.bakersWorkingHard) {
                 kitchenThread.interrupt();

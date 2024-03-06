@@ -1,7 +1,7 @@
-package ru.nsu.kotenkov.bakery.kitchen;
+package ru.nsu.kotenkov.bakery.staff.kitchen;
 
 import ru.nsu.kotenkov.bakery.Bakery;
-import ru.nsu.kotenkov.bakery.Order;
+import ru.nsu.kotenkov.bakery.staff.Order;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -30,6 +30,8 @@ public class KitchenManager extends Thread {
             if (interrupted()) {
                 synchronized (this) {
                     System.out.println("KITCHEN: Waiting for all working bakers to finish baking");
+                    // TODO also store all orders that are left in json
+                    // TODO create a class for saving orders
                     try {
                         for (BakerThread b : bakers) {
                             if (b.getMyself() != null) {

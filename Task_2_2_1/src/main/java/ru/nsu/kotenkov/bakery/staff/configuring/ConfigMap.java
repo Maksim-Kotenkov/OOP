@@ -1,8 +1,8 @@
-package ru.nsu.kotenkov.bakery;
+package ru.nsu.kotenkov.bakery.staff.configuring;
 
 
-import ru.nsu.kotenkov.bakery.kitchen.Baker;
-import ru.nsu.kotenkov.bakery.management.Courier;
+import ru.nsu.kotenkov.bakery.staff.kitchen.Baker;
+import ru.nsu.kotenkov.bakery.staff.management.Courier;
 
 import java.util.ArrayList;
 

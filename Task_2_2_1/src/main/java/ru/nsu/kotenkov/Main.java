@@ -3,7 +3,7 @@ package ru.nsu.kotenkov;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.nsu.kotenkov.bakery.Bakery;
-import ru.nsu.kotenkov.bakery.Order;
+import ru.nsu.kotenkov.bakery.staff.Order;
 
 import java.io.File;
 import java.io.IOException;

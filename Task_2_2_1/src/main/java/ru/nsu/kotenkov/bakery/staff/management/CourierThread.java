@@ -1,9 +1,8 @@
-package ru.nsu.kotenkov.bakery.management;
+package ru.nsu.kotenkov.bakery.staff.management;
 
-import ru.nsu.kotenkov.bakery.Order;
-import ru.nsu.kotenkov.bakery.Staff;
-import ru.nsu.kotenkov.bakery.exceptions.CourierInterrupted;
-import ru.nsu.kotenkov.bakery.management.Storage;
+import ru.nsu.kotenkov.bakery.staff.Order;
+import ru.nsu.kotenkov.bakery.staff.Staff;
+
 
 public class CourierThread extends Thread implements Staff {
     private Thread myself;
@@ -50,15 +49,15 @@ public class CourierThread extends Thread implements Staff {
     }
 
     @Override
-    public synchronized void run() {
-        this.ready = false;
-        System.out.println("COURIER: Courier " + id + " took the order " + order.getId() + " with the time to deliver: " + order.getTimeToDeliver());
+    public void run() {
         try {
-            Thread.sleep(order.getTimeToDeliver() / this.speed);
+            this.ready = false;
+            System.out.println("COURIER: Courier " + id + " took the order " + order.getId() + " with the time to deliver: " + order.getTimeToDeliver());
+            Thread.sleep((order.getTimeToDeliver() / this.speed) * 1000L);
+            System.out.println("COURIER: Courier " + id + " has delivered order " + order.getId());
+            this.ready = true;
         } catch (InterruptedException e) {
-            throw new CourierInterrupted("Courier " + id + " was interrupted while delivering.\n");
+            System.err.println("COURIER: Courier " + id + " was interrupted while delivering.");
         }
-        System.out.println("COURIER: Courier " + id + " has delivered order " + order.getId());
-        this.ready = true;
     }
 }
