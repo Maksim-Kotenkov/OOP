@@ -1,30 +1,46 @@
 package ru.nsu.kotenkov.bakery.staff.kitchen;
 
-import ru.nsu.kotenkov.bakery.Bakery;
-import ru.nsu.kotenkov.bakery.staff.Order;
-
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import static java.lang.Boolean.FALSE;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import ru.nsu.kotenkov.bakery.staff.Order;
+
+
+/**
+ * A class that give orders to bakers and synchronize after termination.
+ */
 public class KitchenManager extends Thread {
     private final ArrayList<BakerThread> bakers;
     private final ArrayList<Order> orders;
     public boolean bakersWorkingHard = true;
 
+    /**
+     * Constructor that sets bakers and orders.
+     *
+     * @param bakers a list of baker threads
+     * @param orders a list of order threads
+     */
     public KitchenManager(ArrayList<BakerThread> bakers, ArrayList<Order> orders) {
         this.bakers = bakers;
         this.orders = orders;
     }
 
+    /**
+     * A method for kitchen Thread.
+     * We manage Bakers, give them orders, wait for them if we are interrupted.
+     */
     @Override
     public void run() {
         System.out.println("KITCHEN: Orders number:" + orders.size());
 
         int bakeId = 0;
 
+        // we try to bake all the orders while we can
         while (bakeId < orders.size()) {
+            // we need to join all baker threads if we get interrupted from anything
+            // (Bakery thread, system interruptions)
             if (interrupted()) {
                 synchronized (this) {
                     System.out.println("KITCHEN: Waiting for all the working bakers to finish baking");
@@ -47,9 +63,12 @@ public class KitchenManager extends Thread {
 
             // give some work for all ready bakers
             BakerThread readyBaker = null;
-            while ((readyBaker = bakers.stream().filter(BakerThread::isReady).findAny().orElse(null)) != null
-                    && bakeId < orders.size()){
-//                BakerThread readyBaker = bakers.stream().filter(BakerThread::isReady).findAny().orElse(null);
+            while ((readyBaker = bakers.stream()
+                    .filter(BakerThread::isReady)
+                    .findAny()
+                    .orElse(null)) != null
+                    && bakeId < orders.size()) {
+                // start one baker with all the setup
                 readyBaker.setOrder(orders.get(bakeId));
                 readyBaker.setReady(FALSE);
                 readyBaker.setMyself(new Thread(readyBaker));
@@ -59,6 +78,7 @@ public class KitchenManager extends Thread {
             }
         }
 
+        // interruption can be caught after we have finished all orders
         for (Thread t : bakers.stream().map(BakerThread::getMyself).collect(Collectors.toSet())) {
             try {
                 if (t != null) {
