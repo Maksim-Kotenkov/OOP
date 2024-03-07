@@ -142,6 +142,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">KitchenManager</span>
 extends java.lang.Thread</pre>
+<div class="block">A class that give orders to bakers and synchronize after termination.</div>
 </li>
 </ul>
 </div>
@@ -211,7 +212,9 @@ extends java.lang.Thread</pre>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.ArrayList,java.util.ArrayList)">KitchenManager</a></span>&#8203;(java.util.ArrayList&lt;<a href="BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">BakerThread</a>&gt;&nbsp;bakers,
               java.util.ArrayList&lt;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&gt;&nbsp;orders)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor that sets bakers and orders.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -234,7 +237,9 @@ extends java.lang.Thread</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run()">run</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A method for kitchen Thread.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -294,6 +299,12 @@ extends java.lang.Thread</pre>
 <h4>KitchenManager</h4>
 <pre>public&nbsp;KitchenManager&#8203;(java.util.ArrayList&lt;<a href="BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">BakerThread</a>&gt;&nbsp;bakers,
                       java.util.ArrayList&lt;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&gt;&nbsp;orders)</pre>
+<div class="block">Constructor that sets bakers and orders.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bakers</code> - a list of baker threads</dd>
+<dd><code>orders</code> - a list of order threads</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -313,6 +324,8 @@ extends java.lang.Thread</pre>
 <li class="blockList">
 <h4>run</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;run()</pre>
+<div class="block">A method for kitchen Thread.
+ We manage Bakers, give them orders, wait for them if we are interrupted.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>run</code>&nbsp;in interface&nbsp;<code>java.lang.Runnable</code></dd>

@@ -133,6 +133,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">BakeryConfig</span>
 extends java.lang.Object</pre>
+<div class="block">Let's use SOLID METHODS, I mean, at least single-responsibility.
+ We need to separate deserializing json from the Bakery initializing. This is it.</div>
 </li>
 </ul>
 </div>
@@ -154,7 +156,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">BakeryConfig</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Json is deserialized into ConfigMap structure, but we need to create other structs.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -225,6 +229,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>BakeryConfig</h4>
 <pre>public&nbsp;BakeryConfig()</pre>
+<div class="block">Json is deserialized into ConfigMap structure, but we need to create other structs.
+ A list of bakerThreads and courierThreads that will be run later.
+ A storage.
+ WorkingHours too.</div>
 </li>
 </ul>
 </li>
@@ -244,6 +252,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getBakerThreads</h4>
 <pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="../kitchen/BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">BakerThread</a>&gt;&nbsp;getBakerThreads()</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a bakerThread list to start them</dd>
+</dl>
 </li>
 </ul>
 <a id="getCourierThreads()">
@@ -253,6 +265,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getCourierThreads</h4>
 <pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="../management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a>&gt;&nbsp;getCourierThreads()</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a courierThread list to start them</dd>
+</dl>
 </li>
 </ul>
 <a id="getStorage()">
@@ -262,6 +278,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getStorage</h4>
 <pre class="methodSignature">public&nbsp;<a href="../management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a>&nbsp;getStorage()</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the storage of our Bakery</dd>
+</dl>
 </li>
 </ul>
 <a id="getWorkingHours()">
@@ -271,6 +291,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getWorkingHours</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getWorkingHours()</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>how many hours (seconds irl) Bakery should work</dd>
+</dl>
 </li>
 </ul>
 </li>
