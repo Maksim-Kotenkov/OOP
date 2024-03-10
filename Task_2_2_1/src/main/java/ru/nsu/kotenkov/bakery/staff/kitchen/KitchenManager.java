@@ -6,6 +6,7 @@ import static java.lang.Boolean.FALSE;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import ru.nsu.kotenkov.bakery.staff.Order;
+import ru.nsu.kotenkov.bakery.staff.configuring.PreviousOrders;
 
 
 /**
@@ -44,8 +45,7 @@ public class KitchenManager extends Thread {
             if (interrupted()) {
                 synchronized (this) {
                     System.out.println("KITCHEN: Waiting for all the working bakers to finish baking");
-                    // TODO also store all orders that are left in json
-                    // TODO create a class for saving orders
+                    PreviousOrders.store(orders.subList(bakeId, orders.size()));
                     try {
                         for (BakerThread b : bakers) {
                             if (b.getMyself() != null) {
@@ -71,6 +71,11 @@ public class KitchenManager extends Thread {
                 // start one baker with all the setup
                 readyBaker.setOrder(orders.get(bakeId));
                 readyBaker.setReady(FALSE);
+
+                // every time we need a new thread
+                // (because the same thread cannot be started many times)
+                // so, BakerThread object stores what Thread was created
+                // from this BakrThread
                 readyBaker.setMyself(new Thread(readyBaker));
                 readyBaker.getMyself().start();
 
@@ -101,5 +106,6 @@ public class KitchenManager extends Thread {
                 }
             }
         }
+        bakersWorkingHard = false;
     }
 }

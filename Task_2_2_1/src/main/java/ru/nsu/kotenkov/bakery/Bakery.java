@@ -41,10 +41,9 @@ public class Bakery extends Thread {
             System.err.println("OFFICE: Kitchen thread was interrupted during the work");
         }
 
-        System.out.println("OFFICE: STOPPING THE WORK");
+        System.out.println("\nOFFICE: STOPPING THE WORK\n");
 
         // The end of the day
-        // TODO read more about synchronized
         synchronized (kitchen) {
             if (kitchen.bakersWorkingHard) {
                 kitchenThread.interrupt();

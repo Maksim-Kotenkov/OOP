@@ -1,24 +1,17 @@
 package ru.nsu.kotenkov.bakery.staff.management;
 
-import ru.nsu.kotenkov.bakery.Bakery;
-
 import java.util.ArrayList;
 
 import static java.lang.Boolean.FALSE;
 
 public class DeliveryManager extends Thread {
-    private Thread myself;
-    private Storage storage;
+    private final Storage storage;
     private ArrayList<CourierThread> couriers;
     public boolean couriersSurvivingOutside = true;
 
     public DeliveryManager(ArrayList<CourierThread> couriers, Storage storage) {
         this.couriers = couriers;
         this.storage = storage;
-    }
-
-    public void setMyself(Thread myself) {
-        this.myself = myself;
     }
 
     @Override
@@ -42,15 +35,25 @@ public class DeliveryManager extends Thread {
                 break;
             }
 
-            if (storage.notEmpty()) {
-                CourierThread readyCourier = couriers.stream().filter(CourierThread::isReady).findAny().orElse(null);
-                if (readyCourier != null) {
-                    readyCourier.setOrder(storage.getOrder());
-                    readyCourier.setReady(FALSE);
-                    readyCourier.setMyself(new Thread(readyCourier));
-                    readyCourier.getMyself().start();
+            synchronized (storage) {
+                if (storage.notInteracting() && storage.notEmpty()) {
+                    storage.setInteracting(true);
+                    CourierThread readyCourier = couriers.stream().filter(CourierThread::isReady).findAny().orElse(null);
+                    if (readyCourier != null) {
+                        readyCourier.setOrder(storage.getOrder());
+                        readyCourier.setReady(FALSE);
+
+                        // every time we need a new thread
+                        // (because the same thread cannot be started many times)
+                        // so, CourierThread object stores what Thread was created
+                        // from this CourierThread
+                        readyCourier.setMyself(new Thread(readyCourier));
+                        readyCourier.getMyself().start();
+                    }
+                    storage.setInteracting(false);
                 }
             }
+
         }
     }
 }

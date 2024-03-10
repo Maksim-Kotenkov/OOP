@@ -11,7 +11,7 @@ import ru.nsu.kotenkov.bakery.staff.management.Storage;
  * It can be a thread.
  */
 public class BakerThread extends Thread implements Staff {
-    private Thread myself;
+    private Thread myself;  // to start one Baker many times with different associated threads
     public final int id;
     private final int efficiency;
     private boolean ready = true;
@@ -91,14 +91,19 @@ public class BakerThread extends Thread implements Staff {
             Thread.sleep((order.getTimeToCook() / this.efficiency) * 1000L);
             System.out.println("BAKER: Baker " + this.id
                     + " finished cooking order " + order.getId());
-            while (true) {
-                if (storage.canStore()) {
-                    storage.addOrder(order);
-                    System.out.println("BAKER: Baker " + this.id
-                            + " stored order " + order.getId());
-                    break;
+            synchronized (storage) {
+                while (true) {
+                    if (storage.notInteracting() && storage.canStore()) {
+                        storage.setInteracting(true);  // atomic change, there will be no problem
+                        storage.addOrder(order);
+                        System.out.println("BAKER: Baker " + this.id
+                                + " stored order " + order.getId());
+                        storage.setInteracting(false);
+                        break;
+                    }
                 }
             }
+
             this.ready = true;
         } catch (InterruptedException e) {
             System.err.println("BAKER: Baker " + id + " was interrupted while cooking.");
