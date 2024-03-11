@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  */
 public class OrderTest {
     @Test
-    public void OrderStructTest() {
+    public void checkOrderStruct() {
         Order testOrder = new Order();
         testOrder.setId(1000);
         testOrder.setTimeToCook(10);

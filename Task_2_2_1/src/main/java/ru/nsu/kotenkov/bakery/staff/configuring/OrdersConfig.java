@@ -27,7 +27,7 @@ public class OrdersConfig {
         try {
             orders.addAll(mapper.readValue(json,
                     mapper.getTypeFactory()
-                            .constructCollectionType(ArrayList.class,Order.class)));
+                            .constructCollectionType(ArrayList.class, Order.class)));
         } catch (IOException e) {
             System.err.println("ORDER CONFIG: Cannot read orders configuration json:"
                     + e.getMessage());

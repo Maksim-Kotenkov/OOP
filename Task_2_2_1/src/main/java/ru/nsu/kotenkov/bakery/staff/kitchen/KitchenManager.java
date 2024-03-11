@@ -42,8 +42,8 @@ public class KitchenManager extends Thread {
             // (Bakery thread, system interruptions)
             if (interrupted()) {
                 synchronized (this) {
-                    System.out.println("KITCHEN: Waiting for all the " +
-                            "working bakers to finish baking");
+                    System.out.println("KITCHEN: Waiting for all the "
+                            + "working bakers to finish baking");
                     PreviousOrders.store(orders.subList(bakeId, orders.size()));
                     try {
                         for (BakerThread b : bakers) {
@@ -90,8 +90,8 @@ public class KitchenManager extends Thread {
                 }
             } catch (InterruptedException e) {
                 synchronized (this) {
-                    System.out.println("KITCHEN: Waiting for all the " +
-                            "working bakers to finish baking");
+                    System.out.println("KITCHEN: Waiting for all the "
+                            + "working bakers to finish baking");
                     try {
                         for (BakerThread b : bakers) {
                             if (b.getMyself() != null) {

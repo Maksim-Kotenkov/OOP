@@ -19,13 +19,13 @@ import ru.nsu.kotenkov.bakery.staff.Order;
 public class PreviousOrderTest {
     @Test
     @DisplayName("PrevOrders: Some orders on init")
-    public void PrevOrdersInit() throws IOException {
+    public void checkInit() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         File json = Paths.get("prevDayOrders.json").toFile();
-        ArrayList<Order> backup = mapper.readValue(json,
+        final ArrayList<Order> backup = mapper.readValue(json,
                 mapper.getTypeFactory().constructCollectionType(ArrayList.class, Order.class));
 
-        ArrayList<Order> testOrders = new ArrayList<>();
+        final ArrayList<Order> testOrders = new ArrayList<>();
         Order ord = new Order();
         ord.setTimeToDeliver(8);
         ord.setId(1);
@@ -45,13 +45,13 @@ public class PreviousOrderTest {
 
     @Test
     @DisplayName("PrevOrders: Empty init")
-    public void PrevOrdersEmptyInit() throws IOException {
+    public void checkEmptyInit() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         File json = Paths.get("prevDayOrders.json").toFile();
-        ArrayList<Order> backup = mapper.readValue(json,
+        final ArrayList<Order> backup = mapper.readValue(json,
                 mapper.getTypeFactory().constructCollectionType(ArrayList.class, Order.class));
 
-        ArrayList<Order> testOrders = new ArrayList<>();
+        final ArrayList<Order> testOrders = new ArrayList<>();
 
         mapper.writerWithDefaultPrettyPrinter().writeValue(json, testOrders);
         ArrayList<Order> actual = PreviousOrders.get();

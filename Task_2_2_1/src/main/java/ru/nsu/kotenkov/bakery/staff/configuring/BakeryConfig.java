@@ -57,6 +57,8 @@ public class BakeryConfig {
     }
 
     /**
+     * Getter.
+     *
      * @return a bakerThread list to start them
      */
     public ArrayList<BakerThread> getBakerThreads() {
@@ -64,6 +66,8 @@ public class BakeryConfig {
     }
 
     /**
+     * Getter.
+     *
      * @return a courierThread list to start them
      */
     public ArrayList<CourierThread> getCourierThreads() {
@@ -71,6 +75,8 @@ public class BakeryConfig {
     }
 
     /**
+     * Getter.
+     *
      * @return the storage of our Bakery
      */
     public Storage getStorage() {
@@ -78,6 +84,8 @@ public class BakeryConfig {
     }
 
     /**
+     * Getter.
+     *
      * @return how many hours (seconds irl) Bakery should work
      */
     public int getWorkingHours() {

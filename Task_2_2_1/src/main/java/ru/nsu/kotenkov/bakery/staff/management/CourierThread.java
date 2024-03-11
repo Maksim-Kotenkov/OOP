@@ -13,7 +13,7 @@ public class CourierThread extends Thread implements Staff {
     private Thread myself;
     public int id;
     private final int capacity;
-    private int speed;
+    private final int speed;
     private boolean ready = true;
     private ArrayList<Order> orders;
 
@@ -24,7 +24,7 @@ public class CourierThread extends Thread implements Staff {
      * @param capacity how many Big Kahuna Burgers can be delivered
      * @param speed fast boi
      */
-    public CourierThread (int id, int capacity, int speed) {
+    public CourierThread(int id, int capacity, int speed) {
         this.id = id;
         this.capacity = capacity;
         this.speed = speed;

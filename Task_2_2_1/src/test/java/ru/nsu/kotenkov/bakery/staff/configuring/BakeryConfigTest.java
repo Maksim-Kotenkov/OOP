@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 public class BakeryConfigTest {
     @Test
     @DisplayName("Successful init")
-    public void BakeryConfigInit() {
+    public void checkConfig() {
         BakeryConfig config = new BakeryConfig();
 
         assertNotNull(config.getBakerThreads());

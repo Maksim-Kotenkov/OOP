@@ -72,8 +72,8 @@ public class Bakery extends Thread {
                         kitchen.wait();
                     }
                 } catch (InterruptedException e) {
-                    System.err.println("OFFICE: Workers interrupted " +
-                            "and the office is on fire...");
+                    System.err.println("OFFICE: Workers interrupted "
+                            + "and the office is on fire...");
                 }
             }
         }
@@ -87,8 +87,8 @@ public class Bakery extends Thread {
                         delivery.wait();
                     }
                 } catch (InterruptedException e) {
-                    System.err.println("OFFICE: Couriers didn't come back... " +
-                            "The may be dead by now...");
+                    System.err.println("OFFICE: Couriers didn't come back... "
+                            + "The may be dead by now...");
                 }
             }
             System.out.println("OFFICE: Delivery finished the day");
