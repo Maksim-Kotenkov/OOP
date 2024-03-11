@@ -1,20 +1,24 @@
 package ru.nsu.kotenkov.bakery.staff.kitchen;
 
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.nsu.kotenkov.bakery.staff.Order;
-import ru.nsu.kotenkov.bakery.staff.management.CourierThread;
 import ru.nsu.kotenkov.bakery.staff.management.Storage;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests for the baker thread.
+ */
 public class BakerThreadTest {
     OutputStream error;
 

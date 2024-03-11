@@ -2,9 +2,13 @@ package ru.nsu.kotenkov.bakery.staff;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 
+/**
+ * Tests for orders.
+ */
 public class OrderTest {
     @Test
     public void OrderStructTest() {

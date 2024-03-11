@@ -1,20 +1,29 @@
 package ru.nsu.kotenkov.bakery;
 
 
+import java.util.ArrayList;
 import ru.nsu.kotenkov.bakery.staff.Order;
 import ru.nsu.kotenkov.bakery.staff.configuring.BakeryConfig;
 import ru.nsu.kotenkov.bakery.staff.kitchen.KitchenManager;
 import ru.nsu.kotenkov.bakery.staff.management.DeliveryManager;
 
-import java.util.ArrayList;
 
-
+/**
+ * Bakery class, that is the OFFICE.
+ * It starts kitchen and management, and interrupts their threads when the time is out.
+ * Configuration can be taken from special classes.
+ */
 public class Bakery extends Thread {
     private final KitchenManager kitchen;
     private final DeliveryManager delivery;
     private int workingHours;
 
 
+    /**
+     * Constructor with configs from special classes.
+     *
+     * @param orders we just give the orders here
+     */
     public Bakery(ArrayList<Order> orders) {
         BakeryConfig config = new BakeryConfig();
 
@@ -23,10 +32,21 @@ public class Bakery extends Thread {
         this.workingHours = config.getWorkingHours();
     }
 
+    /**
+     * Setter to test bakery well.
+     *
+     * @param workingHours new value
+     */
     public void setWorkingHours(int workingHours) {
         this.workingHours = workingHours;
     }
 
+    /**
+     * Body of a bakery thread.
+     * Start kitchen and management threads.
+     * Wait till the end of the day, let them do their work without our control.
+     * At the end of the day interrupt them and wait for the notification, that they are finished.
+     */
     @Override
     public void run() {
         System.out.println("OFFICE: Bakery opened");
@@ -52,7 +72,8 @@ public class Bakery extends Thread {
                         kitchen.wait();
                     }
                 } catch (InterruptedException e) {
-                    System.err.println("OFFICE: Workers interrupted and the office is on fire...");
+                    System.err.println("OFFICE: Workers interrupted " +
+                            "and the office is on fire...");
                 }
             }
         }
@@ -66,7 +87,8 @@ public class Bakery extends Thread {
                         delivery.wait();
                     }
                 } catch (InterruptedException e) {
-                    System.err.println("OFFICE: Couriers didn't come back... The may be dead by now...");
+                    System.err.println("OFFICE: Couriers didn't come back... " +
+                            "The may be dead by now...");
                 }
             }
             System.out.println("OFFICE: Delivery finished the day");

@@ -1,17 +1,21 @@
 package ru.nsu.kotenkov.bakery.staff.configuring;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import ru.nsu.kotenkov.bakery.staff.Order;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import ru.nsu.kotenkov.bakery.staff.Order;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for the previous orders config.
+ */
 public class PreviousOrderTest {
     @Test
     @DisplayName("PrevOrders: Some orders on init")

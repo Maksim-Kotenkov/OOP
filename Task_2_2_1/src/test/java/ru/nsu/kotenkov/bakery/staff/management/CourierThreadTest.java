@@ -1,15 +1,23 @@
 package ru.nsu.kotenkov.bakery.staff.management;
 
 
-import org.junit.jupiter.api.*;
-import ru.nsu.kotenkov.bakery.staff.Order;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import ru.nsu.kotenkov.bakery.staff.Order;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the courier thread.
+ */
 public class CourierThreadTest {
     OutputStream error;
 
@@ -71,6 +79,7 @@ public class CourierThreadTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        assertEquals("COURIER: Courier 0 was interrupted while delivering.", error.toString().trim());
+        assertEquals("COURIER: Courier 0 was interrupted while delivering.",
+                error.toString().trim());
     }
 }

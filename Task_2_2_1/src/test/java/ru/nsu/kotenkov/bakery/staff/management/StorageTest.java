@@ -1,11 +1,18 @@
 package ru.nsu.kotenkov.bakery.staff.management;
 
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.nsu.kotenkov.bakery.staff.Order;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the storage.
+ */
 public class StorageTest {
     @Test
     @DisplayName("Init")

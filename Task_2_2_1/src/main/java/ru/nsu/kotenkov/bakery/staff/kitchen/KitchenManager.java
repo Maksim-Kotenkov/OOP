@@ -1,8 +1,6 @@
 package ru.nsu.kotenkov.bakery.staff.kitchen;
 
 
-import static java.lang.Boolean.FALSE;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import ru.nsu.kotenkov.bakery.staff.Order;
@@ -44,7 +42,8 @@ public class KitchenManager extends Thread {
             // (Bakery thread, system interruptions)
             if (interrupted()) {
                 synchronized (this) {
-                    System.out.println("KITCHEN: Waiting for all the working bakers to finish baking");
+                    System.out.println("KITCHEN: Waiting for all the " +
+                            "working bakers to finish baking");
                     PreviousOrders.store(orders.subList(bakeId, orders.size()));
                     try {
                         for (BakerThread b : bakers) {
@@ -62,7 +61,7 @@ public class KitchenManager extends Thread {
             }
 
             // give some work for all ready bakers
-            BakerThread readyBaker = null;
+            BakerThread readyBaker;
             while ((readyBaker = bakers.stream()
                     .filter(BakerThread::isReady)
                     .findAny()
@@ -70,7 +69,7 @@ public class KitchenManager extends Thread {
                     && bakeId < orders.size()) {
                 // start one baker with all the setup
                 readyBaker.setOrder(orders.get(bakeId));
-                readyBaker.setReady(FALSE);
+                readyBaker.setReady(false);
 
                 // every time we need a new thread
                 // (because the same thread cannot be started many times)
@@ -91,7 +90,8 @@ public class KitchenManager extends Thread {
                 }
             } catch (InterruptedException e) {
                 synchronized (this) {
-                    System.out.println("KITCHEN: Waiting for all the working bakers to finish baking");
+                    System.out.println("KITCHEN: Waiting for all the " +
+                            "working bakers to finish baking");
                     try {
                         for (BakerThread b : bakers) {
                             if (b.getMyself() != null) {
@@ -103,6 +103,7 @@ public class KitchenManager extends Thread {
                     }
                     bakersWorkingHard = false;
                     notify();
+                    break;
                 }
             }
         }

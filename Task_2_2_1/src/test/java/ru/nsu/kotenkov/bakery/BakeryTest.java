@@ -1,21 +1,25 @@
 package ru.nsu.kotenkov.bakery;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import ru.nsu.kotenkov.bakery.staff.Order;
-import ru.nsu.kotenkov.bakery.staff.configuring.BakeryConfig;
-import ru.nsu.kotenkov.bakery.staff.management.DeliveryManager;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import ru.nsu.kotenkov.bakery.staff.Order;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for the bakery.
+ */
 public class BakeryTest {
     OutputStream error = new ByteArrayOutputStream();
 
@@ -81,6 +85,7 @@ public class BakeryTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        assertEquals("OFFICE: Kitchen thread was interrupted during the work", error.toString().trim());
+        assertEquals("OFFICE: Kitchen thread was interrupted during the work",
+                error.toString().trim());
     }
 }

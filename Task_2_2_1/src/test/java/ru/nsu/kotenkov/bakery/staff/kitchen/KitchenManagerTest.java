@@ -1,5 +1,13 @@
 package ru.nsu.kotenkov.bakery.staff.kitchen;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,13 +15,10 @@ import org.junit.jupiter.api.Test;
 import ru.nsu.kotenkov.bakery.staff.Order;
 import ru.nsu.kotenkov.bakery.staff.configuring.BakeryConfig;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests for the kitchen manager.
+ */
 public class KitchenManagerTest {
     OutputStream newOut;
 
@@ -78,12 +83,21 @@ public class KitchenManagerTest {
 
         kitchenThread.interrupt();
         try {
-            Thread.sleep(1000L);
+            Thread.sleep(4000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         assertEquals("KITCHEN: Orders number:1\n"
                 + "BAKER: Baker 0 started cooking order 0\n"
-                + "KITCHEN: Waiting for all the working bakers to finish baking\n", newOut.toString());
+                + "\n"
+                + "OFFICE: STOPPING THE WORK\n"
+                + "\n"
+                + "OFFICE: Kitchen finished the day\n"
+                + "DELIVERY: Waiting for all the couriers to finish the work\n"
+                + "OFFICE: Delivery finished the day\n"
+                + "OFFICE: Office finished the day\n"
+                + "BAKER: Baker 0 finished cooking order 0\n"
+                + "STORAGE: add order 0\n"
+                + "BAKER: Baker 0 stored order 0\n", newOut.toString());
     }
 }
