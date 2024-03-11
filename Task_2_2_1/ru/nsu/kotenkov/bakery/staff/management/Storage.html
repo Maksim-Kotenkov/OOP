@@ -133,6 +133,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Storage</span>
 extends java.lang.Object</pre>
+<div class="block">A class for storing ready orders.
+ Only one thread can interact with the storage by changing interacting flag.</div>
 </li>
 </ul>
 </div>
@@ -154,7 +156,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">Storage</a></span>&#8203;(int&nbsp;freeSpace)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -177,32 +181,44 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addOrder(ru.nsu.kotenkov.bakery.staff.Order)">addOrder</a></span>&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adding new order to the storage.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canStore()">canStore</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Checking free space.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrder()">getOrder</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Get order from the storage.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notEmpty()">notEmpty</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Flag for couriers.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notInteracting()">notInteracting</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Can we check freeSpace or emptiness and store/get order.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setInteracting(boolean)">setInteracting</a></span>&#8203;(boolean&nbsp;interacting)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Setter for interacting with the storage.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -235,6 +251,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Storage</h4>
 <pre>public&nbsp;Storage&#8203;(int&nbsp;freeSpace)</pre>
+<div class="block">Constructor.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>freeSpace</code> - how many Big Kahuna Burgers can be stored in there</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -254,6 +275,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>canStore</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;canStore()</pre>
+<div class="block">Checking free space.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true = let's store, false = wait</dd>
+</dl>
 </li>
 </ul>
 <a id="addOrder(ru.nsu.kotenkov.bakery.staff.Order)">
@@ -263,6 +289,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>addOrder</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addOrder&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</pre>
+<div class="block">Adding new order to the storage.
+ Decreasing freeSpace.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>order</code> - new order</dd>
+</dl>
 </li>
 </ul>
 <a id="getOrder()">
@@ -272,6 +304,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getOrder</h4>
 <pre class="methodSignature">public&nbsp;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;getOrder()</pre>
+<div class="block">Get order from the storage.
+ Increasing free space and removing the order from the list.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the order</dd>
+</dl>
 </li>
 </ul>
 <a id="notEmpty()">
@@ -281,6 +319,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>notEmpty</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;notEmpty()</pre>
+<div class="block">Flag for couriers.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true = get the order, false = wait</dd>
+</dl>
 </li>
 </ul>
 <a id="setInteracting(boolean)">
@@ -290,6 +333,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setInteracting</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setInteracting&#8203;(boolean&nbsp;interacting)</pre>
+<div class="block">Setter for interacting with the storage.
+ Is set when we check freeSpace or emptiness.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>interacting</code> - new state</dd>
+</dl>
 </li>
 </ul>
 <a id="notInteracting()">
@@ -299,6 +348,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>notInteracting</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;notInteracting()</pre>
+<div class="block">Can we check freeSpace or emptiness and store/get order.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>current state</dd>
+</dl>
 </li>
 </ul>
 </li>

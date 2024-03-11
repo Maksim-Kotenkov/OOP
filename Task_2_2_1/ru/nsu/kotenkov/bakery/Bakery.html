@@ -142,6 +142,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Bakery</span>
 extends java.lang.Thread</pre>
+<div class="block">Bakery class, that is the OFFICE.
+ It starts kitchen and management, and interrupts their threads when the time is out.
+ Configuration can be taken from special classes.</div>
 </li>
 </ul>
 </div>
@@ -197,7 +200,9 @@ extends java.lang.Thread</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.ArrayList)">Bakery</a></span>&#8203;(java.util.ArrayList&lt;<a href="staff/Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&gt;&nbsp;orders)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor with configs from special classes.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -220,12 +225,16 @@ extends java.lang.Thread</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run()">run</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Body of a bakery thread.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkingHours(int)">setWorkingHours</a></span>&#8203;(int&nbsp;workingHours)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Setter to test bakery well.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -265,6 +274,11 @@ extends java.lang.Thread</pre>
 <li class="blockList">
 <h4>Bakery</h4>
 <pre>public&nbsp;Bakery&#8203;(java.util.ArrayList&lt;<a href="staff/Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&gt;&nbsp;orders)</pre>
+<div class="block">Constructor with configs from special classes.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>orders</code> - we just give the orders here</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -284,6 +298,11 @@ extends java.lang.Thread</pre>
 <li class="blockList">
 <h4>setWorkingHours</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setWorkingHours&#8203;(int&nbsp;workingHours)</pre>
+<div class="block">Setter to test bakery well.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>workingHours</code> - new value</dd>
+</dl>
 </li>
 </ul>
 <a id="run()">
@@ -293,6 +312,10 @@ extends java.lang.Thread</pre>
 <li class="blockList">
 <h4>run</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;run()</pre>
+<div class="block">Body of a bakery thread.
+ Start kitchen and management threads.
+ Wait till the end of the day, let them do their work without our control.
+ At the end of the day interrupt them and wait for the notification, that they are finished.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>run</code>&nbsp;in interface&nbsp;<code>java.lang.Runnable</code></dd>
