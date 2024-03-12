@@ -25,8 +25,8 @@ public class Storage {
             this.freeSpace = freeSpace;
         } else {
             this.freeSpace = 0;
-            System.err.println("STORAGE: Trying to init less than " +
-                    "0 capacity storage, capacity set to 0");
+            System.err.println("STORAGE: Trying to init less than "
+                    + "0 capacity storage, capacity set to 0");
         }
     }
 

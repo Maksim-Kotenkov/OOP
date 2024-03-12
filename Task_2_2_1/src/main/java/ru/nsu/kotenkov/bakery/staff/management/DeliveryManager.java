@@ -32,8 +32,8 @@ public class DeliveryManager extends Thread {
         while (true) {
             if (interrupted()) {
                 synchronized (this) {
-                    System.out.println("DELIVERY: Waiting for all the " +
-                            "couriers to finish the work");
+                    System.out.println("DELIVERY: Waiting for all the "
+                            + "couriers to finish the work");
                     try {
                         for (CourierThread c : couriers) {
                             if (c.getMyself() != null) {
@@ -41,8 +41,8 @@ public class DeliveryManager extends Thread {
                             }
                         }
                     } catch (InterruptedException e) {
-                        System.err.println("DELIVERY: Waiting for all the " +
-                                "couriers was interrupted");
+                        System.err.println("DELIVERY: Waiting for all the "
+                                + "couriers was interrupted");
                     }
                     couriersSurvivingOutside = false;
                     notify();
