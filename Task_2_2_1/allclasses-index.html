@@ -27,12 +27,6 @@
     catch(err) {
     }
 //-->
-var data = {"i0":2,"i1":2,"i2":2,"i3":2,"i4":2,"i5":2,"i6":2,"i7":2,"i8":2,"i9":2,"i10":2,"i11":2,"i12":2,"i13":1,"i14":2};
-var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"]};
-var altColor = "altColor";
-var rowColor = "rowColor";
-var tableTab = "tableTab";
-var activeTableTab = "activeTableTab";
 var pathtoroot = "./";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -105,7 +99,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Classes</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Interface Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Class Summary</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
 <th class="colLast" scope="col">Description</th>
@@ -153,51 +147,33 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><a href="ru/nsu/kotenkov/bakery/staff/management/DeliveryManager.html" title="class in ru.nsu.kotenkov.bakery.staff.management">DeliveryManager</a></td>
-<th class="colLast" scope="row">
-<div class="block">Managing couriers and giving orders from the storage.</div>
-</th>
-</tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/KitchenManager.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">KitchenManager</a></td>
-<th class="colLast" scope="row">
-<div class="block">A class that give orders to bakers and synchronize after termination.</div>
-</th>
-</tr>
-<tr id="i9" class="rowColor">
 <td class="colFirst"><a href="ru/nsu/kotenkov/Main.html" title="class in ru.nsu.kotenkov">Main</a></td>
 <th class="colLast" scope="row">
 <div class="block">Just start the bakery, that's all.</div>
 </th>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><a href="ru/nsu/kotenkov/bakery/staff/Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a></td>
 <th class="colLast" scope="row">
 <div class="block">Order class for deserializing and then for use.</div>
 </th>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><a href="ru/nsu/kotenkov/bakery/staff/configuring/OrdersConfig.html" title="class in ru.nsu.kotenkov.bakery.staff.configuring">OrdersConfig</a></td>
 <th class="colLast" scope="row">
 <div class="block">Class for deserializing orders.json.</div>
 </th>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><a href="ru/nsu/kotenkov/bakery/staff/configuring/PreviousOrders.html" title="class in ru.nsu.kotenkov.bakery.staff.configuring">PreviousOrders</a></td>
 <th class="colLast" scope="row">
 <div class="block">A class that deserialize prevDayOrders.json.</div>
 </th>
 </tr>
-<tr id="i13" class="rowColor">
-<td class="colFirst"><a href="ru/nsu/kotenkov/bakery/staff/Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></td>
-<th class="colLast" scope="row">
-<div class="block">Interface for based Big Kahuna Burger worker.</div>
-</th>
-</tr>
-<tr id="i14" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></td>
 <th class="colLast" scope="row">
-<div class="block">A class for storing ready orders.</div>
+<div class="block">A class for storing ready orders and orders to be done.</div>
 </th>
 </tr>
 </table>

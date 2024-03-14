@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -137,12 +137,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code>java.lang.Runnable</code>, <code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
+<dd><code>java.lang.Runnable</code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">BakerThread</span>
-extends java.lang.Thread
-implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></pre>
+extends java.lang.Thread</pre>
 <div class="block">A class that is a Baker, but better.
  It can be a thread.</div>
 </li>
@@ -238,45 +237,17 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>java.lang.Thread</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMyself()">getMyself</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Getter for the connected thread.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isReady()">isReady</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Checker for the state.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run()">run</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Body of this baker thread.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMyself(java.lang.Thread)">setMyself</a></span>&#8203;(java.lang.Thread&nbsp;myself)</code></th>
-<td class="colLast">
-<div class="block">Setter to know Thread is connected to this object.</div>
-</td>
-</tr>
-<tr id="i4" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setOrder(ru.nsu.kotenkov.bakery.staff.Order)">setOrder</a></span>&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</code></th>
 <td class="colLast">
 <div class="block">Before the start og a thread we need to define what order should we produce.</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReady(boolean)">setReady</a></span>&#8203;(boolean&nbsp;ready)</code></th>
-<td class="colLast">
-<div class="block">Not to start a thread twice we better switch state by the caller, not in run.</div>
 </td>
 </tr>
 </table>
@@ -358,20 +329,6 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="setMyself(java.lang.Thread)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setMyself</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setMyself&#8203;(java.lang.Thread&nbsp;myself)</pre>
-<div class="block">Setter to know Thread is connected to this object.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>myself</code> - connected thread</dd>
-</dl>
-</li>
-</ul>
 <a id="setOrder(ru.nsu.kotenkov.bakery.staff.Order)">
 <!--   -->
 </a>
@@ -381,56 +338,8 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <pre class="methodSignature">public&nbsp;void&nbsp;setOrder&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</pre>
 <div class="block">Before the start og a thread we need to define what order should we produce.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Staff.html#setOrder(ru.nsu.kotenkov.bakery.staff.Order)">setOrder</a></code>&nbsp;in interface&nbsp;<code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>order</code> - the order</dd>
-</dl>
-</li>
-</ul>
-<a id="setReady(boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setReady</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setReady&#8203;(boolean&nbsp;ready)</pre>
-<div class="block">Not to start a thread twice we better switch state by the caller, not in run.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Staff.html#setReady(boolean)">setReady</a></code>&nbsp;in interface&nbsp;<code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>ready</code> - new state</dd>
-</dl>
-</li>
-</ul>
-<a id="isReady()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isReady</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;isReady()</pre>
-<div class="block">Checker for the state.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Staff.html#isReady()">isReady</a></code>&nbsp;in interface&nbsp;<code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the current state</dd>
-</dl>
-</li>
-</ul>
-<a id="getMyself()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getMyself</h4>
-<pre class="methodSignature">public&nbsp;java.lang.Thread&nbsp;getMyself()</pre>
-<div class="block">Getter for the connected thread.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>what am I</dd>
 </dl>
 </li>
 </ul>
@@ -445,8 +354,6 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>run</code>&nbsp;in interface&nbsp;<code>java.lang.Runnable</code></dd>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Staff.html#run()">run</a></code>&nbsp;in interface&nbsp;<code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>run</code>&nbsp;in class&nbsp;<code>java.lang.Thread</code></dd>
 </dl>

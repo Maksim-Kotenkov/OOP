@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -133,8 +133,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Storage</span>
 extends java.lang.Object</pre>
-<div class="block">A class for storing ready orders.
- Only one thread can interact with the storage by changing interacting flag.</div>
+<div class="block">A class for storing ready orders and orders to be done.
+ Custom lock flags for interactions with bakers and couriers down there.</div>
 </li>
 </ul>
 </div>
@@ -182,42 +182,63 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addOrder(ru.nsu.kotenkov.bakery.staff.Order)">addOrder</a></span>&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</code></th>
 <td class="colLast">
-<div class="block">Adding new order to the storage.</div>
+<div class="block">If we've got a new order we can add it with this method.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addToStorage(ru.nsu.kotenkov.bakery.staff.Order)">addToStorage</a></span>&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</code></th>
+<td class="colLast">
+<div class="block">Adding new order to the storage.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#anyOrders()">anyOrders</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Flag for bakers.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canStore()">canStore</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Checking free space.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrder()">getOrder</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFromStorage()">getFromStorage</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get order from the storage.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrder()">getOrder</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Method for baker to get order for him.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notEmpty()">notEmpty</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Flag for couriers.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notInteracting()">notInteracting</a></span>()</code></th>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>java.util.ArrayList&lt;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveOrders()">saveOrders</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Can we check freeSpace or emptiness and store/get order.</div>
+<div class="block">Get orders that are left to serialize them.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setInteracting(boolean)">setInteracting</a></span>&#8203;(boolean&nbsp;interacting)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setOrders(java.util.ArrayList)">setOrders</a></span>&#8203;(java.util.ArrayList&lt;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&gt;&nbsp;orders)</code></th>
 <td class="colLast">
-<div class="block">Setter for interacting with the storage.</div>
+<div class="block">To set orders for the day.</div>
 </td>
 </tr>
 </table>
@@ -268,6 +289,64 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="setOrders(java.util.ArrayList)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setOrders</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setOrders&#8203;(java.util.ArrayList&lt;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&gt;&nbsp;orders)</pre>
+<div class="block">To set orders for the day.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>orders</code> - let's begin making burgers</dd>
+</dl>
+</li>
+</ul>
+<a id="saveOrders()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>saveOrders</h4>
+<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&gt;&nbsp;saveOrders()</pre>
+<div class="block">Get orders that are left to serialize them.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>current orders</dd>
+</dl>
+</li>
+</ul>
+<a id="getOrder()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getOrder</h4>
+<pre class="methodSignature">public&nbsp;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;getOrder()</pre>
+<div class="block">Method for baker to get order for him.
+ It handles concurrency by itself with the use of flag customBakerLock.
+ As we cannot use original locks, this is kinda replacement.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>order to be done</dd>
+</dl>
+</li>
+</ul>
+<a id="addOrder(ru.nsu.kotenkov.bakery.staff.Order)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addOrder</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;addOrder&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</pre>
+<div class="block">If we've got a new order we can add it with this method.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>order</code> - new order</dd>
+</dl>
+</li>
+</ul>
 <a id="canStore()">
 <!--   -->
 </a>
@@ -282,13 +361,13 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="addOrder(ru.nsu.kotenkov.bakery.staff.Order)">
+<a id="addToStorage(ru.nsu.kotenkov.bakery.staff.Order)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>addOrder</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addOrder&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</pre>
+<h4>addToStorage</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;addToStorage&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</pre>
 <div class="block">Adding new order to the storage.
  Decreasing freeSpace.</div>
 <dl>
@@ -297,13 +376,13 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="getOrder()">
+<a id="getFromStorage()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getOrder</h4>
-<pre class="methodSignature">public&nbsp;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;getOrder()</pre>
+<h4>getFromStorage</h4>
+<pre class="methodSignature">public&nbsp;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;getFromStorage()</pre>
 <div class="block">Get order from the storage.
  Increasing free space and removing the order from the list.</div>
 <dl>
@@ -326,32 +405,17 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="setInteracting(boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setInteracting</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setInteracting&#8203;(boolean&nbsp;interacting)</pre>
-<div class="block">Setter for interacting with the storage.
- Is set when we check freeSpace or emptiness.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>interacting</code> - new state</dd>
-</dl>
-</li>
-</ul>
-<a id="notInteracting()">
+<a id="anyOrders()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>notInteracting</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;notInteracting()</pre>
-<div class="block">Can we check freeSpace or emptiness and store/get order.</div>
+<h4>anyOrders</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;anyOrders()</pre>
+<div class="block">Flag for bakers.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>current state</dd>
+<dd>true = get the order, false = wait</dd>
 </dl>
 </li>
 </ul>

@@ -92,14 +92,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </nav>
 </header>
 <main role="main">
-<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:A">
+<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:A">
 <!--   -->
 </a>
 <h2 class="title">A</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#addOrder(ru.nsu.kotenkov.bakery.staff.Order)">addOrder(Order)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
 <dd>
+<div class="block">If we've got a new order we can add it with this method.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#addToStorage(ru.nsu.kotenkov.bakery.staff.Order)">addToStorage(Order)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
+<dd>
 <div class="block">Adding new order to the storage.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#anyOrders()">anyOrders()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
+<dd>
+<div class="block">Flag for bakers.</div>
 </dd>
 </dl>
 <a id="I:B">
@@ -112,8 +120,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Baker that can be deserialized from json.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/Baker.html#%3Cinit%3E()">Baker()</a></span> - Constructor for class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/Baker.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">Baker</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/KitchenManager.html#bakersWorkingHard">bakersWorkingHard</a></span> - Variable in class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/KitchenManager.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">KitchenManager</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen"><span class="typeNameLink">BakerThread</span></a> - Class in <a href="ru/nsu/kotenkov/bakery/staff/kitchen/package-summary.html">ru.nsu.kotenkov.bakery.staff.kitchen</a></dt>
 <dd>
@@ -145,8 +151,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">C</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#canGetOrder()">canGetOrder()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#canStore()">canStore()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
 <dd>
 <div class="block">Checking free space.</div>
@@ -165,27 +169,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Courier.html#%3Cinit%3E()">Courier()</a></span> - Constructor for class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Courier.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Courier</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/DeliveryManager.html#couriersSurvivingOutside">couriersSurvivingOutside</a></span> - Variable in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/DeliveryManager.html" title="class in ru.nsu.kotenkov.bakery.staff.management">DeliveryManager</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management"><span class="typeNameLink">CourierThread</span></a> - Class in <a href="ru/nsu/kotenkov/bakery/staff/management/package-summary.html">ru.nsu.kotenkov.bakery.staff.management</a></dt>
 <dd>
 <div class="block">Runnable thread-like class for couriers.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#%3Cinit%3E(int,int,int)">CourierThread(int, int, int)</a></span> - Constructor for class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
-<dd>
-<div class="block">Constructor.</div>
-</dd>
-</dl>
-<a id="I:D">
-<!--   -->
-</a>
-<h2 class="title">D</h2>
-<dl>
-<dt><a href="ru/nsu/kotenkov/bakery/staff/management/DeliveryManager.html" title="class in ru.nsu.kotenkov.bakery.staff.management"><span class="typeNameLink">DeliveryManager</span></a> - Class in <a href="ru/nsu/kotenkov/bakery/staff/management/package-summary.html">ru.nsu.kotenkov.bakery.staff.management</a></dt>
-<dd>
-<div class="block">Managing couriers and giving orders from the storage.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/DeliveryManager.html#%3Cinit%3E(java.util.ArrayList,ru.nsu.kotenkov.bakery.staff.management.Storage)">DeliveryManager(ArrayList&lt;CourierThread&gt;, Storage)</a></span> - Constructor for class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/DeliveryManager.html" title="class in ru.nsu.kotenkov.bakery.staff.management">DeliveryManager</a></dt>
+<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#%3Cinit%3E(int,int,int,ru.nsu.kotenkov.bakery.staff.management.Storage)">CourierThread(int, int, int, Storage)</a></span> - Constructor for class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
 <dd>
 <div class="block">Constructor.</div>
 </dd>
@@ -215,10 +203,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Getter.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#getCapacity()">getCapacity()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
-<dd>
-<div class="block">Getter for capacity.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/configuring/ConfigMap.html#getCouriers()">getCouriers()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.configuring.<a href="ru/nsu/kotenkov/bakery/staff/configuring/ConfigMap.html" title="class in ru.nsu.kotenkov.bakery.staff.configuring">ConfigMap</a></dt>
 <dd>
 <div class="block">Getter.</div>
@@ -227,29 +211,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Getter.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#getFromStorage()">getFromStorage()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
+<dd>
+<div class="block">Get order from the storage.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/Order.html#getId()">getId()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.<a href="ru/nsu/kotenkov/bakery/staff/Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a></dt>
 <dd>
 <div class="block">Getter for tracing operations with this order.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html#getMyself()">getMyself()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">BakerThread</a></dt>
-<dd>
-<div class="block">Getter for the connected thread.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#getMyself()">getMyself()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
-<dd>
-<div class="block">What running thread is connected to this object.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#getOrder()">getOrder()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
 <dd>
-<div class="block">Get order from the storage.</div>
+<div class="block">Method for baker to get order for him.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/configuring/OrdersConfig.html#getOrders()">getOrders()</a></span> - Static method in class ru.nsu.kotenkov.bakery.staff.configuring.<a href="ru/nsu/kotenkov/bakery/staff/configuring/OrdersConfig.html" title="class in ru.nsu.kotenkov.bakery.staff.configuring">OrdersConfig</a></dt>
 <dd>
 <div class="block">Just one static method that gives us all the orders for today + from prev day.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#getSpeed()">getSpeed()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
-<dd>
-<div class="block">Getter for speed.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/configuring/BakeryConfig.html#getStorage()">getStorage()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.configuring.<a href="ru/nsu/kotenkov/bakery/staff/configuring/BakeryConfig.html" title="class in ru.nsu.kotenkov.bakery.staff.configuring">BakeryConfig</a></dt>
 <dd>
@@ -289,32 +265,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#id">id</a></span> - Variable in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html#isReady()">isReady()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">BakerThread</a></dt>
-<dd>
-<div class="block">Checker for the state.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#isReady()">isReady()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
-<dd>
-<div class="block">Mandatory method to check readiness.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/Staff.html#isReady()">isReady()</a></span> - Method in interface ru.nsu.kotenkov.bakery.staff.<a href="ru/nsu/kotenkov/bakery/staff/Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></dt>
-<dd>
-<div class="block">Staff needs to be ready or not.</div>
-</dd>
-</dl>
-<a id="I:K">
-<!--   -->
-</a>
-<h2 class="title">K</h2>
-<dl>
-<dt><a href="ru/nsu/kotenkov/bakery/staff/kitchen/KitchenManager.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen"><span class="typeNameLink">KitchenManager</span></a> - Class in <a href="ru/nsu/kotenkov/bakery/staff/kitchen/package-summary.html">ru.nsu.kotenkov.bakery.staff.kitchen</a></dt>
-<dd>
-<div class="block">A class that give orders to bakers and synchronize after termination.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/KitchenManager.html#%3Cinit%3E(java.util.ArrayList,java.util.ArrayList)">KitchenManager(ArrayList&lt;BakerThread&gt;, ArrayList&lt;Order&gt;)</a></span> - Constructor for class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/KitchenManager.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">KitchenManager</a></dt>
-<dd>
-<div class="block">Constructor that sets bakers and orders.</div>
-</dd>
 </dl>
 <a id="I:M">
 <!--   -->
@@ -340,10 +290,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#notEmpty()">notEmpty()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
 <dd>
 <div class="block">Flag for couriers.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#notInteracting()">notInteracting()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
-<dd>
-<div class="block">Can we check freeSpace or emptiness and store/get order.</div>
 </dd>
 </dl>
 <a id="I:O">
@@ -401,21 +347,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Body of this baker thread.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/KitchenManager.html#run()">run()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/KitchenManager.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">KitchenManager</a></dt>
-<dd>
-<div class="block">A method for kitchen Thread.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#run()">run()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
 <dd>
 <div class="block">Thread body that is run while delivering.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/DeliveryManager.html#run()">run()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/DeliveryManager.html" title="class in ru.nsu.kotenkov.bakery.staff.management">DeliveryManager</a></dt>
-<dd>
-<div class="block">Thread body for managing courier threads and interruptions from the office.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/Staff.html#run()">run()</a></span> - Method in interface ru.nsu.kotenkov.bakery.staff.<a href="ru/nsu/kotenkov/bakery/staff/Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></dt>
-<dd>
-<div class="block">To run thread.</div>
 </dd>
 </dl>
 <a id="I:S">
@@ -423,6 +357,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">S</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#saveOrders()">saveOrders()</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
+<dd>
+<div class="block">Get orders that are left to serialize them.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/configuring/ConfigMap.html#setBakers(java.util.ArrayList)">setBakers(ArrayList&lt;Baker&gt;)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.configuring.<a href="ru/nsu/kotenkov/bakery/staff/configuring/ConfigMap.html" title="class in ru.nsu.kotenkov.bakery.staff.configuring">ConfigMap</a></dt>
 <dd>
 <div class="block">Setters are used by ObjectMapper from Jackson.</div>
@@ -447,18 +385,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Setter for deserializing.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#setInteracting(boolean)">setInteracting(boolean)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
-<dd>
-<div class="block">Setter for interacting with the storage.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html#setMyself(java.lang.Thread)">setMyself(Thread)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">BakerThread</a></dt>
-<dd>
-<div class="block">Setter to know Thread is connected to this object.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#setMyself(java.lang.Thread)">setMyself(Thread)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
-<dd>
-<div class="block">After creating a thread from this courier we set myself.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html#setOrder(ru.nsu.kotenkov.bakery.staff.Order)">setOrder(Order)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">BakerThread</a></dt>
 <dd>
 <div class="block">Before the start og a thread we need to define what order should we produce.</div>
@@ -467,21 +393,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Giving an order.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/Staff.html#setOrder(ru.nsu.kotenkov.bakery.staff.Order)">setOrder(Order)</a></span> - Method in interface ru.nsu.kotenkov.bakery.staff.<a href="ru/nsu/kotenkov/bakery/staff/Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></dt>
+<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#setOrders(java.util.ArrayList)">setOrders(ArrayList&lt;Order&gt;)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
 <dd>
-<div class="block">Setter for giving an order.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html#setReady(boolean)">setReady(boolean)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.kitchen.<a href="ru/nsu/kotenkov/bakery/staff/kitchen/BakerThread.html" title="class in ru.nsu.kotenkov.bakery.staff.kitchen">BakerThread</a></dt>
-<dd>
-<div class="block">Not to start a thread twice we better switch state by the caller, not in run.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html#setReady(boolean)">setReady(boolean)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/CourierThread.html" title="class in ru.nsu.kotenkov.bakery.staff.management">CourierThread</a></dt>
-<dd>
-<div class="block">Set readiness after giving an order.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/Staff.html#setReady(boolean)">setReady(boolean)</a></span> - Method in interface ru.nsu.kotenkov.bakery.staff.<a href="ru/nsu/kotenkov/bakery/staff/Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></dt>
-<dd>
-<div class="block">Setter to set a worker as busy.</div>
+<div class="block">To set orders for the day.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Courier.html#setSpeed(int)">setSpeed(int)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Courier.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Courier</a></dt>
 <dd>
@@ -499,23 +413,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Setter for deserializing.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/Bakery.html#setWorkingHours(int)">setWorkingHours(int)</a></span> - Method in class ru.nsu.kotenkov.bakery.<a href="ru/nsu/kotenkov/bakery/Bakery.html" title="class in ru.nsu.kotenkov.bakery">Bakery</a></dt>
-<dd>
-<div class="block">Setter to test bakery well.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/configuring/ConfigMap.html#setWorkingHours(int)">setWorkingHours(int)</a></span> - Method in class ru.nsu.kotenkov.bakery.staff.configuring.<a href="ru/nsu/kotenkov/bakery/staff/configuring/ConfigMap.html" title="class in ru.nsu.kotenkov.bakery.staff.configuring">ConfigMap</a></dt>
 <dd>
 <div class="block">Setters are used by ObjectMapper from Jackson.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Courier.html#speed">speed</a></span> - Variable in class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Courier.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Courier</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/kotenkov/bakery/staff/Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff"><span class="typeNameLink">Staff</span></a> - Interface in <a href="ru/nsu/kotenkov/bakery/staff/package-summary.html">ru.nsu.kotenkov.bakery.staff</a></dt>
-<dd>
-<div class="block">Interface for based Big Kahuna Burger worker.</div>
-</dd>
 <dt><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management"><span class="typeNameLink">Storage</span></a> - Class in <a href="ru/nsu/kotenkov/bakery/staff/management/package-summary.html">ru.nsu.kotenkov.bakery.staff.management</a></dt>
 <dd>
-<div class="block">A class for storing ready orders.</div>
+<div class="block">A class for storing ready orders and orders to be done.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html#%3Cinit%3E(int)">Storage(int)</a></span> - Constructor for class ru.nsu.kotenkov.bakery.staff.management.<a href="ru/nsu/kotenkov/bakery/staff/management/Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a></dt>
 <dd>
@@ -526,7 +432,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Method to store orders in prevDayOrders.json.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
 </main>
 <footer role="contentinfo">
 <nav role="navigation">

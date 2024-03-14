@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var data = {"i0":10,"i1":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -137,12 +137,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code>java.lang.Runnable</code>, <code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
+<dd><code>java.lang.Runnable</code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">CourierThread</span>
-extends java.lang.Thread
-implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></pre>
+extends java.lang.Thread</pre>
 <div class="block">Runnable thread-like class for couriers.</div>
 </li>
 </ul>
@@ -211,9 +210,10 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int,int,int)">CourierThread</a></span>&#8203;(int&nbsp;id,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int,int,int,ru.nsu.kotenkov.bakery.staff.management.Storage)">CourierThread</a></span>&#8203;(int&nbsp;id,
              int&nbsp;capacity,
-             int&nbsp;speed)</code></th>
+             int&nbsp;speed,
+             <a href="Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a>&nbsp;storage)</code></th>
 <td class="colLast">
 <div class="block">Constructor.</div>
 </td>
@@ -237,64 +237,17 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canGetOrder()">canGetOrder</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCapacity()">getCapacity</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Getter for capacity.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>java.lang.Thread</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMyself()">getMyself</a></span>()</code></th>
-<td class="colLast">
-<div class="block">What running thread is connected to this object.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpeed()">getSpeed</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Getter for speed.</div>
-</td>
-</tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isReady()">isReady</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Mandatory method to check readiness.</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run()">run</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Thread body that is run while delivering.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMyself(java.lang.Thread)">setMyself</a></span>&#8203;(java.lang.Thread&nbsp;myself)</code></th>
-<td class="colLast">
-<div class="block">After creating a thread from this courier we set myself.</div>
-</td>
-</tr>
-<tr id="i7" class="rowColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setOrder(ru.nsu.kotenkov.bakery.staff.Order)">setOrder</a></span>&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</code></th>
 <td class="colLast">
 <div class="block">Giving an order.</div>
-</td>
-</tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReady(boolean)">setReady</a></span>&#8203;(boolean&nbsp;ready)</code></th>
-<td class="colLast">
-<div class="block">Set readiness after giving an order.</div>
 </td>
 </tr>
 </table>
@@ -347,7 +300,7 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(int,int,int)">
+<a id="&lt;init&gt;(int,int,int,ru.nsu.kotenkov.bakery.staff.management.Storage)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -355,7 +308,8 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <h4>CourierThread</h4>
 <pre>public&nbsp;CourierThread&#8203;(int&nbsp;id,
                      int&nbsp;capacity,
-                     int&nbsp;speed)</pre>
+                     int&nbsp;speed,
+                     <a href="Storage.html" title="class in ru.nsu.kotenkov.bakery.staff.management">Storage</a>&nbsp;storage)</pre>
 <div class="block">Constructor.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -375,103 +329,6 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getCapacity()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getCapacity</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getCapacity()</pre>
-<div class="block">Getter for capacity.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>capacity</dd>
-</dl>
-</li>
-</ul>
-<a id="getSpeed()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getSpeed</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getSpeed()</pre>
-<div class="block">Getter for speed.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>speed</dd>
-</dl>
-</li>
-</ul>
-<a id="isReady()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isReady</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;isReady()</pre>
-<div class="block">Mandatory method to check readiness.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Staff.html#isReady()">isReady</a></code>&nbsp;in interface&nbsp;<code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>ready steady go</dd>
-</dl>
-</li>
-</ul>
-<a id="getMyself()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getMyself</h4>
-<pre class="methodSignature">public&nbsp;java.lang.Thread&nbsp;getMyself()</pre>
-<div class="block">What running thread is connected to this object.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>connected thread</dd>
-</dl>
-</li>
-</ul>
-<a id="setMyself(java.lang.Thread)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setMyself</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setMyself&#8203;(java.lang.Thread&nbsp;myself)</pre>
-<div class="block">After creating a thread from this courier we set myself.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>myself</code> - connected thread</dd>
-</dl>
-</li>
-</ul>
-<a id="setReady(boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setReady</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setReady&#8203;(boolean&nbsp;ready)</pre>
-<div class="block">Set readiness after giving an order.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Staff.html#setReady(boolean)">setReady</a></code>&nbsp;in interface&nbsp;<code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>ready</code> - new state</dd>
-</dl>
-</li>
-</ul>
-<a id="canGetOrder()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>canGetOrder</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;canGetOrder()</pre>
-</li>
-</ul>
 <a id="setOrder(ru.nsu.kotenkov.bakery.staff.Order)">
 <!--   -->
 </a>
@@ -481,8 +338,6 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <pre class="methodSignature">public&nbsp;void&nbsp;setOrder&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</pre>
 <div class="block">Giving an order.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Staff.html#setOrder(ru.nsu.kotenkov.bakery.staff.Order)">setOrder</a></code>&nbsp;in interface&nbsp;<code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>order</code> - new order</dd>
 </dl>
@@ -499,8 +354,6 @@ implements <a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.st
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>run</code>&nbsp;in interface&nbsp;<code>java.lang.Runnable</code></dd>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Staff.html#run()">run</a></code>&nbsp;in interface&nbsp;<code><a href="../Staff.html" title="interface in ru.nsu.kotenkov.bakery.staff">Staff</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>run</code>&nbsp;in class&nbsp;<code>java.lang.Thread</code></dd>
 </dl>
