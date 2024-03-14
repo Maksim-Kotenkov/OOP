@@ -2,7 +2,6 @@ package ru.nsu.kotenkov.bakery.staff.kitchen;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -43,16 +42,14 @@ public class BakerThreadTest {
         BakerThread testBaker = new BakerThread(0, 1, storage);
 
         testBaker.setOrder(testOrder);
-        testBaker.setMyself(new Thread(testBaker));
-
-        testBaker.getMyself().start();
+        testBaker.start();
         try {
             Thread.sleep(12 * 1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        assertFalse(testBaker.getMyself().isAlive());
+        assertTrue(testBaker.isAlive());
     }
 
     @Test
@@ -64,19 +61,18 @@ public class BakerThreadTest {
 
         BakerThread testBaker = new BakerThread(0, 1, storage);
 
-        testBaker.setOrder(testOrder);
-        testBaker.setMyself(new Thread(testBaker));
+        storage.addOrder(testOrder);
+        testBaker.start();
 
-        testBaker.getMyself().start();
         try {
             Thread.sleep(5 * 1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        testBaker.getMyself().interrupt();
-        assertTrue(testBaker.getMyself().isInterrupted());
-        testBaker.getMyself().interrupt();
+        testBaker.interrupt();
+        assertTrue(testBaker.isInterrupted());
+        testBaker.interrupt();
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {

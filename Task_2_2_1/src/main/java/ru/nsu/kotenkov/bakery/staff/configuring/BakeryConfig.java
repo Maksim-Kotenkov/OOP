@@ -50,7 +50,7 @@ public class BakeryConfig {
         }
 
         for (Courier c : map.getCouriers()) {
-            courierThreads.add(new CourierThread(c.id, c.capacity, c.speed));
+            courierThreads.add(new CourierThread(c.id, c.capacity, c.speed, storage));
         }
 
         this.workingHours = map.getWorkingHours();

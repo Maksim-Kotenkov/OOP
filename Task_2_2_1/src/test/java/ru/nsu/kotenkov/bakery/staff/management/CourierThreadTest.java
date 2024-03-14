@@ -2,12 +2,12 @@ package ru.nsu.kotenkov.bakery.staff.management;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -37,20 +37,19 @@ public class CourierThreadTest {
     public void checkOkThread() {
         Order testOrder = new Order();
         testOrder.setTimeToDeliver(10);
+        Storage st = new Storage(2);
 
-        CourierThread testCourier = new CourierThread(0, 10, 1);
+        CourierThread testCourier = new CourierThread(0, 10, 1, st);
 
-        testCourier.setOrder(testOrder);
-        testCourier.setMyself(new Thread(testCourier));
-
-        testCourier.getMyself().start();
+        st.addToStorage(testOrder);
+        testCourier.start();
         try {
             Thread.sleep(12 * 1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        assertFalse(testCourier.getMyself().isAlive());
+        assertTrue(testCourier.isAlive());
     }
 
     @Test
@@ -58,22 +57,21 @@ public class CourierThreadTest {
     public synchronized void checkThreadInterruption() {
         Order testOrder = new Order();
         testOrder.setTimeToDeliver(10);
+        Storage st = new Storage(2);
 
-        CourierThread testCourier = new CourierThread(0, 10, 1);
+        CourierThread testCourier = new CourierThread(0, 10, 1, st);
 
-        testCourier.setOrder(testOrder);
-        testCourier.setMyself(new Thread(testCourier));
-
-        testCourier.getMyself().start();
+        st.addToStorage(testOrder);
+        testCourier.start();
         try {
             Thread.sleep(5 * 1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        testCourier.getMyself().interrupt();
-        assertTrue(testCourier.getMyself().isInterrupted());
-        testCourier.getMyself().interrupt();
+        testCourier.interrupt();
+        assertTrue(testCourier.isInterrupted());
+        testCourier.interrupt();
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {

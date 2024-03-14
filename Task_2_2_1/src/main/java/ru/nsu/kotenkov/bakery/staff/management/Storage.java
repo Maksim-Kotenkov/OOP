@@ -6,13 +6,15 @@ import ru.nsu.kotenkov.bakery.staff.Order;
 
 
 /**
- * A class for storing ready orders.
- * Only one thread can interact with the storage by changing interacting flag.
+ * A class for storing ready orders and orders to be done.
+ * Custom lock flags for interactions with bakers and couriers down there.
  */
 public class Storage {
     private int freeSpace;
     private ArrayList<Order> storage;
-    private boolean interacting = false;
+    private ArrayList<Order> orders;
+    private volatile boolean customBakersLock = false;
+    private volatile boolean customCouriersLock = false;
 
     /**
      * Constructor.
@@ -21,6 +23,7 @@ public class Storage {
      */
     public Storage(int freeSpace) {
         this.storage = new ArrayList<>();
+        this.orders = new ArrayList<>();
         if (freeSpace >= 0) {
             this.freeSpace = freeSpace;
         } else {
@@ -31,12 +34,77 @@ public class Storage {
     }
 
     /**
+     * To set orders for the day.
+     *
+     * @param orders let's begin making burgers
+     */
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+    }
+
+    /**
+     * Get orders that are left to serialize them.
+     *
+     * @return current orders
+     */
+    public ArrayList<Order> saveOrders() {
+        return orders;
+    }
+
+    /**
+     * Method for baker to get order for him.
+     * It handles concurrency by itself with the use of flag customBakerLock.
+     * As we cannot use original locks, this is kinda replacement.
+     *
+     * @return order to be done
+     */
+    public synchronized Order getOrder() {
+        while (customBakersLock) {
+            Thread.onSpinWait();
+        }
+        customBakersLock = true;
+
+        Order toReturn = orders.get(0);
+        orders = new ArrayList<>(orders.subList(1, orders.size()));
+        System.out.println("STORAGE: baker took order " + toReturn.getId());
+        customBakersLock = false;
+
+        return toReturn;
+    }
+
+    /**
+     * If we've got a new order we can add it with this method.
+     *
+     * @param order new order
+     */
+    public synchronized void addOrder(Order order) {
+        while (customBakersLock) {
+            Thread.onSpinWait();
+        }
+        customBakersLock = true;
+
+        orders.add(order);
+        freeSpace -= 1;
+        System.out.println("STORAGE: added order " + order.getId());
+        customBakersLock = false;
+    }
+
+    /**
      * Checking free space.
      *
      * @return true = let's store, false = wait
      */
-    public boolean canStore() {
-        return freeSpace != 0;
+    public synchronized boolean canStore() {
+        while (customCouriersLock) {
+            Thread.onSpinWait();
+        }
+
+        try {
+            customCouriersLock = true;
+            return freeSpace != 0;
+        } finally {
+            customCouriersLock = false;
+        }
     }
 
     /**
@@ -45,10 +113,16 @@ public class Storage {
      *
      * @param order new order
      */
-    public void addOrder(Order order) {
+    public synchronized void addToStorage(Order order) {
+        while (customCouriersLock) {
+            Thread.onSpinWait();
+        }
+
+        customCouriersLock = true;
         freeSpace -= 1;
-        System.out.println("STORAGE: add order " + order.getId());
+        System.out.println("STORAGE: added to storage order " + order.getId());
         storage.add(order);
+        customCouriersLock = false;
     }
 
     /**
@@ -57,12 +131,25 @@ public class Storage {
      *
      * @return the order
      */
-    public Order getOrder() {
-        Order toReturn = storage.get(0);
-        storage = new ArrayList<>(storage.subList(1, storage.size()));
-        freeSpace += 1;
-        System.out.println("STORAGE: remove order " + toReturn.getId());
-        return toReturn;
+    public synchronized Order getFromStorage() {
+        while (customCouriersLock) {
+            Thread.onSpinWait();
+        }
+        if (storage.isEmpty()) {
+            return null;
+        }
+
+        try {
+            customCouriersLock = true;
+
+            Order toReturn = storage.get(0);
+            storage = new ArrayList<>(storage.subList(1, storage.size()));
+            freeSpace += 1;
+            System.out.println("STORAGE: removed from storage order " + toReturn.getId());
+            return toReturn;
+        } finally {
+            customCouriersLock = false;
+        }
     }
 
     /**
@@ -75,21 +162,11 @@ public class Storage {
     }
 
     /**
-     * Setter for interacting with the storage.
-     * Is set when we check freeSpace or emptiness.
+     * Flag for bakers.
      *
-     * @param interacting new state
+     * @return true = get the order, false = wait
      */
-    public void setInteracting(boolean interacting) {
-        this.interacting = interacting;
-    }
-
-    /**
-     * Can we check freeSpace or emptiness and store/get order.
-     *
-     * @return current state
-     */
-    public boolean notInteracting() {
-        return !interacting;
+    public synchronized boolean anyOrders() {
+        return !orders.isEmpty();
     }
 }

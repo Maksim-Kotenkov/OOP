@@ -2,9 +2,7 @@ package ru.nsu.kotenkov.bakery;
 
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -57,35 +55,8 @@ public class BakeryTest {
         orders.add(customOrder);
 
         Bakery testBakery = new Bakery(orders);
-        Thread bakeryThread = new Thread(testBakery);
 
-        assertDoesNotThrow(bakeryThread::start);
+        assertDoesNotThrow(testBakery::run);
     }
 
-    @Test
-    @DisplayName("Bakery run with interruption")
-    public void checkRunInterruption() {
-        ArrayList<Order> orders = new ArrayList<>();
-
-        Order customOrder = new Order();
-        customOrder.setTimeToCook(10);
-        customOrder.setTimeToDeliver(10);
-        orders.add(customOrder);
-
-        Bakery testBakery = new Bakery(orders);
-        testBakery.setWorkingHours(20);
-        Thread bakeryThread = new Thread(testBakery);
-
-        bakeryThread.start();
-
-        bakeryThread.interrupt();
-        assertTrue(bakeryThread.isInterrupted());
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        assertEquals("OFFICE: Kitchen thread was interrupted during the work",
-                error.toString().trim());
-    }
 }

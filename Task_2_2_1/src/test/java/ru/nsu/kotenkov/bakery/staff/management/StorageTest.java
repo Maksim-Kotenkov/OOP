@@ -38,7 +38,7 @@ public class StorageTest {
         Storage st = new Storage(1);
 
         Order ord = new Order();
-        st.addOrder(ord);
+        st.addToStorage(ord);
 
         assertTrue(st.notEmpty());
         assertFalse(st.canStore());
@@ -50,10 +50,34 @@ public class StorageTest {
         Storage st = new Storage(1);
 
         Order ord = new Order();
+        st.addToStorage(ord);
+        ord = st.getFromStorage();
+
+        assertNotNull(ord);
+        assertTrue(st.canStore());
+    }
+
+    @Test
+    @DisplayName("ord to cook")
+    public void checkOrder() {
+        Storage st = new Storage(1);
+
+        Order ord = new Order();
+        st.addOrder(ord);
+
+        assertTrue(st.anyOrders());
+    }
+
+    @Test
+    @DisplayName("getting an order to cook")
+    public void checkGettingOrderToCook() {
+        Storage st = new Storage(1);
+
+        Order ord = new Order();
         st.addOrder(ord);
         ord = st.getOrder();
 
         assertNotNull(ord);
-        assertTrue(st.canStore());
+        assertFalse(st.anyOrders());
     }
 }

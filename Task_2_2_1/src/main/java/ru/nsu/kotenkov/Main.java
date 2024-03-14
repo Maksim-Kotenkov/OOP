@@ -17,11 +17,6 @@ public class Main {
     public static void main(String[] args) {
         Bakery bakery = new Bakery(OrdersConfig.getOrders());
 
-        bakery.start();
-        try {
-            bakery.join();
-        } catch (InterruptedException e) {
-            System.err.println("Bakery thread interrupted");
-        }
+        bakery.run();
     }
 }
