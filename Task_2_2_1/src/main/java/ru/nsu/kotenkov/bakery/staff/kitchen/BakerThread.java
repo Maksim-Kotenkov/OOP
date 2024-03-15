@@ -73,7 +73,7 @@ public class BakerThread extends Thread {
                                     + " stored order " + order.getId());
                             break;
                         }
-                }
+                    }
                 }
             }
         } catch (InterruptedException e) {
