@@ -61,7 +61,10 @@ public class BakerThreadTest {
 
         BakerThread testBaker = new BakerThread(0, 1, storage);
 
-        storage.addOrder(testOrder);
+        synchronized (storage) {
+            storage.addOrder(testOrder);
+        }
+
         testBaker.start();
 
         try {

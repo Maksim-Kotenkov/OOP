@@ -63,18 +63,22 @@ public class StorageTest {
         Storage st = new Storage(1);
 
         Order ord = new Order();
-        st.addOrder(ord);
+        synchronized (st) {
+            st.addOrder(ord);
+        }
 
         assertTrue(st.anyOrders());
     }
 
     @Test
     @DisplayName("getting an order to cook")
-    public void checkGettingOrderToCook() {
+    public void checkGettingOrderToCook() throws InterruptedException {
         Storage st = new Storage(1);
 
         Order ord = new Order();
-        st.addOrder(ord);
+        synchronized (st) {
+            st.addOrder(ord);
+        }
         ord = st.getOrder();
 
         assertNotNull(ord);

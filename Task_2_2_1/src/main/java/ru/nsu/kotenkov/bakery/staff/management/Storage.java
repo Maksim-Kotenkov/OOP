@@ -51,42 +51,76 @@ public class Storage {
         return orders;
     }
 
+//    /**
+//     * Method for baker to get order for him.
+//     * It handles concurrency by itself with the use of flag customBakerLock.
+//     * As we cannot use original locks, this is kinda replacement.
+//     *
+//     * @return order to be done
+//     */
+//    public synchronized Order getOrder() {
+//        while (customBakersLock) {
+//            Thread.onSpinWait();
+//        }
+//        customBakersLock = true;
+//
+//        Order toReturn = orders.get(0);
+//        orders = new ArrayList<>(orders.subList(1, orders.size()));
+//        System.out.println("STORAGE: baker took order " + toReturn.getId());
+//        customBakersLock = false;
+//
+//        return toReturn;
+//    }
+
     /**
      * Method for baker to get order for him.
-     * It handles concurrency by itself with the use of flag customBakerLock.
-     * As we cannot use original locks, this is kinda replacement.
+     * We lock on orders monitor and wait for the notification if there is no orders.
      *
      * @return order to be done
      */
-    public synchronized Order getOrder() {
-        while (customBakersLock) {
-            Thread.onSpinWait();
+    public Order getOrder() throws InterruptedException {
+        synchronized (orders) {
+            while (!anyOrders()) {
+                wait();
+            }
+            Order toReturn = orders.get(0);
+            orders = new ArrayList<>(orders.subList(1, orders.size()));
+            System.out.println("STORAGE: baker took order " + toReturn.getId());
+
+            return toReturn;
         }
-        customBakersLock = true;
-
-        Order toReturn = orders.get(0);
-        orders = new ArrayList<>(orders.subList(1, orders.size()));
-        System.out.println("STORAGE: baker took order " + toReturn.getId());
-        customBakersLock = false;
-
-        return toReturn;
     }
+
+//    /**
+//     * If we've got a new order we can add it with this method.
+//     *
+//     * @param order new order
+//     */
+//    public synchronized void addOrder(Order order) {
+//        while (customBakersLock) {
+//            Thread.onSpinWait();
+//        }
+//        customBakersLock = true;
+//
+//        orders.add(order);
+//        freeSpace -= 1;
+//        System.out.println("STORAGE: added order " + order.getId());
+//        customBakersLock = false;
+//    }
 
     /**
      * If we've got a new order we can add it with this method.
+     * After that we notify bakers, that are locked in a getOrder call.
      *
      * @param order new order
      */
-    public synchronized void addOrder(Order order) {
-        while (customBakersLock) {
-            Thread.onSpinWait();
+    public void addOrder(Order order) {
+        synchronized (orders) {
+            orders.add(order);
+            freeSpace -= 1;
+            System.out.println("STORAGE: added order " + order.getId());
+            notify();
         }
-        customBakersLock = true;
-
-        orders.add(order);
-        freeSpace -= 1;
-        System.out.println("STORAGE: added order " + order.getId());
-        customBakersLock = false;
     }
 
     /**
