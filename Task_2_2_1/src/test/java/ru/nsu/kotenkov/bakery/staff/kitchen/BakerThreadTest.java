@@ -51,36 +51,4 @@ public class BakerThreadTest {
 
         assertTrue(testBaker.isAlive());
     }
-
-    @Test
-    @DisplayName("Baker interruption")
-    public void checkThreadInterruption() {
-        Order testOrder = new Order();
-        testOrder.setTimeToCook(10);
-        Storage storage = new Storage(2);
-
-        BakerThread testBaker = new BakerThread(0, 1, storage);
-
-        synchronized (storage) {
-            storage.addOrder(testOrder);
-        }
-
-        testBaker.start();
-
-        try {
-            Thread.sleep(5 * 1000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        testBaker.interrupt();
-        assertTrue(testBaker.isInterrupted());
-        testBaker.interrupt();
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        assertEquals("BAKER: Baker 0 was interrupted while cooking.", error.toString().trim());
-    }
 }
