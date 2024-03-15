@@ -323,13 +323,15 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getOrder</h4>
-<pre class="methodSignature">public&nbsp;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;getOrder()</pre>
+<pre class="methodSignature">public&nbsp;<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;getOrder()
+               throws java.lang.InterruptedException</pre>
 <div class="block">Method for baker to get order for him.
- It handles concurrency by itself with the use of flag customBakerLock.
- As we cannot use original locks, this is kinda replacement.</div>
+ We lock on orders monitor and wait for the notification if there is no orders.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>order to be done</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.InterruptedException</code></dd>
 </dl>
 </li>
 </ul>
@@ -340,7 +342,8 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>addOrder</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addOrder&#8203;(<a href="../Order.html" title="class in ru.nsu.kotenkov.bakery.staff">Order</a>&nbsp;order)</pre>
-<div class="block">If we've got a new order we can add it with this method.</div>
+<div class="block">If we've got a new order we can add it with this method.
+ After that we notify bakers, that are locked in a getOrder call.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>order</code> - new order</dd>
