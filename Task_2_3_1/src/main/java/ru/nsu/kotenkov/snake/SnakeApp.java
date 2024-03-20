@@ -45,9 +45,6 @@ public class SnakeApp extends Application {
             }
         });
 
-//        updater.update();
-        // TODO how to set this method on cycle?
-
         pane.getChildren().add(canvas);
 
         Scene scene = new Scene(pane);

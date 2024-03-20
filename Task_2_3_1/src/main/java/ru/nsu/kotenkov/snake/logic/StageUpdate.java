@@ -59,10 +59,19 @@ public class StageUpdate implements Runnable {
 
     private void printCell(GraphicsContext context, Point cell, Paint color) {
         context.setFill(color);
-        context.fillRect(cell.x * Playground.cellWidth,
-                cell.y * Playground.cellHeight,
-                Playground.cellWidth,
-                Playground.cellHeight);
+        if (color.equals(Playground.foodPaint)) {
+            // TODO need drawImage(img, x, y, w, h)
+            context.fillOval(cell.x * Playground.cellWidth,
+                    cell.y * Playground.cellHeight,
+                    Playground.cellWidth,
+                    Playground.cellHeight);
+        } else {
+            context.fillRect(cell.x * Playground.cellWidth,
+                    cell.y * Playground.cellHeight,
+                    Playground.cellWidth,
+                    Playground.cellHeight);
+        }
+
     }
 
     public Snake getSnake() {
