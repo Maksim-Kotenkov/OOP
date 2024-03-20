@@ -6,16 +6,17 @@ import java.util.ArrayList;
 
 
 public class Snake {
+    private enum directionEnum {
+        UP,
+        RIGHT,
+        DOWN,
+        LEFT
+    }
     private ArrayList<Point> cells;
-    // there is a class Point so better use it
-
-    // length
-
-    // method to add new point in the beginning of the list and deleting last one
-    // while adding new point, check eating food with method of Food class (give our cords of the new head)
-    // also checking for intersections and throwing custom error
-
-    // setters for the movement direction
+    private int length;
+    private directionEnum direction = directionEnum.UP;
+    private Point movingVector = new Point(-1, 0);
+    private boolean growNextTime;
 
     public Snake() {
         cells = new ArrayList<>();
@@ -23,7 +24,66 @@ public class Snake {
         cells.add(new Point(2, 3));
     }
 
+    public void move() {
+        Point newPoint = new Point(cells.get(0).x + movingVector.x, cells.get(0).y + movingVector.y);
+
+        if (newPoint.x < 0) {
+            newPoint.x = Playground.nCellsWidth;
+        } else if (newPoint.x > Playground.nCellsWidth) {
+            newPoint.x = 0;
+        }
+
+        if (newPoint.y < 0) {
+            newPoint.y = Playground.nCellsHeight;
+        } else if (newPoint.y > Playground.nCellsHeight) {
+            newPoint.y = 0;
+        }
+
+        cells.add(0, newPoint);
+
+        // TODO remove only if we didn't eat food last time (check and remove flag)
+        cells.remove(cells.size() - 1);
+    }
+
+    // TODO also checking for intersections and throwing custom error
+
+    public Point getHead() {
+        return cells.get(0);
+    }
+
     public ArrayList<Point> getCells() {
         return cells;
+    }
+
+    public void setUp() {
+        if (!direction.equals(directionEnum.UP)) {
+            direction = directionEnum.UP;
+            movingVector = new Point(-1, 0);
+        }
+    }
+
+    public void setRight() {
+        if (!direction.equals(directionEnum.RIGHT)) {
+            direction = directionEnum.RIGHT;
+            movingVector = new Point(0, 1);
+        }
+    }
+
+    public void setDown() {
+        if (!direction.equals(directionEnum.DOWN)) {
+            direction = directionEnum.DOWN;
+            movingVector = new Point(1, 0);
+        }
+    }
+
+    public void setLeft() {
+        if (!direction.equals(directionEnum.LEFT)) {
+            direction = directionEnum.LEFT;
+            movingVector = new Point(0, -1);
+        }
+    }
+
+    public void growNextTime() {
+        growNextTime = true;
     }
 }

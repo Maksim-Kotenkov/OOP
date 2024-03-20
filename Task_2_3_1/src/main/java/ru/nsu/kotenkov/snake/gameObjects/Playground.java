@@ -4,7 +4,7 @@ package ru.nsu.kotenkov.snake.gameObjects;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-// maybe a record?
+//TODO maybe a record?
 // and maybe load from config.json
 public class Playground {
     // size
@@ -19,7 +19,7 @@ public class Playground {
     public static Paint fontPaint = Color.BLACK;
     public static Paint foodPaint = Color.RED;
     public static Paint snakePaint = Color.GREEN;
-    // color for dead snake indicator
+    // TODO color for dead snake indicator
 
-    // number of food at the same time on the playground
+    // TODO number of food at the same time on the playground
 }

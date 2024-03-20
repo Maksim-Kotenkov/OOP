@@ -8,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import ru.nsu.kotenkov.snake.gameObjects.Playground;
-import ru.nsu.kotenkov.snake.gameObjects.Snake;
+import ru.nsu.kotenkov.snake.logic.StageUpdate;
 
 
 public class SnakeApp extends Application {
@@ -24,10 +24,10 @@ public class SnakeApp extends Application {
         GraphicsContext context = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
 
-        Snake snake = new Snake();
-        StageUpdate updater = new StageUpdate(snake);
+        StageUpdate updater = new StageUpdate();
 
         updater.update(context);
+        // TODO how to set this method on cycle?
 
         pane.getChildren().add(canvas);
 
@@ -39,10 +39,4 @@ public class SnakeApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-//    private void reset() {
-//        grid = new Grid(WIDTH, HEIGHT);
-//        loop = new GameLoop(grid, context);
-//        Painter.paint(grid, context);
-//    }
 }
