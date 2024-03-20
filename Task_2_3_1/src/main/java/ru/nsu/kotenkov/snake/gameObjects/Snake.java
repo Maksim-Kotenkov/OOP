@@ -15,6 +15,7 @@ public class Snake {
     private final ArrayList<Point> cells;
     private int length;
     private directionEnum direction = directionEnum.RIGHT;
+    private directionEnum prevDirection = directionEnum.RIGHT;
     private Point movingVector = new Point(1, 0);
     private boolean growNextTime;
 
@@ -47,6 +48,8 @@ public class Snake {
             length += 1;
             growNextTime = false;
         }
+
+        prevDirection = direction;
     }
 
     // TODO also checking for intersections and throwing custom error
@@ -60,28 +63,28 @@ public class Snake {
     }
 
     public void setUp() {
-        if (!direction.equals(directionEnum.DOWN)) {
+        if (!prevDirection.equals(directionEnum.DOWN)) {
             direction = directionEnum.UP;
             movingVector = new Point(0, -1);
         }
     }
 
     public void setRight() {
-        if (!direction.equals(directionEnum.LEFT)) {
+        if (!prevDirection.equals(directionEnum.LEFT)) {
             direction = directionEnum.RIGHT;
             movingVector = new Point(1, 0);
         }
     }
 
     public void setDown() {
-        if (!direction.equals(directionEnum.UP)) {
+        if (!prevDirection.equals(directionEnum.UP)) {
             direction = directionEnum.DOWN;
             movingVector = new Point(0, 1);
         }
     }
 
     public void setLeft() {
-        if (!direction.equals(directionEnum.RIGHT)) {
+        if (!prevDirection.equals(directionEnum.RIGHT)) {
             direction = directionEnum.LEFT;
             movingVector = new Point(-1, 0);
         }
