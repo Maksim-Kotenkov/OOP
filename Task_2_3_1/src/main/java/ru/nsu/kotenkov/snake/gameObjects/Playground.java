@@ -22,4 +22,8 @@ public class Playground {
     // TODO color for dead snake indicator
 
     // TODO number of food at the same time on the playground
+
+    public static long basicFrameRate = 300;
+    public static long speedIncrease = 10;
+    public static long minFrameRate = 100;
 }

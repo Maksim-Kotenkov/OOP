@@ -9,18 +9,35 @@ import ru.nsu.kotenkov.snake.gameObjects.Playground;
 import ru.nsu.kotenkov.snake.gameObjects.Snake;
 
 
-public class StageUpdate {
+public class StageUpdate implements Runnable {
     private final Snake snake;
     private final Food food;
     private final ObjectsUpdate objUpdater;
+    private final GraphicsContext context;
 
-    public StageUpdate() {
+    public StageUpdate(GraphicsContext context) {
         this.snake = new Snake();
         this.food = new Food();
         this.objUpdater = new ObjectsUpdate(snake, food);
+        this.context = context;
     }
 
-    public void update(GraphicsContext context) {
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                update();
+                long toSleep = Math.max(Playground.basicFrameRate - (snake.getLength() * Playground.speedIncrease),
+                        Playground.minFrameRate);
+                Thread.sleep(toSleep);
+            }
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
+    public void update() {
         // reset
         context.setFill(Playground.fontPaint);
         context.fillRect(0, 0, Playground.WIDTH, Playground.HEIGHT);
@@ -31,8 +48,10 @@ public class StageUpdate {
         // for every snake cell print a rectangle
         // we need a method to print current cell
         // TODO also, we should catch custom exception for intersections and show score + reset
+        context.setFill(Playground.snakePaint);
         snake.getCells().forEach(p -> printCell(context, p, Playground.snakePaint));
 
+        context.setFill(Playground.foodPaint);
         food.getPoints().forEach(p -> printCell(context, p, Playground.foodPaint));
 
         // TODO somehow print score from Snake.getLength
@@ -44,5 +63,9 @@ public class StageUpdate {
                 cell.y * Playground.cellHeight,
                 Playground.cellWidth,
                 Playground.cellHeight);
+    }
+
+    public Snake getSnake() {
+        return snake;
     }
 }
