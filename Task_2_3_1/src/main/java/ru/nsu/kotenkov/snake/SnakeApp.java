@@ -7,13 +7,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import ru.nsu.kotenkov.snake.gameObjects.Playground;
+import ru.nsu.kotenkov.snake.gameObjects.Snake;
 
 
 public class SnakeApp extends Application {
-
-    private static final int WIDTH = 500;
-    private static final int HEIGHT = 500;
-
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -22,12 +20,14 @@ public class SnakeApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         StackPane pane = new StackPane();
-        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        Canvas canvas = new Canvas(Playground.WIDTH, Playground.HEIGHT);
         GraphicsContext context = canvas.getGraphicsContext2D();
-
         canvas.setFocusTraversable(true);
 
-        StageUpdate.update(context);
+        Snake snake = new Snake();
+        StageUpdate updater = new StageUpdate(snake);
+
+        updater.update(context);
 
         pane.getChildren().add(canvas);
 

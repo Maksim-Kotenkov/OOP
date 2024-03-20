@@ -5,7 +5,7 @@ plugins {
 
 group = 'ru.nsu.kotenkov'
 version = '1.0-SNAPSHOT'
-mainClassName = 'ru.nsu.kotenkov.snake.snakeApp'
+mainClassName = 'ru.nsu.kotenkov.snake.SnakeApp'
 
 repositories {
     mavenCentral()
