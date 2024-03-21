@@ -42,6 +42,12 @@ public class SnakeApp extends Application {
                 case RIGHT:
                     snake.setRight();
                     break;
+                case ENTER:
+                    updater.pressContinueButton();
+                    break;
+                case R:
+                    updater.pressResetButton();
+                    break;
             }
         });
 

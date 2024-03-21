@@ -2,6 +2,7 @@ package ru.nsu.kotenkov.snake.gameObjects;
 
 
 import java.awt.Point;
+import java.security.cert.PolicyNode;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,24 +15,24 @@ public class Food {
         points.add(new Point(5, 5));
     }
 
-    public Point randomPoint(Point head) {
+    public Point randomPoint(ArrayList<Point> points) {
         Random random = new Random();
         Point point;
 
         do {
             point = new Point(random.nextInt(Playground.nCellsWidth),
                     random.nextInt(Playground.nCellsHeight));
-        } while (point.equals(head));
+        } while (points.stream().anyMatch(point::equals));
 
         return point;
     }
 
-    public boolean checkEaten(Point head) {
+    public boolean checkEaten(ArrayList<Point> snakePoints) {
         Point toRemove;
-        if (points.stream().anyMatch(head::equals)) {
-            toRemove = points.stream().filter(head::equals).toList().get(0);
+        if (points.stream().anyMatch(snakePoints.get(0)::equals)) {
+            toRemove = points.stream().filter(snakePoints.get(0)::equals).toList().get(0);
             points.remove(toRemove);
-            points.add(randomPoint(head));
+            points.add(randomPoint(snakePoints));
             return true;
         }
 

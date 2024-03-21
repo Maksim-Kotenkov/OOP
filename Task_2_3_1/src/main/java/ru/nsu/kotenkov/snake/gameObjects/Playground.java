@@ -8,10 +8,10 @@ import javafx.scene.paint.Paint;
 // and maybe load from config.json
 public class Playground {
     // size
-    public static int WIDTH = 500;
-    public static int HEIGHT = 500;
-    public static int cellHeight = 10;
-    public static int cellWidth = 10;
+    public static int WIDTH = 800;
+    public static int HEIGHT = 800;
+    public static int cellHeight = 50;
+    public static int cellWidth = 50;
     public static int nCellsWidth = WIDTH / cellWidth;
     public static int nCellsHeight = HEIGHT / cellHeight;
 
@@ -19,11 +19,13 @@ public class Playground {
     public static Paint fontPaint = Color.BLACK;
     public static Paint foodPaint = Color.RED;
     public static Paint snakePaint = Color.GREEN;
-    // TODO color for dead snake indicator
+    public static Paint deadPaint = Color.ORANGERED;
+    public static Paint textPaint = Color.YELLOW;
 
     // TODO number of food at the same time on the playground
 
-    public static long basicFrameRate = 300;
+    public static long basicFrameDelay = 300;
     public static long speedIncrease = 10;
-    public static long minFrameRate = 100;
+    public static long minFrameDelay = 100;
+    public static long resetSleep = 1000;
 }
