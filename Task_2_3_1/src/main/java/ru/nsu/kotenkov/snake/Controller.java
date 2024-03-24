@@ -1,16 +1,25 @@
 package ru.nsu.kotenkov.snake;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import ru.nsu.kotenkov.snake.logic.StageUpdate;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    private StageUpdate updater;
+
+    public void setUpdater(StageUpdate updater) {
+        this.updater = updater;
+    }
+
     @FXML
     private Canvas playgroundCanvas;
 
@@ -49,5 +58,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playgroundCanvas.setFocusTraversable(true);
+
+        startButton.setOnAction(event -> updater.pressContinueButton());
+        resetButton.setOnAction(event -> updater.pressResetButton());
     }
 }

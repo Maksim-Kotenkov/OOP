@@ -44,6 +44,7 @@ public class SnakeApp extends Application {
         GraphicsContext context = canvas.getGraphicsContext2D();
 
         StageUpdate updater = new StageUpdate(context, playground);
+        controller.setUpdater(updater);
 
         Scene scene = getScene(root, updater, controller);
 
@@ -74,9 +75,6 @@ public class SnakeApp extends Application {
                     break;
                 case D:
                     snake.setRight();
-                    break;
-                case ENTER:
-                    updater.pressContinueButton();
                     break;
                 case R:
                     updater.pressResetButton();
