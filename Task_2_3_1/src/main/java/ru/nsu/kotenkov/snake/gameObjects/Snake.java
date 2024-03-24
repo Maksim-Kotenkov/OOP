@@ -1,6 +1,8 @@
 package ru.nsu.kotenkov.snake.gameObjects;
 
 
+import ru.nsu.kotenkov.snake.gameObjects.exceptions.DeadSnakeException;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -13,30 +15,32 @@ public class Snake {
         LEFT
     }
     private final ArrayList<Point> cells;
+    private final Playground playground;
     private int length = 2;
     private directionEnum direction = directionEnum.RIGHT;
     private directionEnum prevDirection = directionEnum.RIGHT;
     private Point movingVector = new Point(1, 0);
     private boolean growNextTime;
 
-    public Snake() {
+    public Snake(Playground playground) {
         cells = new ArrayList<>();
         cells.add(new Point(2, 2));
         cells.add(new Point(2, 3));
+        this.playground = playground;
     }
 
     public void move() throws DeadSnakeException {
         Point newPoint = new Point(cells.get(0).x + movingVector.x, cells.get(0).y + movingVector.y);
 
         if (newPoint.x < 0) {
-            newPoint.x = Playground.nCellsWidth - 1;
-        } else if (newPoint.x > Playground.nCellsWidth - 1) {
+            newPoint.x = playground.nCellsWidth - 1;
+        } else if (newPoint.x > playground.nCellsWidth - 1) {
             newPoint.x = 0;
         }
 
         if (newPoint.y < 0) {
-            newPoint.y = Playground.nCellsHeight - 1;
-        } else if (newPoint.y > Playground.nCellsHeight - 1) {
+            newPoint.y = playground.nCellsHeight - 1;
+        } else if (newPoint.y > playground.nCellsHeight - 1) {
             newPoint.y = 0;
         }
 

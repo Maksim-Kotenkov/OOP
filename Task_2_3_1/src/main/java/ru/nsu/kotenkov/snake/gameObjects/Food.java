@@ -8,21 +8,32 @@ import java.util.Random;
 
 
 public class Food {
-    private final ArrayList<Point> points;
+    private ArrayList<Point> points;
+    private final Playground playground;
 
-    public Food() {
+    public Food(ArrayList<Point> snakePoints, Playground playground) {
+        this.playground = playground;
         points = new ArrayList<>();
-        points.add(new Point(5, 5));
+        for (int i = 0; i < playground.foodNumber; i++) {
+            points.add(randomPoint(snakePoints));
+        }
     }
 
-    public Point randomPoint(ArrayList<Point> points) {
+    public void reInitFood(ArrayList<Point> snakePoints) {
+        this.points = new ArrayList<>();
+        for (int i = 0; i < this.playground.foodNumber; i++) {
+            this.points.add(randomPoint(snakePoints));
+        }
+    }
+
+    public Point randomPoint(ArrayList<Point> snakePoints) {
         Random random = new Random();
         Point point;
 
         do {
-            point = new Point(random.nextInt(Playground.nCellsWidth),
-                    random.nextInt(Playground.nCellsHeight));
-        } while (points.stream().anyMatch(point::equals));
+            point = new Point(random.nextInt(playground.nCellsWidth),
+                    random.nextInt(playground.nCellsHeight));
+        } while (points.contains(point) || snakePoints.stream().anyMatch(point::equals));
 
         return point;
     }
