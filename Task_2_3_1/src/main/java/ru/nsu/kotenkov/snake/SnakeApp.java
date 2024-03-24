@@ -43,11 +43,9 @@ public class SnakeApp extends Application {
         // init context
         GraphicsContext context = canvas.getGraphicsContext2D();
 
-        canvas.setFocusTraversable(true);
-
         StageUpdate updater = new StageUpdate(context, playground);
 
-        Scene scene = getScene(root, updater);
+        Scene scene = getScene(root, updater, controller);
 
         primaryStage.setResizable(true);
         primaryStage.setTitle("Snake");
@@ -59,10 +57,10 @@ public class SnakeApp extends Application {
         gameLoop.start();
     }
 
-    private static Scene getScene(Pane root, StageUpdate updater) {
+    private static Scene getScene(Pane root, StageUpdate updater, Controller controller) {
         Scene scene = new Scene(root);
 
-        scene.setOnKeyPressed(action -> {
+        root.setOnKeyPressed(action -> {
             Snake snake = updater.getSnake();
             switch (action.getCode()) {
                 case W:

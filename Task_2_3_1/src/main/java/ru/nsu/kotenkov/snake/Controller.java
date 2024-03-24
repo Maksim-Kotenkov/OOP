@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
     @FXML
     private Canvas playgroundCanvas;
 
@@ -44,5 +44,10 @@ public class Controller {
 
     public TextField getVictoryScoreField() {
         return victoryScoreField;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        playgroundCanvas.setFocusTraversable(true);
     }
 }
