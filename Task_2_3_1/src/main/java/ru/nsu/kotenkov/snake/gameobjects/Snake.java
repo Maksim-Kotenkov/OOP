@@ -1,9 +1,9 @@
-package ru.nsu.kotenkov.snake.gameObjects;
+package ru.nsu.kotenkov.snake.gameobjects;
 
 
 import java.awt.Point;
 import java.util.ArrayList;
-import ru.nsu.kotenkov.snake.gameObjects.exceptions.DeadSnakeException;
+import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
 
 
 /**
@@ -49,14 +49,14 @@ public class Snake {
                 cells.get(0).y + movingVector.y);
 
         if (newPoint.x < 0) {
-            newPoint.x = playground.nCellsWidth - 1;
-        } else if (newPoint.x > playground.nCellsWidth - 1) {
+            newPoint.x = playground.numberCellsWidth - 1;
+        } else if (newPoint.x > playground.numberCellsWidth - 1) {
             newPoint.x = 0;
         }
 
         if (newPoint.y < 0) {
-            newPoint.y = playground.nCellsHeight - 1;
-        } else if (newPoint.y > playground.nCellsHeight - 1) {
+            newPoint.y = playground.numberCellsHeight - 1;
+        } else if (newPoint.y > playground.numberCellsHeight - 1) {
             newPoint.y = 0;
         }
 

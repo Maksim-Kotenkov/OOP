@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.snake.gameObjects.exceptions;
+package ru.nsu.kotenkov.snake.gameobjects.exceptions;
 
 
 /**

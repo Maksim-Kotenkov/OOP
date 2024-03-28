@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.snake.gameObjects;
+package ru.nsu.kotenkov.snake.gameobjects;
 
 
 import javafx.scene.canvas.Canvas;
@@ -13,14 +13,14 @@ import ru.nsu.kotenkov.snake.Controller;
  */
 public class Playground {
     // size
-    public int WIDTH;
-    public int HEIGHT;
+    public int Width;
+    public int Height;
     public int cellHeight = 50;
     public int cellWidth = 50;
-    public int nCellsWidth = 10;
-    public int nCellsHeight = 10;
-    private int maxNCellsWidth = 100;
-    private int maxNCellsHeight = 100;
+    public int numberCellsWidth = 10;
+    public int numberCellsHeight = 10;
+    private int maxNumCellsWidth = 100;
+    private int maxNumCellsHeight = 100;
 
     // game setup
     public int foodNumber = 3;
@@ -38,8 +38,8 @@ public class Playground {
         // parameters of a canvas
         Canvas canvas = controller.getPlaygroundCanvas();
 
-        WIDTH = (int) canvas.getWidth();
-        HEIGHT = (int) canvas.getHeight();
+        Width = (int) canvas.getWidth();
+        Height = (int) canvas.getHeight();
     }
 
     /**
@@ -60,16 +60,16 @@ public class Playground {
         }
 
         if (!widthCellsField.getCharacters().isEmpty()) {
-            nCellsWidth = Math.min(maxNCellsWidth,
+            numberCellsWidth = Math.min(maxNumCellsWidth,
                     Integer.parseInt(widthCellsField.getCharacters().toString())
             );
-            cellWidth = WIDTH / nCellsWidth;
+            cellWidth = Width / numberCellsWidth;
         }
         if (!heightCellsField.getCharacters().isEmpty()) {
-            nCellsHeight = Math.min(maxNCellsHeight,
+            numberCellsHeight = Math.min(maxNumCellsHeight,
                     Integer.parseInt(heightCellsField.getCharacters().toString())
             );
-            cellHeight = HEIGHT / nCellsHeight;
+            cellHeight = Height / numberCellsHeight;
         }
     }
 

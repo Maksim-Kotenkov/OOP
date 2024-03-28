@@ -1,11 +1,11 @@
 package ru.nsu.kotenkov.snake.logic;
 
 
-import ru.nsu.kotenkov.snake.gameObjects.exceptions.DeadSnakeException;
-import ru.nsu.kotenkov.snake.gameObjects.Food;
-import ru.nsu.kotenkov.snake.gameObjects.Playground;
-import ru.nsu.kotenkov.snake.gameObjects.Snake;
-import ru.nsu.kotenkov.snake.gameObjects.exceptions.VictorySignal;
+import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
+import ru.nsu.kotenkov.snake.gameobjects.Food;
+import ru.nsu.kotenkov.snake.gameobjects.Playground;
+import ru.nsu.kotenkov.snake.gameobjects.Snake;
+import ru.nsu.kotenkov.snake.gameobjects.exceptions.VictorySignal;
 
 
 /**

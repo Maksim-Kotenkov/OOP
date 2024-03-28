@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.snake.gameObjects;
+package ru.nsu.kotenkov.snake.gameobjects;
 
 
 import java.awt.Point;
@@ -50,8 +50,8 @@ public class Food {
         Point point;
 
         do {
-            point = new Point(random.nextInt(playground.nCellsWidth),
-                    random.nextInt(playground.nCellsHeight));
+            point = new Point(random.nextInt(playground.numberCellsWidth),
+                    random.nextInt(playground.numberCellsHeight));
         } while (points.contains(point) || snakePoints.stream().anyMatch(point::equals));
 
         return point;

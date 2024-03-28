@@ -5,11 +5,11 @@ import java.awt.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import ru.nsu.kotenkov.snake.gameObjects.exceptions.DeadSnakeException;
-import ru.nsu.kotenkov.snake.gameObjects.Food;
-import ru.nsu.kotenkov.snake.gameObjects.Playground;
-import ru.nsu.kotenkov.snake.gameObjects.Snake;
-import ru.nsu.kotenkov.snake.gameObjects.exceptions.VictorySignal;
+import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
+import ru.nsu.kotenkov.snake.gameobjects.Food;
+import ru.nsu.kotenkov.snake.gameobjects.Playground;
+import ru.nsu.kotenkov.snake.gameobjects.Snake;
+import ru.nsu.kotenkov.snake.gameobjects.exceptions.VictorySignal;
 
 
 /**
@@ -46,7 +46,7 @@ public class StageUpdate implements Runnable {
         try {
             // setting up playground and printing start message, then waiting for start events
             context.setFill(Playground.fontPaint);
-            context.fillRect(0, 0, playground.WIDTH, playground.HEIGHT);
+            context.fillRect(0, 0, playground.Width, playground.Height);
             printStartMessage();
             startWaiting();
 
@@ -92,7 +92,7 @@ public class StageUpdate implements Runnable {
     public void update() throws DeadSnakeException, VictorySignal {
         // reset everything
         context.setFill(Playground.fontPaint);
-        context.fillRect(0, 0, playground.WIDTH, playground.HEIGHT);
+        context.fillRect(0, 0, playground.Width, playground.Height);
 
         // update snake
         try {
@@ -111,8 +111,8 @@ public class StageUpdate implements Runnable {
         // TODO move score to the field
         context.setFill(Color.YELLOW);
         context.fillText("Score: " + snake.getLength(),
-                playground.WIDTH - 100,
-                playground.HEIGHT - 20);
+                playground.Width - 100,
+                playground.Height - 20);
     }
 
     /**
@@ -233,12 +233,12 @@ public class StageUpdate implements Runnable {
         if (victory) {
             context.fillText("CONGRATULATIONS, YOU'VE REACHED SCORE "
                             + playground.victoryScore + " AND WON!!!",
-                    (double) playground.WIDTH / 2 - 200,
-                    (double) playground.HEIGHT / 2 - 20);
+                    (double) playground.Width / 2 - 200,
+                    (double) playground.Height / 2 - 20);
         } else {
             context.fillText("Score: " + snake.getLength(),
-                    (double) playground.WIDTH / 2 - 20,
-                    (double) playground.HEIGHT / 2 - 20);
+                    (double) playground.Width / 2 - 20,
+                    (double) playground.Height / 2 - 20);
         }
     }
 
@@ -248,8 +248,8 @@ public class StageUpdate implements Runnable {
     private void printStartMessage() {
         context.setFill(Playground.textPaint);
         context.fillText("PRESS \"START\" BUTTON TO START A NEW GAME",
-                (double) playground.WIDTH / 2 - 165,
-                (double) playground.HEIGHT / 2);
+                (double) playground.Width / 2 - 165,
+                (double) playground.Height / 2);
     }
 
     /**
