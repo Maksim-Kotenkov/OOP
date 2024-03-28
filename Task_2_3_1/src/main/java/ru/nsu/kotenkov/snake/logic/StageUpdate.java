@@ -12,6 +12,9 @@ import ru.nsu.kotenkov.snake.gameObjects.Snake;
 import ru.nsu.kotenkov.snake.gameObjects.exceptions.VictorySignal;
 
 
+/**
+ * A class to be run in separated thread. It changes the context of the playground.
+ */
 public class StageUpdate implements Runnable {
     private Snake snake;
     private Food food;
@@ -21,6 +24,12 @@ public class StageUpdate implements Runnable {
     private boolean resetButton;  // changes its condition on R key and "Reset" button
     private boolean continueButton;  // changes its condition on "Start" button
 
+    /**
+     * Constructor.
+     *
+     * @param context the context from canvas
+     * @param playground playground parameters
+     */
     public StageUpdate(GraphicsContext context, Playground playground) {
         this.playground = playground;
         this.snake = new Snake(playground);
@@ -29,6 +38,9 @@ public class StageUpdate implements Runnable {
         this.context = context;
     }
 
+    /**
+     * Life cycle.
+     */
     @Override
     public void run() {
         try {
@@ -59,7 +71,8 @@ public class StageUpdate implements Runnable {
                 }
 
                 // don't sleep more than min threshold
-                long toSleep = Math.max(Playground.basicFrameDelay - (snake.getLength() * Playground.speedIncrease),
+                long toSleep = Math.max(Playground.basicFrameDelay
+                                - (snake.getLength() * Playground.speedIncrease),
                         Playground.minFrameDelay);
                 Thread.sleep(toSleep);
             }
@@ -69,6 +82,13 @@ public class StageUpdate implements Runnable {
 
     }
 
+    /**
+     * Method to update context.
+     * Move snake, spawn food, check conditions.
+     *
+     * @throws DeadSnakeException exception to signal about death
+     * @throws VictorySignal exception to signal about victory
+     */
     public void update() throws DeadSnakeException, VictorySignal {
         // reset everything
         context.setFill(Playground.fontPaint);
@@ -90,9 +110,18 @@ public class StageUpdate implements Runnable {
 
         // TODO move score to the field
         context.setFill(Color.YELLOW);
-        context.fillText("Score: " + snake.getLength(), playground.WIDTH - 100, playground.HEIGHT - 20);
+        context.fillText("Score: " + snake.getLength(),
+                playground.WIDTH - 100,
+                playground.HEIGHT - 20);
     }
 
+    /**
+     * Print a cell on the canvas with the color given.
+     * We can understand what shape will we spawn depending on the color.
+     *
+     * @param cell Point object
+     * @param color Paint object
+     */
     private void printCell(Point cell, Paint color) {
         // deciding what shape to print depending on the color
         if (color.equals(Playground.foodPaint)) {
@@ -130,6 +159,9 @@ public class StageUpdate implements Runnable {
                 playground.cellHeight);
     }
 
+    /**
+     * Print playground with dead snake.
+     */
     private void gameOver() {
         snake.getCells().forEach(p -> printCell(p, Playground.snakePaint));
         food.getPoints().forEach(p -> printCell(p, Playground.foodPaint));
@@ -137,16 +169,11 @@ public class StageUpdate implements Runnable {
         printCell(snake.getHead(), Playground.deadPaint);
     }
 
-    private void victory() {
-        snake.getCells().forEach(p -> printCell(p, Playground.snakePaint));
-        food.getPoints().forEach(p -> printCell(p, Playground.foodPaint));
-
-        context.setFill(Playground.textPaint);
-        context.fillText("CONGRATULATIONS, YOU'VE REACHED " + playground.victoryScore + " AND WON!!!",
-                (double) playground.WIDTH / 2 - 20,
-                (double) playground.HEIGHT / 2 - 20);
-    }
-
+    /**
+     * Reset the game.
+     *
+     * @param victory was it the victory or just reset
+     */
     private void reset(boolean victory) {
         // TODO change text size
         printScore(victory);
@@ -204,7 +231,8 @@ public class StageUpdate implements Runnable {
     private void printScore(boolean victory) {
         context.setFill(Playground.textPaint);
         if (victory) {
-            context.fillText("CONGRATULATIONS, YOU'VE REACHED SCORE " + playground.victoryScore + " AND WON!!!",
+            context.fillText("CONGRATULATIONS, YOU'VE REACHED SCORE "
+                            + playground.victoryScore + " AND WON!!!",
                     (double) playground.WIDTH / 2 - 200,
                     (double) playground.HEIGHT / 2 - 20);
         } else {
@@ -224,6 +252,11 @@ public class StageUpdate implements Runnable {
                 (double) playground.HEIGHT / 2);
     }
 
+    /**
+     * Getter.
+     *
+     * @return obj
+     */
     public Snake getSnake() {
         return snake;
     }

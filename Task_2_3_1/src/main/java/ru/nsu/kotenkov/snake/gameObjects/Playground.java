@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import ru.nsu.kotenkov.snake.Controller;
 
+
 /**
  * A class that turns fxml config into parameters for snake game.
  */
@@ -16,13 +17,15 @@ public class Playground {
     public int HEIGHT;
     public int cellHeight = 50;
     public int cellWidth = 50;
-    public int nCellsWidth;
-    public int nCellsHeight;
+    public int nCellsWidth = 10;
+    public int nCellsHeight = 10;
+    private int maxNCellsWidth = 100;
+    private int maxNCellsHeight = 100;
 
     // game setup
     public int foodNumber = 3;
     public int victoryScore = 15;
-    private Controller controller;
+    private final Controller controller;
 
     /**
      * At the initializing of the game we calculate everything.
@@ -37,22 +40,36 @@ public class Playground {
 
         WIDTH = (int) canvas.getWidth();
         HEIGHT = (int) canvas.getHeight();
-        nCellsWidth = WIDTH / cellWidth;
-        nCellsHeight = HEIGHT / cellHeight;
-
-
     }
 
+    /**
+     * After reset and start we need to set parameters to filed values.
+     */
     public void setCustomizableFields() {
         // parameters from fields
         TextField foodNumberField = controller.getFoodNumberField();
         TextField VictoryScoreField = controller.getVictoryScoreField();
+        TextField widthCellsField = controller.getWidthCellsField();
+        TextField heightCellsField = controller.getHeightCellsField();
 
         if (!foodNumberField.getCharacters().isEmpty()) {
             foodNumber = Integer.parseInt(foodNumberField.getCharacters().toString());
         }
         if (!VictoryScoreField.getCharacters().isEmpty()) {
             victoryScore = Integer.parseInt(VictoryScoreField.getCharacters().toString());
+        }
+
+        if (!widthCellsField.getCharacters().isEmpty()) {
+            nCellsWidth = Math.min(maxNCellsWidth,
+                    Integer.parseInt(widthCellsField.getCharacters().toString())
+            );
+            cellWidth = WIDTH / nCellsWidth;
+        }
+        if (!heightCellsField.getCharacters().isEmpty()) {
+            nCellsHeight = Math.min(maxNCellsHeight,
+                    Integer.parseInt(heightCellsField.getCharacters().toString())
+            );
+            cellHeight = HEIGHT / nCellsHeight;
         }
     }
 

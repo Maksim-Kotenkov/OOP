@@ -1,13 +1,18 @@
 package ru.nsu.kotenkov.snake.gameObjects;
 
 
-import ru.nsu.kotenkov.snake.gameObjects.exceptions.DeadSnakeException;
-
 import java.awt.Point;
 import java.util.ArrayList;
+import ru.nsu.kotenkov.snake.gameObjects.exceptions.DeadSnakeException;
 
 
+/**
+ * Snake class.
+ */
 public class Snake {
+    /**
+     * Make enum for directions.
+     */
     private enum directionEnum {
         UP,
         RIGHT,
@@ -22,6 +27,11 @@ public class Snake {
     private Point movingVector = new Point(1, 0);
     private boolean growNextTime;
 
+    /**
+     * Initialize with length of two.
+     *
+     * @param playground playground parameters
+     */
     public Snake(Playground playground) {
         cells = new ArrayList<>();
         cells.add(new Point(2, 2));
@@ -29,8 +39,14 @@ public class Snake {
         this.playground = playground;
     }
 
+    /**
+     * Movement with handling screen edges and biting yourself.
+     *
+     * @throws DeadSnakeException is dead condition signal
+     */
     public void move() throws DeadSnakeException {
-        Point newPoint = new Point(cells.get(0).x + movingVector.x, cells.get(0).y + movingVector.y);
+        Point newPoint = new Point(cells.get(0).x + movingVector.x,
+                cells.get(0).y + movingVector.y);
 
         if (newPoint.x < 0) {
             newPoint.x = playground.nCellsWidth - 1;
@@ -61,18 +77,36 @@ public class Snake {
         prevDirection = direction;
     }
 
+    /**
+     * Getter.
+     *
+     * @return obj
+     */
     public Point getHead() {
         return cells.get(0);
     }
 
+    /**
+     * Getter.
+     *
+     * @return obj
+     */
     public Point getTail() {
         return cells.get(cells.size() - 1);
     }
 
+    /**
+     * Getter for printing the snake.
+     *
+     * @return obj
+     */
     public ArrayList<Point> getCells() {
         return cells;
     }
 
+    /**
+     * Direction setter.
+     */
     public void setUp() {
         if (!prevDirection.equals(directionEnum.DOWN)) {
             direction = directionEnum.UP;
@@ -80,6 +114,9 @@ public class Snake {
         }
     }
 
+    /**
+     * Direction setter.
+     */
     public void setRight() {
         if (!prevDirection.equals(directionEnum.LEFT)) {
             direction = directionEnum.RIGHT;
@@ -87,6 +124,9 @@ public class Snake {
         }
     }
 
+    /**
+     * Direction setter.
+     */
     public void setDown() {
         if (!prevDirection.equals(directionEnum.UP)) {
             direction = directionEnum.DOWN;
@@ -94,6 +134,9 @@ public class Snake {
         }
     }
 
+    /**
+     * Direction setter.
+     */
     public void setLeft() {
         if (!prevDirection.equals(directionEnum.RIGHT)) {
             direction = directionEnum.LEFT;
@@ -101,10 +144,18 @@ public class Snake {
         }
     }
 
+    /**
+     * Fruit eaten condition.
+     */
     public void growNextTime() {
         growNextTime = true;
     }
 
+    /**
+     * Getter.
+     *
+     * @return len
+     */
     public int getLength() {
         return length;
     }
