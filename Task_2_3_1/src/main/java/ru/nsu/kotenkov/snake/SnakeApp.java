@@ -24,6 +24,7 @@ public class SnakeApp extends Application {
 
     /**
      * No comments.
+     *
      * @param args no comments
      */
     public static void main(String[] args) {
@@ -32,6 +33,7 @@ public class SnakeApp extends Application {
 
     /**
      * Mandatory Application start method.
+     *
      * @param primaryStage the whole window stage
      * @throws IOException while reading configuration
      */
@@ -93,6 +95,8 @@ public class SnakeApp extends Application {
                     break;
                 case R:
                     updater.pressResetButton();
+                    break;
+                default:
                     break;
             }
         });

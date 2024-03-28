@@ -5,10 +5,10 @@ import java.awt.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
 import ru.nsu.kotenkov.snake.gameobjects.Food;
 import ru.nsu.kotenkov.snake.gameobjects.Playground;
 import ru.nsu.kotenkov.snake.gameobjects.Snake;
+import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
 import ru.nsu.kotenkov.snake.gameobjects.exceptions.VictorySignal;
 
 
@@ -198,7 +198,7 @@ public class StageUpdate implements Runnable {
      * Event handlers for buttons.
      */
     public void pressContinueButton() {
-        synchronized (this){
+        synchronized (this) {
             continueButton = true;
             notify();
         }
