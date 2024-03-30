@@ -1,6 +1,8 @@
 package ru.nsu.kotenkov.snake.gameobjects;
 
 
+import ru.nsu.kotenkov.snake.logic.Playground;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,18 +26,6 @@ public class Food {
         points = new ArrayList<>();
         for (int i = 0; i < playground.foodNumber; i++) {
             points.add(randomPoint(snakePoints));
-        }
-    }
-
-    /**
-     * On reset or victory.
-     *
-     * @param snakePoints no to place fruits at in the snake
-     */
-    public void reInitFood(ArrayList<Point> snakePoints) {
-        this.points = new ArrayList<>();
-        for (int i = 0; i < this.playground.foodNumber; i++) {
-            this.points.add(randomPoint(snakePoints));
         }
     }
 

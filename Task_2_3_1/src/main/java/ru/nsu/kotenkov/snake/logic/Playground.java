@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.snake.gameobjects;
+package ru.nsu.kotenkov.snake.logic;
 
 
 import javafx.scene.canvas.Canvas;
@@ -25,7 +25,18 @@ public class Playground {
     // game setup
     public int foodNumber = 3;
     public int victoryScore = 15;
+    public static long basicFrameDelay = 300;
+    public static long speedIncrease = 20;
+    public static long minFrameDelay = 100;
     private final Controller controller;
+
+    // colors
+    public static Paint fontPaint = Color.BLACK;
+    public static Paint foodPaint = Color.RED;
+    public static Paint snakePaint = Color.GREEN;
+    public static Paint deadPaint = Color.ORANGERED;
+    public static Paint textPaint = Color.YELLOW;
+
 
     /**
      * At the initializing of the game we calculate everything.
@@ -40,6 +51,15 @@ public class Playground {
 
         Width = (int) canvas.getWidth();
         Height = (int) canvas.getHeight();
+    }
+
+    /**
+     * Print score to the score field.
+     *
+     * @param newScore new val
+     */
+    public void setScore(int newScore) {
+        controller.getScoreField().setText(String.valueOf(newScore));
     }
 
     /**
@@ -72,15 +92,4 @@ public class Playground {
             cellHeight = Height / numberCellsHeight;
         }
     }
-
-    // colors
-    public static Paint fontPaint = Color.BLACK;
-    public static Paint foodPaint = Color.RED;
-    public static Paint snakePaint = Color.GREEN;
-    public static Paint deadPaint = Color.ORANGERED;
-    public static Paint textPaint = Color.YELLOW;
-
-    public static long basicFrameDelay = 300;
-    public static long speedIncrease = 20;
-    public static long minFrameDelay = 100;
 }

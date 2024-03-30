@@ -8,14 +8,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import ru.nsu.kotenkov.snake.logic.StageUpdate;
+import ru.nsu.kotenkov.snake.logic.SceneTimer;
 
 
 /**
  * JavaFX controller to set up scene objects and let the program get them.
  */
 public class Controller implements Initializable {
-    private StageUpdate updater;
+    private SceneTimer timer;
 
     @FXML
     private Canvas playgroundCanvas;
@@ -33,20 +33,21 @@ public class Controller implements Initializable {
     private TextField heightCellsField;
 
     @FXML
+    private TextField scoreField;
+
+    @FXML
     private Button startButton;
 
     @FXML
     private Button resetButton;
 
     /**
-     * Controller already created without StageUpdater at the startup.
-     * (after Controller was created, because fxml loads at startup)
-     * But we want to set up StageUpdater that doesn't exist at the startup.
+     * Timer.
      *
-     * @param updater initialized object
+     * @param timer new SceneTimer
      */
-    public void setUpdater(StageUpdate updater) {
-        this.updater = updater;
+    public void setTimer(SceneTimer timer) {
+        this.timer = timer;
     }
 
     /**
@@ -60,26 +61,9 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playgroundCanvas.setFocusTraversable(true);
 
-        startButton.setOnAction(event -> updater.pressContinueButton());
-        resetButton.setOnAction(event -> updater.pressResetButton());
-    }
-
-    /**
-     * Getter.
-     *
-     * @return obj
-     */
-    public Button getStartButton() {
-        return startButton;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return obj
-     */
-    public Button getResetButton() {
-        return resetButton;
+        startButton.setOnAction(event -> timer.pressStartButton());
+        resetButton.setOnAction(event -> timer.pressResetButton());
+        scoreField.setText("2");
     }
 
     /**
@@ -116,6 +100,15 @@ public class Controller implements Initializable {
      */
     public TextField getWidthCellsField() {
         return widthCellsField;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return obj
+     */
+    public TextField getScoreField() {
+        return scoreField;
     }
 
     /**

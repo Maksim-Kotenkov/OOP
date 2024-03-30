@@ -3,26 +3,23 @@ package ru.nsu.kotenkov.snake.logic;
 
 import java.awt.Point;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import ru.nsu.kotenkov.snake.gameobjects.Food;
-import ru.nsu.kotenkov.snake.gameobjects.Playground;
 import ru.nsu.kotenkov.snake.gameobjects.Snake;
 import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
+import ru.nsu.kotenkov.snake.gameobjects.exceptions.ToWaitException;
 import ru.nsu.kotenkov.snake.gameobjects.exceptions.VictorySignal;
 
 
 /**
  * A class to be run in separated thread. It changes the context of the playground.
  */
-public class StageUpdate implements Runnable {
+public class StageUpdate {
     private Snake snake;
     private Food food;
     private ObjectsUpdate objUpdater;
     private final GraphicsContext context;
     private final Playground playground;
-    private boolean resetButton;  // changes its condition on R key and "Reset" button
-    private boolean continueButton;  // changes its condition on "Start" button
 
     /**
      * Constructor.
@@ -41,45 +38,20 @@ public class StageUpdate implements Runnable {
     /**
      * Life cycle.
      */
-    @Override
-    public void run() {
+//    @Override
+    public void run() throws ToWaitException {
+        // font
+        context.setFill(Playground.fontPaint);
+        context.fillRect(0, 0, playground.Width, playground.Height);
+
+        // updating canvas
         try {
-            // setting up playground and printing start message, then waiting for start events
-            context.setFill(Playground.fontPaint);
-            context.fillRect(0, 0, playground.Width, playground.Height);
-            printStartMessage();
-            startWaiting();
-
-            // when user starts the game we get their setup from fields
-            playground.setCustomizableFields();
-            this.food.reInitFood(this.snake.getCells());
-
-            // infinite loop with resets on losing game and pressing reset
-            while (true) {
-                if (resetButton) {
-                    reset(false);
-                }
-
-                try {
-                    update();
-                } catch (DeadSnakeException e) {
-                    reset(false);
-                    continue;
-                } catch (VictorySignal e) {
-                    reset(true);
-                    continue;
-                }
-
-                // don't sleep more than min threshold
-                long toSleep = Math.max(Playground.basicFrameDelay
-                                - (snake.getLength() * Playground.speedIncrease),
-                        Playground.minFrameDelay);
-                Thread.sleep(toSleep);
-            }
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+            update();
+        } catch (DeadSnakeException e) {
+            reset(false, true);
+        } catch (VictorySignal e) {
+            reset(true, false);
         }
-
     }
 
     /**
@@ -95,12 +67,7 @@ public class StageUpdate implements Runnable {
         context.fillRect(0, 0, playground.Width, playground.Height);
 
         // update snake
-        try {
-            objUpdater.update();
-        } catch (DeadSnakeException e) {
-            gameOver();
-            throw e;
-        }
+        objUpdater.update();
 
         // for every snake cell print a rectangle, for food - circle
         snake.getCells().forEach(p -> printCell(p, Playground.snakePaint));
@@ -108,11 +75,7 @@ public class StageUpdate implements Runnable {
 
         food.getPoints().forEach(p -> printCell(p, Playground.foodPaint));
 
-        // TODO move score to the field
-        context.setFill(Color.YELLOW);
-        context.fillText("Score: " + snake.getLength(),
-                playground.Width - 100,
-                playground.Height - 20);
+        playground.setScore(snake.getLength());
     }
 
     /**
@@ -171,75 +134,40 @@ public class StageUpdate implements Runnable {
 
     /**
      * Reset the game.
+     * Throw exception to force SceneTimer to wait for the start.
      *
      * @param victory was it the victory or just reset
      */
-    private void reset(boolean victory) {
-        // TODO change text size
-        printScore(victory);
+    public void reset(boolean victory, boolean dead) throws ToWaitException {
+        context.setFill(Playground.fontPaint);
+        context.fillRect(0, 0, playground.Width, playground.Height);
+
+        if (victory) {
+            printScore();
+        } else if (dead) {
+            gameOver();
+        }
         printStartMessage();
-        startWaiting();
 
         playground.setCustomizableFields();
         this.snake = new Snake(playground);
         this.food = new Food(snake.getCells(), playground);
         this.objUpdater = new ObjectsUpdate(snake, food, playground);
-        resetButton = false;
+
+        throw new ToWaitException();
     }
 
-    /**
-     * Event handlers for buttons/keys.
-     */
-    public void pressResetButton() {
-        resetButton = true;
-    }
 
     /**
-     * Event handlers for buttons.
+     * Printing victory messages on the canvas.
      */
-    public void pressContinueButton() {
-        synchronized (this) {
-            continueButton = true;
-            notify();
-        }
-    }
-
-    /**
-     * At some moments we wait for the user to start the game, so, there is a method.
-     */
-    private void startWaiting() {
-        // TODO change text size
-        continueButton = false;
-        synchronized (this) {
-            try {
-                while (!continueButton) {
-                    wait();
-                }
-                continueButton = false;
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Printing messages on the canvas.
-     * The message is different for reset and victory.
-     *
-     * @param victory flag for satisfied victory conditions
-     */
-    private void printScore(boolean victory) {
+    private void printScore() {
+        playground.setScore(snake.getLength());
         context.setFill(Playground.textPaint);
-        if (victory) {
-            context.fillText("CONGRATULATIONS, YOU'VE REACHED SCORE "
-                            + playground.victoryScore + " AND WON!!!",
-                    (double) playground.Width / 2 - 200,
-                    (double) playground.Height / 2 - 20);
-        } else {
-            context.fillText("Score: " + snake.getLength(),
-                    (double) playground.Width / 2 - 20,
-                    (double) playground.Height / 2 - 20);
-        }
+        context.fillText("CONGRATULATIONS, YOU'VE REACHED SCORE "
+                        + playground.victoryScore + " AND WON!!!",
+                (double) playground.Width / 2 - 200,
+                (double) playground.Height / 2 - 20);
     }
 
     /**

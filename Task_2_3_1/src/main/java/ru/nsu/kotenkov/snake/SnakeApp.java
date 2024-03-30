@@ -10,8 +10,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ru.nsu.kotenkov.snake.gameobjects.Playground;
+import ru.nsu.kotenkov.snake.logic.Playground;
 import ru.nsu.kotenkov.snake.gameobjects.Snake;
+import ru.nsu.kotenkov.snake.logic.SceneTimer;
 import ru.nsu.kotenkov.snake.logic.StageUpdate;
 
 
@@ -54,9 +55,12 @@ public class SnakeApp extends Application {
         GraphicsContext context = canvas.getGraphicsContext2D();
 
         StageUpdate updater = new StageUpdate(context, playground);
-        controller.setUpdater(updater);
+        SceneTimer sceneTimer = new SceneTimer(updater);
 
-        Scene scene = getScene(root, updater);
+        // set up objects we've just created
+        controller.setTimer(sceneTimer);
+
+        Scene scene = getScene(root, updater, sceneTimer);
 
         primaryStage.setResizable(true);
         primaryStage.setTitle("Snake");
@@ -64,8 +68,8 @@ public class SnakeApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Thread gameLoop = new Thread(updater);
-        gameLoop.start();
+        // now the game loop is managed by AnimationTimer
+        sceneTimer.start();
     }
 
     /**
@@ -75,7 +79,7 @@ public class SnakeApp extends Application {
      * @param updater updater class to bind methods
      * @return initialized scene
      */
-    private static Scene getScene(Pane root, StageUpdate updater) {
+    private static Scene getScene(Pane root, StageUpdate updater, SceneTimer timer) {
         Scene scene = new Scene(root);
 
         root.setOnKeyPressed(action -> {
@@ -94,7 +98,7 @@ public class SnakeApp extends Application {
                     snake.setRight();
                     break;
                 case R:
-                    updater.pressResetButton();
+                    timer.pressResetButton();
                     break;
                 default:
                     break;
