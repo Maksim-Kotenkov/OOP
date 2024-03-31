@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.kotenkov.snake"},{"l":"ru.nsu.kotenkov.snake.gameobjects"},{"l":"ru.nsu.kotenkov.snake.gameobjects.exceptions"},{"l":"ru.nsu.kotenkov.snake.logic"}];updateSearchResults();
