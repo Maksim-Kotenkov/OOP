@@ -5,6 +5,7 @@ import java.awt.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 import ru.nsu.kotenkov.snake.gameobjects.Food;
+import ru.nsu.kotenkov.snake.gameobjects.ObjectsUpdate;
 import ru.nsu.kotenkov.snake.gameobjects.Snake;
 import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
 import ru.nsu.kotenkov.snake.gameobjects.exceptions.ToWaitException;
@@ -38,11 +39,10 @@ public class StageUpdate {
     /**
      * Life cycle.
      */
-//    @Override
     public void run() throws ToWaitException {
         // font
         context.setFill(Playground.fontPaint);
-        context.fillRect(0, 0, playground.Width, playground.Height);
+        context.fillRect(0, 0, playground.width, playground.height);
 
         // updating canvas
         try {
@@ -64,7 +64,7 @@ public class StageUpdate {
     public void update() throws DeadSnakeException, VictorySignal {
         // reset everything
         context.setFill(Playground.fontPaint);
-        context.fillRect(0, 0, playground.Width, playground.Height);
+        context.fillRect(0, 0, playground.width, playground.height);
 
         // update snake
         objUpdater.update();
@@ -140,7 +140,7 @@ public class StageUpdate {
      */
     public void reset(boolean victory, boolean dead) throws ToWaitException {
         context.setFill(Playground.fontPaint);
-        context.fillRect(0, 0, playground.Width, playground.Height);
+        context.fillRect(0, 0, playground.width, playground.height);
 
         if (victory) {
             printScore();
@@ -166,8 +166,8 @@ public class StageUpdate {
         context.setFill(Playground.textPaint);
         context.fillText("CONGRATULATIONS, YOU'VE REACHED SCORE "
                         + playground.victoryScore + " AND WON!!!",
-                (double) playground.Width / 2 - 200,
-                (double) playground.Height / 2 - 20);
+                (double) playground.width / 2 - 200,
+                (double) playground.height / 2 - 20);
     }
 
     /**
@@ -176,8 +176,8 @@ public class StageUpdate {
     private void printStartMessage() {
         context.setFill(Playground.textPaint);
         context.fillText("PRESS \"START\" BUTTON TO START A NEW GAME",
-                (double) playground.Width / 2 - 165,
-                (double) playground.Height / 2);
+                (double) playground.width / 2 - 165,
+                (double) playground.height / 2);
     }
 
     /**

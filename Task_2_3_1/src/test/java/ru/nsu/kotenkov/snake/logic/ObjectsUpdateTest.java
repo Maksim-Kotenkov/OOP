@@ -7,23 +7,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ru.nsu.kotenkov.snake.Controller;
 import ru.nsu.kotenkov.snake.gameobjects.Food;
+import ru.nsu.kotenkov.snake.gameobjects.ObjectsUpdate;
 import ru.nsu.kotenkov.snake.gameobjects.Snake;
-import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
-import ru.nsu.kotenkov.snake.gameobjects.exceptions.VictorySignal;
 
 
+/**
+ * Tests for game objects updater.
+ */
 public class ObjectsUpdateTest {
     @Test
     public void checkInit() {
         Controller controller = new Controller();
         Playground pg = new Playground(controller);
 
-        assertEquals(500, pg.Width);
-        assertEquals(500, pg.Height);
+        assertEquals(500, pg.width);
+        assertEquals(500, pg.height);
     }
 
     @Test
-    public void checkSnakeMovement() throws DeadSnakeException, VictorySignal {
+    public void checkSnakeMovement() {
         Controller controller = new Controller();
         Playground pg = new Playground(controller);
         Snake testSnake = new Snake(pg);

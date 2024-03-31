@@ -1,11 +1,10 @@
 package ru.nsu.kotenkov.snake.gameobjects;
 
 
-import ru.nsu.kotenkov.snake.logic.Playground;
-
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
+import ru.nsu.kotenkov.snake.logic.Playground;
 
 
 /**

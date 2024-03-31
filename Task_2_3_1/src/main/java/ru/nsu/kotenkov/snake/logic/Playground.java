@@ -13,8 +13,8 @@ import ru.nsu.kotenkov.snake.Controller;
  */
 public class Playground {
     // size
-    public int Width;
-    public int Height;
+    public int width;
+    public int height;
     public int cellHeight = 50;
     public int cellWidth = 50;
     public int numberCellsWidth = 10;
@@ -50,11 +50,11 @@ public class Playground {
         Canvas canvas = controller.getPlaygroundCanvas();
 
         if (canvas == null) {
-            Width = 500;
-            Height = 500;
+            width = 500;
+            height = 500;
         } else {
-            Width = (int) canvas.getWidth();
-            Height = (int) canvas.getHeight();
+            width = (int) canvas.getWidth();
+            height = (int) canvas.getHeight();
         }
     }
 
@@ -73,28 +73,28 @@ public class Playground {
     public void setCustomizableFields() {
         // parameters from fields
         TextField foodNumberField = controller.getFoodNumberField();
-        TextField VictoryScoreField = controller.getVictoryScoreField();
-        TextField widthCellsField = controller.getWidthCellsField();
-        TextField heightCellsField = controller.getHeightCellsField();
+        TextField victoryScoreField = controller.getVictoryScoreField();
 
         if (!foodNumberField.getCharacters().isEmpty()) {
             foodNumber = Integer.parseInt(foodNumberField.getCharacters().toString());
         }
-        if (!VictoryScoreField.getCharacters().isEmpty()) {
-            victoryScore = Integer.parseInt(VictoryScoreField.getCharacters().toString());
+        if (!victoryScoreField.getCharacters().isEmpty()) {
+            victoryScore = Integer.parseInt(victoryScoreField.getCharacters().toString());
         }
 
+        TextField widthCellsField = controller.getWidthCellsField();
+        TextField heightCellsField = controller.getHeightCellsField();
         if (!widthCellsField.getCharacters().isEmpty()) {
             numberCellsWidth = Math.min(maxNumCellsWidth,
                     Integer.parseInt(widthCellsField.getCharacters().toString())
             );
-            cellWidth = Width / numberCellsWidth;
+            cellWidth = width / numberCellsWidth;
         }
         if (!heightCellsField.getCharacters().isEmpty()) {
             numberCellsHeight = Math.min(maxNumCellsHeight,
                     Integer.parseInt(heightCellsField.getCharacters().toString())
             );
-            cellHeight = Height / numberCellsHeight;
+            cellHeight = height / numberCellsHeight;
         }
     }
 }

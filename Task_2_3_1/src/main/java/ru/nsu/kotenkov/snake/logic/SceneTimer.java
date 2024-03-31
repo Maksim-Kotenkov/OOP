@@ -18,7 +18,7 @@ public class SceneTimer extends AnimationTimer {
      *
      * @param updater stage updater
      */
-    public SceneTimer (StageUpdate updater) {
+    public SceneTimer(StageUpdate updater) {
         this.updater = updater;
         try {
             updater.reset(false, false);
