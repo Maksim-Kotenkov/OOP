@@ -49,8 +49,13 @@ public class Playground {
         // parameters of a canvas
         Canvas canvas = controller.getPlaygroundCanvas();
 
-        Width = (int) canvas.getWidth();
-        Height = (int) canvas.getHeight();
+        if (canvas == null) {
+            Width = 500;
+            Height = 500;
+        } else {
+            Width = (int) canvas.getWidth();
+            Height = (int) canvas.getHeight();
+        }
     }
 
     /**

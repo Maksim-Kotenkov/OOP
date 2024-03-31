@@ -14,17 +14,18 @@ public class Snake {
     /**
      * Make enum for directions.
      */
-    private enum directionEnum {
+    private enum DirectionEnum {
         UP,
         RIGHT,
         DOWN,
         LEFT
     }
+
     private final ArrayList<Point> cells;
     private final Playground playground;
     private int length = 2;
-    private directionEnum direction = directionEnum.RIGHT;
-    private directionEnum prevDirection = directionEnum.RIGHT;
+    private DirectionEnum direction = DirectionEnum.RIGHT;
+    private DirectionEnum prevDirection = DirectionEnum.RIGHT;
     private Point movingVector = new Point(1, 0);
     private boolean growNextTime;
 
@@ -109,8 +110,8 @@ public class Snake {
      * Direction setter.
      */
     public void setUp() {
-        if (!prevDirection.equals(directionEnum.DOWN)) {
-            direction = directionEnum.UP;
+        if (!prevDirection.equals(DirectionEnum.DOWN)) {
+            direction = DirectionEnum.UP;
             movingVector = new Point(0, -1);
         }
     }
@@ -119,8 +120,8 @@ public class Snake {
      * Direction setter.
      */
     public void setRight() {
-        if (!prevDirection.equals(directionEnum.LEFT)) {
-            direction = directionEnum.RIGHT;
+        if (!prevDirection.equals(DirectionEnum.LEFT)) {
+            direction = DirectionEnum.RIGHT;
             movingVector = new Point(1, 0);
         }
     }
@@ -129,8 +130,8 @@ public class Snake {
      * Direction setter.
      */
     public void setDown() {
-        if (!prevDirection.equals(directionEnum.UP)) {
-            direction = directionEnum.DOWN;
+        if (!prevDirection.equals(DirectionEnum.UP)) {
+            direction = DirectionEnum.DOWN;
             movingVector = new Point(0, 1);
         }
     }
@@ -139,8 +140,8 @@ public class Snake {
      * Direction setter.
      */
     public void setLeft() {
-        if (!prevDirection.equals(directionEnum.RIGHT)) {
-            direction = directionEnum.LEFT;
+        if (!prevDirection.equals(DirectionEnum.RIGHT)) {
+            direction = DirectionEnum.LEFT;
             movingVector = new Point(-1, 0);
         }
     }
