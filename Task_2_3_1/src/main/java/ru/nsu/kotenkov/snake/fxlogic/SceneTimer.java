@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.snake.logic;
+package ru.nsu.kotenkov.snake.fxlogic;
 
 
 import javafx.animation.AnimationTimer;

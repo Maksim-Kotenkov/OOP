@@ -4,7 +4,7 @@ package ru.nsu.kotenkov.snake.gameobjects;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-import ru.nsu.kotenkov.snake.logic.Playground;
+import ru.nsu.kotenkov.snake.fxlogic.Playground;
 
 
 /**

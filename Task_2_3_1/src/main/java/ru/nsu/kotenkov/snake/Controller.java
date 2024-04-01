@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import ru.nsu.kotenkov.snake.logic.SceneTimer;
+import ru.nsu.kotenkov.snake.fxlogic.SceneTimer;
 
 
 /**
