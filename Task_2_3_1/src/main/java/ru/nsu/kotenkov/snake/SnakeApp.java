@@ -10,10 +10,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ru.nsu.kotenkov.snake.gameobjects.Snake;
 import ru.nsu.kotenkov.snake.fxlogic.Playground;
 import ru.nsu.kotenkov.snake.fxlogic.SceneTimer;
 import ru.nsu.kotenkov.snake.fxlogic.StageUpdate;
+import ru.nsu.kotenkov.snake.gameobjects.Snake;
 
 
 /**

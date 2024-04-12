@@ -3,8 +3,8 @@ package ru.nsu.kotenkov.snake.gameobjects;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
 import ru.nsu.kotenkov.snake.fxlogic.Playground;
+import ru.nsu.kotenkov.snake.gameobjects.exceptions.DeadSnakeException;
 
 
 /**
