@@ -1,7 +1,6 @@
 plugins {
 //    id 'application'
     id 'java'
-    id 'groovy'
 }
 
 group = 'org.example'
@@ -12,11 +11,11 @@ repositories {
     mavenCentral()
 }
 
-//java {
-//    toolchain {
-//        languageVersion = JavaLanguageVersion.of(17)
-//    }
-//}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
@@ -26,8 +25,23 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-//    groovy 'org.gradle:gradle-tooling-api:7.3'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.9'
+    implementation 'org.gradle:gradle-tooling-api:7.3-20210825160000+0000'
+    runtimeOnly 'org.slf4j:slf4j-simple:1.7.10'
+    implementation 'org.freemarker:freemarker:2.3.30'
 }
+
+//dependencies {
+//    compileOnly 'org.projectlombok:lombok:1.18.22'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+//    implementation 'org.codehaus.groovy:groovy-all:3.0.9'
+//    implementation "org.gradle:gradle-tooling-api:8.1.1"
+//    runtimeOnly 'org.slf4j:slf4j-simple:1.7.10'
+//    implementation 'org.freemarker:freemarker:2.3.30'
+//}
+
 
 test {
     useJUnitPlatform()

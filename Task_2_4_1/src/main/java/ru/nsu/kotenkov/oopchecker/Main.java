@@ -28,11 +28,11 @@ public class Main {
         GroovyCodeSource source = null;
         switch (mode) {
             case ("clone"):
-                source = new GroovyCodeSource(new File("./cloning.groovy"));
+                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/oopchecker/cloning.groovy"));
                 shell.run(source, Collections.singletonList(""));
                 break;
             case ("check"):
-                source = new GroovyCodeSource(new File("./checkGroupLab.groovy"));
+                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/oopchecker/checkGroupLab.groovy"));
                 shell.run(source, Collections.singletonList(""));
 //                    Testing test = new Testing();
 //                    test.evaluate();
