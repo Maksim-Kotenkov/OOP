@@ -11,7 +11,7 @@ import java.util.Collections;
 
 public class Main {
     @SneakyThrows
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Hello world!");
 //        Clone.cloneRepo("https://github.com/Maksim-Kotenkov/OOP", "22213", "Maksim-Kotenkov");
         if (args.length == 0) {
@@ -25,17 +25,18 @@ public class Main {
 
 
         String mode = args[0];
-        try {
-            switch (mode) {
-                case ("clone"):
-                    System.out.println("Getting groovy code");
-                    GroovyCodeSource source = new GroovyCodeSource(new File("./cloning.groovy"));
-//                    shell.evaluate(source);
-                    shell.run(source, Collections.singletonList(""));
+        GroovyCodeSource source = null;
+        switch (mode) {
+            case ("clone"):
+                source = new GroovyCodeSource(new File("./cloning.groovy"));
+                shell.run(source, Collections.singletonList(""));
+                break;
+            case ("check"):
+                source = new GroovyCodeSource(new File("./checkGroupLab.groovy"));
+                shell.run(source, Collections.singletonList(""));
+//                    Testing test = new Testing();
+//                    test.evaluate();
             }
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
 
     }
 }

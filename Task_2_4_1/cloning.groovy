@@ -1,5 +1,3 @@
-package ru.nsu.kotenkov.oopchecker
-
 
 def config = new GroovyClassLoader().parseClass("./config.groovy" as File)
 
