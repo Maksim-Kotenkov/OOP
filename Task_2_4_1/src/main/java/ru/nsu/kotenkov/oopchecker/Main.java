@@ -12,7 +12,6 @@ import java.util.Collections;
 public class Main {
     @SneakyThrows
     public static void main(String[] args) throws IOException {
-        System.out.println("Hello world!");
 //        Clone.cloneRepo("https://github.com/Maksim-Kotenkov/OOP", "22213", "Maksim-Kotenkov");
         if (args.length == 0) {
             System.err.println("NO DIRECTIVES GIVEN");
