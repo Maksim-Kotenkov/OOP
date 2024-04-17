@@ -1,18 +1,29 @@
 plugins {
+//    id 'application'
     id 'java'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+//mainClassName = 'ru.nsu.kotenkov.oopchecker.Main'
 
 repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.8.0.202311291450-r'
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.9'
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 test {

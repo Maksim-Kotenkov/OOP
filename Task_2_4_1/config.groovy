@@ -1,3 +1,4 @@
+package ru.nsu.kotenkov.oopchecker
 
 class Config {
     def static tasks = [
