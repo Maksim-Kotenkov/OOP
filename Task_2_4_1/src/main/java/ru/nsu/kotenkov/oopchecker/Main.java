@@ -4,6 +4,8 @@ package ru.nsu.kotenkov.oopchecker;
 import groovy.lang.GroovyCodeSource;
 import groovy.lang.GroovyShell;
 import lombok.SneakyThrows;
+import ru.nsu.kotenkov.oopchecker.graphics.ResultsTable;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -34,6 +36,9 @@ public class Main {
                 HashMap allLabResults = (HashMap) shell.run(source, Collections.singletonList(""));
 
                 System.out.println(allLabResults);
+
+                ResultsTable resultsTable = new ResultsTable(allLabResults);
+                resultsTable.showWindow();
             }
 
     }

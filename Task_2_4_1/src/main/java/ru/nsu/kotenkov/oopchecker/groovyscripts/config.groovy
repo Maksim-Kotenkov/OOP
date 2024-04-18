@@ -17,6 +17,10 @@ class Config {
                     "Maksim-Kotenkov": [
                             meta: "Kotenkov Maksim Matveevich",
                             repo: "https://github.com/Maksim-Kotenkov/OOP"
+                    ],
+                    "melarozz": [
+                            meta: "Yakovleva Valeriya who",
+                            repo: "https://github.com/melarozz/OOP"
                     ]
             ],
             22214: [

@@ -56,12 +56,12 @@ def evaluate(Set groups, String lab) {
             BuildLauncher build = connection.newBuild()
 
             try {
-                build.forTasks('build').run()
+                build.forTasks('build') run()
             } catch (Exception e) {
                 println "Building " + fullLabPath + " failed " + e
                 connection.close()
                 if (groupDirectory in groupResults.keySet()) {
-                    groupResults[student].add(studentResults)
+                    groupResults[student] add studentResults
                 } else {
                     groupResults[student] = studentResults
                 }
@@ -71,13 +71,13 @@ def evaluate(Set groups, String lab) {
             studentResults['build'] = '+'
 
             try {
-                build.forTasks('test').run()
+                build.forTasks('test') run()
             } catch (Exception e) {
                 println "Execution of " + fullLabPath + " resulted in exception " + e
                 println 'Error'
                 connection.close()
                 if (groupDirectory in groupResults.keySet()) {
-                    groupResults[student].add(studentResults)
+                    groupResults[student] add studentResults
                 } else {
                     groupResults[student] = studentResults
                 }
@@ -88,7 +88,7 @@ def evaluate(Set groups, String lab) {
             connection.close()
             println studentResults
             if (groupDirectory in groupResults.keySet()) {
-                groupResults[student].add(studentResults)
+                groupResults[student] add studentResults
             } else {
                 groupResults[student] = studentResults
             }
