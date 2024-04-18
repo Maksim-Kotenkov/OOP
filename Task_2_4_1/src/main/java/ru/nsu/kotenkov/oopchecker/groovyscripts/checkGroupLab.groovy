@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.oopchecker
+package ru.nsu.kotenkov.oopchecker.groovyscripts
 
 import org.gradle.tooling.BuildLauncher
 
@@ -12,7 +12,7 @@ import org.gradle.tooling.GradleConnector
 //import org.apache.ivy.util.MessageLogger  // not working
 
 
-def config = new GroovyClassLoader().parseClass("./src/main/java/ru/nsu/kotenkov/oopchecker/config.groovy" as File)
+def config = new GroovyClassLoader().parseClass("./src/main/java/ru/nsu/kotenkov/oopchecker/groovyscripts/config.groovy" as File)
 
 
 def evaluate(Set groups, String lab) {

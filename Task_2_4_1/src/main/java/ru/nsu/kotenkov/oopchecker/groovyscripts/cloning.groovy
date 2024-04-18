@@ -1,6 +1,6 @@
-package ru.nsu.kotenkov.oopchecker
+package ru.nsu.kotenkov.oopchecker.groovyscripts
 
-def config = new GroovyClassLoader().parseClass("./src/main/java/ru/nsu/kotenkov/oopchecker/config.groovy" as File)
+def config = new GroovyClassLoader().parseClass("./src/main/java/ru/nsu/kotenkov/oopchecker/groovyscripts/config.groovy" as File)
 
 def cloneRepos(LinkedHashMap groups) {
     println 'Groups list' + groups.keySet()

@@ -1,4 +1,4 @@
-package ru.nsu.kotenkov.oopchecker
+package ru.nsu.kotenkov.oopchecker.groovyscripts
 
 class Config {
     def public static tasks = [

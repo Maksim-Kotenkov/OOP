@@ -24,11 +24,13 @@ public class Main {
         GroovyCodeSource source = null;
         switch (mode) {
             case ("clone"):
-                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/oopchecker/cloning.groovy"));
+                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
+                        "oopchecker/groovyscripts/cloning.groovy"));
                 shell.run(source, Collections.singletonList(""));
                 break;
             case ("check"):
-                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/oopchecker/checkGroupLab.groovy"));
+                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
+                        "oopchecker/groovyscripts/checkGroupLab.groovy"));
                 HashMap allLabResults = (HashMap) shell.run(source, Collections.singletonList(""));
 
                 System.out.println(allLabResults);
