@@ -16,7 +16,12 @@ def config = new GroovyClassLoader().parseClass("./src/main/java/ru/nsu/kotenkov
 
 
 def evaluate(Set groups, String lab) {
+    println '--------------------'
+    println lab + ':'
+
+    def results = new HashMap()
     for (groupDirectory in groups) {
+        def groupResults = new HashMap()
         def connector = GradleConnector.newConnector()
         File groupPath = new File("./repos/" + groupDirectory);
         String[] studentsSubDirectories = groupPath.list(new FilenameFilter() {
@@ -28,10 +33,20 @@ def evaluate(Set groups, String lab) {
 
         println '----------'
         println 'Students in group ' + groupDirectory + ':'
+        if (studentsSubDirectories == null) {
+            println 'No repositories for this group'
+            continue
+        }
         println studentsSubDirectories
         println 'Testing:'
 
         for (student in studentsSubDirectories) {
+            def studentResults = [
+                    build: '-',
+                    javadoc: '-',
+                    test: '-'
+            ]
+
             def fullLabPath = './repos/' + groupDirectory + '/' + student + '/' + lab
             connector.forProjectDirectory(new File(fullLabPath))
 
@@ -40,28 +55,66 @@ def evaluate(Set groups, String lab) {
 
             BuildLauncher build = connection.newBuild()
 
-            if (build == null) {
-                System.err.println("Building of " + fullLabPath + " failed")
+            try {
+                build.forTasks('build').run()
+            } catch (Exception e) {
+                println "Building " + fullLabPath + " failed " + e
+                connection.close()
+                if (groupDirectory in groupResults.keySet()) {
+                    groupResults[student].add(studentResults)
+                } else {
+                    groupResults[student] = studentResults
+                }
                 continue
             }
 
-            build.forTasks("test")
+            studentResults['build'] = '+'
 
             try {
-                build.run()
+                build.forTasks('test').run()
             } catch (Exception e) {
-                System.err.println("Execution of " + fullLabPath + " resulted in exception " as char, e)
+                println "Execution of " + fullLabPath + " resulted in exception " + e
                 println 'Error'
-            } finally {
                 connection.close()
-                println 'No errors'
+                if (groupDirectory in groupResults.keySet()) {
+                    groupResults[student].add(studentResults)
+                } else {
+                    groupResults[student] = studentResults
+                }
+                continue
             }
+
+            studentResults['test'] = '+'
+            connection.close()
+            println studentResults
+            if (groupDirectory in groupResults.keySet()) {
+                groupResults[student].add(studentResults)
+            } else {
+                groupResults[student] = studentResults
+            }
+
         }
+
+        results[groupDirectory] = groupResults
+        println groupResults
     }
 
+//    println '----------'
+//    println '----------'
+//    println 'RESULTS:'
+//    println results
+    return results
 }
 
 
+def allLabResults = new HashMap()
 for (lab in config.tasks) {
-    evaluate(config.groups.keySet(), lab)
+    def labResults = evaluate(config.groups.keySet(), lab)
+    allLabResults[lab] = labResults
 }
+
+println '----------'
+println '----------'
+println allLabResults
+
+return allLabResults
