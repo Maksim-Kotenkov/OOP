@@ -21,10 +21,23 @@ class Config {
                     "melarozz": [
                             meta: "Yakovleva Valeriya who",
                             repo: "https://github.com/melarozz/OOP"
+                    ],
+                    "TheBlek": [
+                            meta: "Kuklin Georgy who",
+                            repo: "https://github.com/TheBlek/OOP"
                     ]
             ],
-            22214: [
-
+            22215: [
+                    "KozlovKV": [
+                            meta: "Kozlov Kirill who",
+                            repo: "https://github.com/KozlovKV/OOP"
+                    ]
+            ],
+            22216: [
+                    "McAninKirill": [
+                            meta: "Makanin Kirill who",
+                            repo: "https://github.com/McAninKirill/OOP"
+                    ]
             ]
     ]
 }

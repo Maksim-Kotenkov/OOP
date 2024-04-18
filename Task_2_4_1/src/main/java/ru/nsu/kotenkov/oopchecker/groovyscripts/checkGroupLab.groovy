@@ -106,6 +106,10 @@ def evaluate(Set groups, String lab) {
     return results
 }
 
+def shell = new GroovyShell();
+source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
+        "oopchecker/groovyscripts/cloning.groovy"));
+shell.run(source, Collections.singletonList(""));
 
 def allLabResults = new HashMap()
 for (lab in config.tasks) {

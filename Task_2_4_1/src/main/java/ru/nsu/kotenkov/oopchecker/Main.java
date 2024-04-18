@@ -38,7 +38,8 @@ public class Main {
                 System.out.println(allLabResults);
 
                 ResultsTable resultsTable = new ResultsTable(allLabResults);
-                resultsTable.showWindow();
+//                resultsTable.showUglyTable();
+                resultsTable.showPrettyPanels();
             }
 
     }
