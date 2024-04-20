@@ -1,5 +1,7 @@
 package ru.nsu.kotenkov.oopchecker.groovyscripts
 
+import org.gradle.internal.logging.events.ProgressEvent
+import org.gradle.internal.logging.progress.ProgressListener
 import org.gradle.tooling.BuildLauncher
 
 
@@ -8,6 +10,9 @@ import org.gradle.tooling.BuildLauncher
 //@Grab('org.apache.ivy:ivy:2.4.0')
 import org.gradle.tooling.model.GradleProject
 import org.gradle.tooling.GradleConnector
+
+import java.util.stream.Stream
+
 //import org.apache.ivy.core.module.descriptor.ModuleDescriptor  // screaming for help but is working
 //import org.apache.ivy.util.MessageLogger  // not working
 
@@ -41,6 +46,7 @@ def evaluate(Set groups, String lab) {
         println 'Testing:'
 
         for (student in studentsSubDirectories) {
+            println student
             def studentResults = [
                     build: '-',
                     javadoc: '-',
@@ -51,12 +57,13 @@ def evaluate(Set groups, String lab) {
             connector.forProjectDirectory(new File(fullLabPath))
 
             def connection = connector.connect()
-            println 'testing ' + fullLabPath
 
             BuildLauncher build = connection.newBuild()
 
             try {
-                build.forTasks('build') run()
+                build.forTasks('build')
+                        .addArguments('-x', 'test')
+                        .run()
             } catch (Exception e) {
                 println "Building " + fullLabPath + " failed " + e
                 connection.close()
@@ -70,8 +77,21 @@ def evaluate(Set groups, String lab) {
 
             studentResults['build'] = '+'
 
+            build = connection.newBuild()
             try {
-                build.forTasks('test') run()
+                // stringbuilder here
+                PrintStream output = new PrintStream(//string builder to here)
+
+                build.forTasks('test')
+                        .setStandardOutput(output)
+//                        .addProgressListener(new org.gradle.tooling.ProgressListener() {
+//                            @Override
+//                            void statusChanged(org.gradle.tooling.ProgressEvent progressEvent) {
+//                                println progressEvent.description
+//                            }
+//                        })
+                        .run()
+                System.out.println(output.toString())
             } catch (Exception e) {
                 println "Execution of " + fullLabPath + " resulted in exception " + e
                 println 'Error'
