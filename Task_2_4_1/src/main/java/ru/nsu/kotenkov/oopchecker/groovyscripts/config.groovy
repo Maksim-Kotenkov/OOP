@@ -1,7 +1,6 @@
 package ru.nsu.kotenkov.oopchecker.groovyscripts
 
 
-// TODO try custom builder functions
 class Config {
     def public static tasks = [
             "Task_1_1_1",

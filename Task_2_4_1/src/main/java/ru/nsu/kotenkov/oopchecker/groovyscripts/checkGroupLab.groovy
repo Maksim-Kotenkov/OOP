@@ -80,17 +80,18 @@ def evaluate(Set groups, String lab) {
             build = connection.newBuild()
             try {
                 // stringbuilder here
-                PrintStream output = new PrintStream(//string builder to here)
+//                PrintStream output = new PrintStream(//string builder to here)
 
                 build.forTasks('test')
-                        .setStandardOutput(output)
+//                        .setStandardOutput(output)
+                        .run()
 //                        .addProgressListener(new org.gradle.tooling.ProgressListener() {
 //                            @Override
 //                            void statusChanged(org.gradle.tooling.ProgressEvent progressEvent) {
 //                                println progressEvent.description
 //                            }
 //                        })
-                        .run()
+//                        .run()
                 System.out.println(output.toString())
             } catch (Exception e) {
                 println "Execution of " + fullLabPath + " resulted in exception " + e

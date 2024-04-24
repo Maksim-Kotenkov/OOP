@@ -4,12 +4,10 @@ package ru.nsu.kotenkov.oopchecker;
 import groovy.lang.GroovyCodeSource;
 import groovy.lang.GroovyShell;
 import lombok.SneakyThrows;
-import ru.nsu.kotenkov.oopchecker.graphics.ResultsTable;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 
 
 public class Main {
@@ -31,15 +29,19 @@ public class Main {
                 shell.run(source, Collections.singletonList(""));
                 break;
             case ("check"):
-                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
-                        "oopchecker/groovyscripts/checkGroupLab.groovy"));
-                HashMap allLabResults = (HashMap) shell.run(source, Collections.singletonList(""));
+//                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
+//                        "oopchecker/groovyscripts/checkGroupLab.groovy"));
+//                HashMap allLabResults = (HashMap) shell.run(source, Collections.singletonList(""));
+//
+//                System.out.println(allLabResults);
 
-                System.out.println(allLabResults);
-
-                ResultsTable resultsTable = new ResultsTable(allLabResults);
+//                ResultsTable resultsTable = new ResultsTable(allLabResults);
 //                resultsTable.showUglyTable();
-                resultsTable.showPrettyPanels();
+//                resultsTable.showPrettyPanels();
+                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
+                        "oopchecker/graphics/ResultsTable.groovy"));
+                shell.run(source, Collections.singletonList(""));
+                break;
             }
 
     }
