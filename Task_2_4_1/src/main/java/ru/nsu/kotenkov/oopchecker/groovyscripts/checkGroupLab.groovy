@@ -17,7 +17,7 @@ import java.util.stream.Stream
 //import org.apache.ivy.util.MessageLogger  // not working
 
 
-def config = new GroovyClassLoader().parseClass("./src/main/java/ru/nsu/kotenkov/oopchecker/groovyscripts/config.groovy" as File)
+def config = new GroovyClassLoader().parseClass("./src/main/java/ru/nsu/kotenkov/oopchecker/groovyscripts/config.groovy" as File).newInstance()
 
 
 def evaluate(Set groups, String lab) {
