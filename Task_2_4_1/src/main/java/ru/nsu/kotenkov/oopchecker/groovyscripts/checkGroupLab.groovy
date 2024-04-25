@@ -59,6 +59,8 @@ def evaluate(Set groups, String lab) {
             ]
 
             def fullLabPath = './repos/' + groupDirectory + '/' + student + '/' + lab
+            studentResults['path'] = fullLabPath
+
             connector.forProjectDirectory(new File(fullLabPath))
 
             def connection = connector.connect()

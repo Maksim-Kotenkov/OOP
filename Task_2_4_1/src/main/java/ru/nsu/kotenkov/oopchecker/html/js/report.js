@@ -28,14 +28,24 @@
     }
 
     function initTabs() {
-        var container = document.getElementById("tabs");
-
-        tabs.tabs = findTabs(container);
-        tabs.titles = findTitles(tabs.tabs);
-        tabs.headers = findHeaders(container);
-        tabs.select = select;
-        tabs.deselectAll = deselectAll;
-        tabs.select(0);
+//        var container = document.getElementById("tabs");
+        var containers = document.querySelectorAll('[id^=tabs]')
+        for (var element of containers) {
+            console.log(element)
+            tabs.tabs = findTabs(element);
+            tabs.titles = findTitles(tabs.tabs);
+            tabs.headers = findHeaders(element);
+            tabs.select = select;
+            tabs.deselectAll = deselectAll;
+            tabs.select(0);
+        }
+//        console.log(container)
+//        tabs.tabs = findTabs(container);
+//        tabs.titles = findTitles(tabs.tabs);
+//        tabs.headers = findHeaders(container);
+//        tabs.select = select;
+//        tabs.deselectAll = deselectAll;
+//        tabs.select(0);
 
         return true;
     }
@@ -49,7 +59,8 @@
     }
 
     function findCodeBlocks() {
-        var spans = document.getElementById("tabs").getElementsByTagName("span");
+//        var spans = document.getElementById("tabs").getElementsByTagName("span");
+        var spans = document.querySelector('[id^=tabs]').getElementsByTagName("span")
         var codeBlocks = [];
         for (var i = 0; i < spans.length; ++i) {
             if (spans[i].className.indexOf("code") >= 0) {

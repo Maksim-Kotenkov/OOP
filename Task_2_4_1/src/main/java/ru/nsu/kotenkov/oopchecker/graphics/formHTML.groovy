@@ -15,7 +15,6 @@ String htmlString = Jsoup.parse(htmlTemplateFile).toString()
 
 String body = 'lol'
 
-htmlString += '<div id="content">'
 
 ArrayList<String> sorted = new ArrayList<String> (results.keySet());
 Collections.sort(sorted);
@@ -25,18 +24,47 @@ for (taskEntry in sorted) {
 //    File personTemplate = new File("./src/main/java/ru/nsu/kotenkov/oopchecker/html/personTestResults.html");
 //    String personResults = Jsoup.parse(personTemplate).toString()
 //    htmlString += personResults
-    htmlString += '<h1>'
+    htmlString += '<h1>\n'
     htmlString += taskEntry
+    htmlString += '</h1>\n'
+    htmlString += '<div id="content">'
+
     for (groupEntry in results[taskEntry].keySet()) {
         println groupEntry
+        htmlString += '<h1>\n'
+        htmlString += groupEntry
+        htmlString += '</h1>\n'
+        for (person in results[taskEntry][groupEntry].keySet()) {
+            htmlString += '<div id="content">\n' + '<h1>' + person + '</h1>'
+
+            // Build
+            if (results[taskEntry][groupEntry][person].get('build') == '+') {
+                htmlString += '<h2>Build SUCCESSFUL ✅</h2>'
+
+                // Test summary
+                String personRes = results[taskEntry][groupEntry][person].get('summaryHTML').toString()
+
+                // replacements
+                personRes = personRes.replace('tabs', 'tabs' + person + taskEntry)
+//                personRes = personRes.replace('tab0', 'tab0' + person + taskEntry)  // unique id for elements
+//                personRes = personRes.replace('tab1', 'tab1' + person + taskEntry)
+                testsReportPath = results[taskEntry][groupEntry][person].get('path') + '/build/reports/tests/test/'
+                personRes = personRes.replace('classes', testsReportPath + 'classes')
+                personRes = personRes.replace('packages', testsReportPath + 'packages')
+//                htmlString += '<h2>Test Summary</h2>'
+                htmlString += personRes
+//            htmlString = htmlString.replace('Test Summary', person)
+            } else {
+                htmlString += '<h2>Build FAILED ❌</h2>'
+            }
+
+            htmlString += '</div>\n'
+        }
+
     }
-    String personRes = results.get('Task_1_1_1').get(22213).get('Maksim-Kotenkov').get('summaryHTML').toString()
-    htmlString += personRes
-    htmlString = htmlString.replace('Test Summary', 'Maksim-Kotenkov')
-    htmlString += '</h1>'
+    htmlString += '</div>\n'
 }
-htmlString += '</div>\n' +
-        '</body>\n' +
+htmlString += '</body>\n' +
         '</html>'
 
 
