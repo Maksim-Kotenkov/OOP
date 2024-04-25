@@ -31,6 +31,7 @@ dependencies {
     implementation 'org.freemarker:freemarker:2.3.30'
 
     implementation 'org.jsoup:jsoup:1.17.2'
+    implementation 'commons-io:commons-io:2.16.1'
 }
 
 

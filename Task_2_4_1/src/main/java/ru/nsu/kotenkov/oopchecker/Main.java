@@ -38,8 +38,13 @@ public class Main {
 //                ResultsTable resultsTable = new ResultsTable(allLabResults);
 //                resultsTable.showUglyTable();
 //                resultsTable.showPrettyPanels();
+
+//                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
+//                        "oopchecker/graphics/ResultsTable.groovy"));
+//                shell.run(source, Collections.singletonList(""));
+
                 source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
-                        "oopchecker/graphics/ResultsTable.groovy"));
+                        "oopchecker/graphics/formHTML.groovy"));
                 shell.run(source, Collections.singletonList(""));
                 break;
             }

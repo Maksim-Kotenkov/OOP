@@ -91,7 +91,7 @@ def evaluate(Set groups, String lab) {
 
                 build.forTasks('test')
                         .setStandardOutput(output)
-                        .addArguments('-i', '--rerun-tasks')
+                        .addArguments('-i')
                         .run()
                 link = fullLabPath + '/build/reports/tests/test/index.html'
                 File testSummary = new File(link)
@@ -101,6 +101,7 @@ def evaluate(Set groups, String lab) {
                 System.out.println("TEST COVERAGE " + value)
 
                 studentResults['test'] = value
+                studentResults['summaryHTML'] = document.getElementById("content").outerHtml()
                 connection.close()
             } catch (Exception e) {
                 println "Execution of " + fullLabPath + " resulted in exception " + e
@@ -115,7 +116,7 @@ def evaluate(Set groups, String lab) {
             }
 
 
-            println studentResults
+//            println studentResults
             if (groupDirectory in groupResults.keySet()) {
                 groupResults[student] add studentResults
             } else {
@@ -144,6 +145,6 @@ for (lab in config.tasks) {
 
 println '----------'
 println '----------'
-println allLabResults
+//println allLabResults
 
 return allLabResults
