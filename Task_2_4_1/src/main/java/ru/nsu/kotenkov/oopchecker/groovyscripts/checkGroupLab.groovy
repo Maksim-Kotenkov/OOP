@@ -10,8 +10,13 @@ import org.gradle.tooling.BuildLauncher
 //@Grab('org.apache.ivy:ivy:2.4.0')
 import org.gradle.tooling.model.GradleProject
 import org.gradle.tooling.GradleConnector
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 
+import java.lang.annotation.ElementType
 import java.util.stream.Stream
+
+import org.jsoup.Jsoup;
 
 //import org.apache.ivy.core.module.descriptor.ModuleDescriptor  // screaming for help but is working
 //import org.apache.ivy.util.MessageLogger  // not working
@@ -60,10 +65,12 @@ def evaluate(Set groups, String lab) {
 
             BuildLauncher build = connection.newBuild()
 
+            // BUILD
             try {
                 build.forTasks('build')
                         .addArguments('-x', 'test')
                         .run()
+                studentResults['build'] = '+'
             } catch (Exception e) {
                 println "Building " + fullLabPath + " failed " + e
                 connection.close()
@@ -75,24 +82,26 @@ def evaluate(Set groups, String lab) {
                 continue
             }
 
-            studentResults['build'] = '+'
-
             build = connection.newBuild()
+            // TESTS
             try {
                 // stringbuilder here
-//                PrintStream output = new PrintStream(//string builder to here)
+                ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
+                PrintStream output = new PrintStream(outBytes)
 
                 build.forTasks('test')
-//                        .setStandardOutput(output)
+                        .setStandardOutput(output)
+                        .addArguments('-i', '--rerun-tasks')
                         .run()
-//                        .addProgressListener(new org.gradle.tooling.ProgressListener() {
-//                            @Override
-//                            void statusChanged(org.gradle.tooling.ProgressEvent progressEvent) {
-//                                println progressEvent.description
-//                            }
-//                        })
-//                        .run()
-                System.out.println(output.toString())
+                link = fullLabPath + '/build/reports/tests/test/index.html'
+                File testSummary = new File(link)
+                Document document = Jsoup.parse(testSummary)
+//                String value = Jsoup.parse(new File(link), "UTF-8").select("div[name=something]").first().val();
+                String value = document.getElementById("successRate").select("div.percent").first().text()
+                System.out.println("TEST COVERAGE " + value)
+
+                studentResults['test'] = value
+                connection.close()
             } catch (Exception e) {
                 println "Execution of " + fullLabPath + " resulted in exception " + e
                 println 'Error'
@@ -105,8 +114,7 @@ def evaluate(Set groups, String lab) {
                 continue
             }
 
-            studentResults['test'] = '+'
-            connection.close()
+
             println studentResults
             if (groupDirectory in groupResults.keySet()) {
                 groupResults[student] add studentResults
@@ -120,10 +128,6 @@ def evaluate(Set groups, String lab) {
         println groupResults
     }
 
-//    println '----------'
-//    println '----------'
-//    println 'RESULTS:'
-//    println results
     return results
 }
 
