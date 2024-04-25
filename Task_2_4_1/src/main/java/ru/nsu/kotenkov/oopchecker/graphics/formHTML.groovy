@@ -19,18 +19,14 @@ String body = 'lol'
 ArrayList<String> sorted = new ArrayList<String> (results.keySet());
 Collections.sort(sorted);
 
+tabsCounter = 0
 for (taskEntry in sorted) {
-    println taskEntry
-//    File personTemplate = new File("./src/main/java/ru/nsu/kotenkov/oopchecker/html/personTestResults.html");
-//    String personResults = Jsoup.parse(personTemplate).toString()
-//    htmlString += personResults
     htmlString += '<h1>\n'
     htmlString += taskEntry
     htmlString += '</h1>\n'
     htmlString += '<div id="content">'
 
     for (groupEntry in results[taskEntry].keySet()) {
-        println groupEntry
         htmlString += '<h1>\n'
         htmlString += groupEntry
         htmlString += '</h1>\n'
@@ -45,15 +41,16 @@ for (taskEntry in sorted) {
                 String personRes = results[taskEntry][groupEntry][person].get('summaryHTML').toString()
 
                 // replacements
-                personRes = personRes.replace('tabs', 'tabs' + person + taskEntry)
-//                personRes = personRes.replace('tab0', 'tab0' + person + taskEntry)  // unique id for elements
-//                personRes = personRes.replace('tab1', 'tab1' + person + taskEntry)
+                personRes = personRes.replace('tabs', 'tabs' + person + taskEntry)  // unique id for elements
+                personRes = personRes.replace('tab0', 'tab' + tabsCounter)
+                tabsCounter += 1
+                personRes = personRes.replace('tab1', 'tab' + tabsCounter)
+                tabsCounter += 1
                 testsReportPath = results[taskEntry][groupEntry][person].get('path') + '/build/reports/tests/test/'
                 personRes = personRes.replace('classes', testsReportPath + 'classes')
                 personRes = personRes.replace('packages', testsReportPath + 'packages')
 //                htmlString += '<h2>Test Summary</h2>'
                 htmlString += personRes
-//            htmlString = htmlString.replace('Test Summary', person)
             } else {
                 htmlString += '<h2>Build FAILED ❌</h2>'
             }

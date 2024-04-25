@@ -85,6 +85,16 @@ def evaluate(Set groups, String lab) {
             }
 
             build = connection.newBuild()
+            // DOCS
+            try {
+                build.forTasks('javadoc')
+                        .run()
+                studentResults['javadoc'] = '+'
+            } catch (Exception e) {
+                println "Javadoc for " + fullLabPath + " failed " + e
+            }
+
+            build = connection.newBuild()
             // TESTS
             try {
                 // stringbuilder here
@@ -100,7 +110,7 @@ def evaluate(Set groups, String lab) {
                 Document document = Jsoup.parse(testSummary)
 //                String value = Jsoup.parse(new File(link), "UTF-8").select("div[name=something]").first().val();
                 String value = document.getElementById("successRate").select("div.percent").first().text()
-                System.out.println("TEST COVERAGE " + value)
+                System.out.println("TESTS COMPLETED " + value)
 
                 studentResults['test'] = value
                 studentResults['summaryHTML'] = document.getElementById("content").outerHtml()
@@ -128,7 +138,7 @@ def evaluate(Set groups, String lab) {
         }
 
         results[groupDirectory] = groupResults
-        println groupResults
+//        println groupResults
     }
 
     return results

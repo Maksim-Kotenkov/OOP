@@ -30,16 +30,16 @@
     function initTabs() {
 //        var container = document.getElementById("tabs");
         var containers = document.querySelectorAll('[id^=tabs]')
+        tabs.tabs = []
         for (var element of containers) {
-            console.log(element)
-            tabs.tabs = findTabs(element);
-            tabs.titles = findTitles(tabs.tabs);
-            tabs.headers = findHeaders(element);
+            tabs.tabs.push(findTabs(element));
+//            tabs.titles = findTitles(tabs.tabs);
+//            tabs.headers = findHeaders(element);
             tabs.select = select;
-            tabs.deselectAll = deselectAll;
-            tabs.select(0);
+//            tabs.deselectAll = deselectAll;
+//            tabs.select(0);
         }
-//        console.log(container)
+        console.log(tabs)
 //        tabs.tabs = findTabs(container);
 //        tabs.titles = findTitles(tabs.tabs);
 //        tabs.headers = findHeaders(container);
@@ -60,13 +60,24 @@
 
     function findCodeBlocks() {
 //        var spans = document.getElementById("tabs").getElementsByTagName("span");
-        var spans = document.querySelector('[id^=tabs]').getElementsByTagName("span")
+//        var spans = document.querySelectorAll('[id^=tabs]').getElementsByTagName("span")
+        var containers = document.querySelectorAll('[id^=tabs]')
         var codeBlocks = [];
-        for (var i = 0; i < spans.length; ++i) {
-            if (spans[i].className.indexOf("code") >= 0) {
-                codeBlocks.push(spans[i]);
+
+        for (var element of containers) {
+            var spans = element.getElementsByTagName("span")
+            for (var i = 0; i < spans.length; ++i) {
+                if (spans[i].className.indexOf("code") >= 0) {
+                    codeBlocks.push(spans[i]);
+                }
             }
         }
+
+//        for (var i = 0; i < spans.length; ++i) {
+//            if (spans[i].className.indexOf("code") >= 0) {
+//                codeBlocks.push(spans[i]);
+//            }
+//        }
         return codeBlocks;
     }
 
@@ -114,7 +125,7 @@
     }
 
     function select(i) {
-        this.deselectAll();
+//        this.deselectAll();
 
         changeElementClass(this.tabs[i], "tab selected");
         changeElementClass(this.headers[i], "selected");
@@ -123,10 +134,10 @@
             this.headers[i].removeChild(this.headers[i].firstChild);
         }
 
-        var h2 = document.createElement("H2");
-
-        h2.appendChild(document.createTextNode(this.titles[i]));
-        this.headers[i].appendChild(h2);
+//        var h2 = document.createElement("H2");
+//
+//        h2.appendChild(document.createTextNode(this.titles[i]));
+//        this.headers[i].appendChild(h2);
     }
 
     function deselectAll() {
@@ -143,9 +154,9 @@
             a.setAttribute("id", "ltab" + i);
             a.setAttribute("href", "#tab" + i);
             a.onclick = switchTab;
-            a.appendChild(document.createTextNode(this.titles[i]));
-
-            this.headers[i].appendChild(a);
+//            a.appendChild(document.createTextNode(this.titles[i]));
+//
+//            this.headers[i].appendChild(a);
         }
     }
 
@@ -161,18 +172,18 @@
     function findTitles(tabs) {
         var titles = [];
 
-        for (var i = 0; i < tabs.length; i++) {
-            var tab = tabs[i];
-            var header = findChildElements(tab, "H2", null)[0];
-
-            header.parentNode.removeChild(header);
-
-            if (header.innerText) {
-                titles.push(header.innerText);
-            } else {
-                titles.push(header.textContent);
-            }
-        }
+//        for (var i = 0; i < tabs.length; i++) {
+//            var tab = tabs[i];
+//            var header = findChildElements(tab, "H2", null)[0];
+//
+//            header.parentNode.removeChild(header);
+//
+//            if (header.innerText) {
+//                titles.push(header.innerText);
+//            } else {
+//                titles.push(header.textContent);
+//            }
+//        }
 
         return titles;
     }
