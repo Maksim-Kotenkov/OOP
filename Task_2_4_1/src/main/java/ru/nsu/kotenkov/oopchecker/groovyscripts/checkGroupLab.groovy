@@ -61,13 +61,11 @@ def evaluate(Set groups, String lab) {
                 studentResults['build'] = '+'
             } catch (Exception e) {
                 println "Building " + fullLabPath + " failed " + e
-                connection.close()
-                if (groupDirectory in groupResults.keySet()) {
-                    groupResults[student] add studentResults
-                } else {
-                    groupResults[student] = studentResults
-                }
-                continue
+//                if (groupDirectory in groupResults.keySet()) {
+//                    groupResults[student] add studentResults
+//                } else {
+//                    groupResults[student] = studentResults
+//                }
             }
 
             // DOCS
@@ -110,13 +108,13 @@ def evaluate(Set groups, String lab) {
             } catch (Exception e) {
                 println "Execution of " + fullLabPath + " resulted in exception " + e
                 println 'Error'
-                connection.close()
-                if (groupDirectory in groupResults.keySet()) {
-                    groupResults[student] add studentResults
-                } else {
-                    groupResults[student] = studentResults
-                }
-                continue
+//                connection.close()
+//                if (groupDirectory in groupResults.keySet()) {
+//                    groupResults[student] add studentResults
+//                } else {
+//                    groupResults[student] = studentResults
+//                }
+//                continue
             }
 
             if (groupDirectory in groupResults.keySet()) {
@@ -124,7 +122,7 @@ def evaluate(Set groups, String lab) {
             } else {
                 groupResults[student] = studentResults
             }
-
+            connection.close()
         }
 
         results[groupDirectory] = groupResults

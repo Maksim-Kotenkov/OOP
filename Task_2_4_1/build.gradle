@@ -1,6 +1,7 @@
 plugins {
 //    id 'application'
     id 'java'
+    id 'jacoco'
 }
 
 group = 'org.example'
@@ -34,6 +35,11 @@ dependencies {
     implementation 'commons-io:commons-io:2.16.1'
 }
 
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
 
 test {
     useJUnitPlatform()
