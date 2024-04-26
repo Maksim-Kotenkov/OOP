@@ -1,7 +1,7 @@
 package ru.nsu.kotenkov.oopchecker.graphics
 
 import org.jsoup.Jsoup
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileUtils
 
 // get results
 GroovyShell shell = new GroovyShell()
@@ -10,14 +10,12 @@ source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
 HashMap results = (HashMap) shell.run(source, Collections.singletonList(""))
 
 // get template
-File htmlTemplateFile = new File("./src/main/java/ru/nsu/kotenkov/oopchecker/html/template.html");
+File htmlTemplateFile = new File("./src/main/java/ru/nsu/kotenkov/oopchecker/html/template.html")
 String htmlString = Jsoup.parse(htmlTemplateFile).toString()
 
-String body = 'lol'
 
-
-ArrayList<String> sorted = new ArrayList<String> (results.keySet());
-Collections.sort(sorted);
+ArrayList<String> sorted = new ArrayList<String> (results.keySet())
+Collections.sort(sorted)
 
 tabsCounter = 0
 for (taskEntry in sorted) {
@@ -33,12 +31,12 @@ for (taskEntry in sorted) {
         for (person in results[taskEntry][groupEntry].keySet()) {
             htmlString += '<div id="content">\n' + '<h1>' + person + '</h1>'
 
-            // Build
-            if (results[taskEntry][groupEntry][person].get('build') == '+') {
+            if (results[taskEntry][groupEntry][person]['build'] == '+') {
+                // BUILD
                 htmlString += '<h2>Build SUCCESSFUL ✅</h2>'
 
-                // Test summary
-                String personRes = results[taskEntry][groupEntry][person].get('summaryHTML').toString()
+                // TEST
+                String personRes = results[taskEntry][groupEntry][person]['summaryHTML'].toString()
 
                 // replacements
                 personRes = personRes.replace('tabs', 'tabs' + person + taskEntry)  // unique id for elements
@@ -46,13 +44,29 @@ for (taskEntry in sorted) {
                 tabsCounter += 1
                 personRes = personRes.replace('tab1', 'tab' + tabsCounter)
                 tabsCounter += 1
-                testsReportPath = results[taskEntry][groupEntry][person].get('path') + '/build/reports/tests/test/'
+
+                testsReportPath = results[taskEntry][groupEntry][person]['path'] + '/build/reports/tests/test/'
                 personRes = personRes.replace('classes', testsReportPath + 'classes')
                 personRes = personRes.replace('packages', testsReportPath + 'packages')
-//                htmlString += '<h2>Test Summary</h2>'
                 htmlString += personRes
+
             } else {
                 htmlString += '<h2>Build FAILED ❌</h2>'
+                htmlString += '<h2>Cannot run tests ❌</h2>'
+            }
+
+            // JAVADOC
+            if (results[taskEntry][groupEntry][person].get('javadoc') == '+') {
+                htmlString += '<h2>Javadocs ✅\n'
+
+                String personDocs = results[taskEntry][groupEntry][person]['javadocHTML'].toString()
+                docsPath = results[taskEntry][groupEntry][person]['path'] + '/build/docs/javadoc/'
+                personDocs = personDocs.replace('href="', 'href="' + docsPath)
+                htmlString += personDocs
+
+                htmlString += '</h2>'
+            } else {
+                htmlString += '<h2>No Javadocs ❌</h2>'
             }
 
             htmlString += '</div>\n'
@@ -64,9 +78,5 @@ for (taskEntry in sorted) {
 htmlString += '</body>\n' +
         '</html>'
 
-
-//htmlString = htmlString.replace('$coverage', results.get('Task_1_1_1').get(22213).get('Maksim-Kotenkov').get('summaryHTML'));
-//htmlString = htmlString.replace('$body', body);
-
-File newHtmlFile = new File("./new.html");
-FileUtils.writeStringToFile(newHtmlFile, htmlString);
+File newHtmlFile = new File("./OopCheckerReport.html")
+FileUtils.writeStringToFile(newHtmlFile, htmlString)

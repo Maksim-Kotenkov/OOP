@@ -1,25 +1,10 @@
 package ru.nsu.kotenkov.oopchecker.groovyscripts
 
-import org.gradle.internal.logging.events.ProgressEvent
-import org.gradle.internal.logging.progress.ProgressListener
+
 import org.gradle.tooling.BuildLauncher
-
-
-//@GrabResolver('http://repo.gradle.org/gradle/libs/')
-//@Grab('org.gradle:gradle-tooling-api:7.3')
-//@Grab('org.apache.ivy:ivy:2.4.0')
-import org.gradle.tooling.model.GradleProject
 import org.gradle.tooling.GradleConnector
+import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
-
-import java.lang.annotation.ElementType
-import java.util.stream.Stream
-
-import org.jsoup.Jsoup;
-
-//import org.apache.ivy.core.module.descriptor.ModuleDescriptor  // screaming for help but is working
-//import org.apache.ivy.util.MessageLogger  // not working
 
 
 def config = new GroovyClassLoader().parseClass("./src/main/java/ru/nsu/kotenkov/oopchecker/groovyscripts/config.groovy" as File).newInstance()
@@ -33,11 +18,12 @@ def evaluate(Set groups, String lab) {
     for (groupDirectory in groups) {
         def groupResults = new HashMap()
         def connector = GradleConnector.newConnector()
-        File groupPath = new File("./repos/" + groupDirectory);
+
+        File groupPath = new File("./repos/" + groupDirectory)
         String[] studentsSubDirectories = groupPath.list(new FilenameFilter() {
             @Override
             boolean accept(File current, String name) {
-                return new File(current, name).isDirectory();
+                return new File(current, name).isDirectory()
             }
         })
 
@@ -84,31 +70,37 @@ def evaluate(Set groups, String lab) {
                 continue
             }
 
-            build = connection.newBuild()
             // DOCS
+            build = connection.newBuild()
             try {
                 build.forTasks('javadoc')
                         .run()
                 studentResults['javadoc'] = '+'
+
+                link = fullLabPath + '/build/docs/javadoc/allpackages-index.html'
+                File testSummary = new File(link)
+                Document document = Jsoup.parse(testSummary)
+
+//                studentResults['javadocHTML'] = document.select("div.summary-table two-column-summary").outerHtml()
+                studentResults['javadocHTML'] = document.select("div.col-first").outerHtml()  // for index-all
+                println 'javadocs stolen'
+                println studentResults['javadocHTML']
+
             } catch (Exception e) {
                 println "Javadoc for " + fullLabPath + " failed " + e
             }
 
-            build = connection.newBuild()
             // TESTS
+            build = connection.newBuild()
             try {
-                // stringbuilder here
-                ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
-                PrintStream output = new PrintStream(outBytes)
 
                 build.forTasks('test')
-                        .setStandardOutput(output)
                         .addArguments('-i')
                         .run()
                 link = fullLabPath + '/build/reports/tests/test/index.html'
                 File testSummary = new File(link)
                 Document document = Jsoup.parse(testSummary)
-//                String value = Jsoup.parse(new File(link), "UTF-8").select("div[name=something]").first().val();
+
                 String value = document.getElementById("successRate").select("div.percent").first().text()
                 System.out.println("TESTS COMPLETED " + value)
 
@@ -127,8 +119,6 @@ def evaluate(Set groups, String lab) {
                 continue
             }
 
-
-//            println studentResults
             if (groupDirectory in groupResults.keySet()) {
                 groupResults[student] add studentResults
             } else {
@@ -138,16 +128,15 @@ def evaluate(Set groups, String lab) {
         }
 
         results[groupDirectory] = groupResults
-//        println groupResults
     }
 
     return results
 }
 
-def shell = new GroovyShell();
+def shell = new GroovyShell()
 source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
-        "oopchecker/groovyscripts/cloning.groovy"));
-shell.run(source, Collections.singletonList(""));
+        "oopchecker/groovyscripts/cloning.groovy"))
+shell.run(source, Collections.singletonList(""))
 
 def allLabResults = new HashMap()
 for (lab in config.tasks) {
