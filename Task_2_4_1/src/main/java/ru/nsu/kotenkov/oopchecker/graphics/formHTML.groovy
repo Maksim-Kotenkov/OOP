@@ -4,6 +4,20 @@ package ru.nsu.kotenkov.oopchecker.graphics
 import org.jsoup.Jsoup
 import org.apache.commons.io.FileUtils
 
+
+// get .env token
+def map = [:]
+def envAsText = new File('.env').text
+
+envAsText.eachLine {
+    splt = it.split('=', 2)
+    if (splt.size() == 2) {
+        (key,value) = splt
+        map[key] = value
+    }
+}
+println map['GITHUB_TOKEN']
+
 // get results
 GroovyShell shell = new GroovyShell()
 source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
@@ -74,6 +88,7 @@ for (taskEntry in sorted) {
             githubUrl = 'https://api.github.com/repos/' + person + '/' + 'OOP' + '/activity' + '?ref=' + taskEntry + '&activity_type=push'
             URL url = new URL(githubUrl);
             githubApi = (HttpURLConnection) url.openConnection();
+            githubApi.setRequestProperty("Authorization","Bearer " + map['GITHUB_TOKEN']);
             githubApi.setRequestMethod("GET")
             data = URLEncoder.encode("Accept", "UTF-8") + "=" + URLEncoder.encode("application/vnd.github+json", "UTF-8")
 
@@ -98,6 +113,7 @@ for (taskEntry in sorted) {
                     githubUrl = 'https://api.github.com/repos/' + person + '/' + 'OOP' + '/activity' + '?ref=' + taskEntry.toLowerCase().replace('_', '-') + '&activity_type=push'
                     url = new URL(githubUrl);
                     githubApi = (HttpURLConnection) url.openConnection();
+                    githubApi.setRequestProperty("Authorization","Bearer " + map['GITHUB_TOKEN']);
                     githubApi.setRequestMethod("GET")
                     data = URLEncoder.encode("Accept", "UTF-8") + "=" + URLEncoder.encode("application/vnd.github+json", "UTF-8")
 
@@ -118,7 +134,7 @@ for (taskEntry in sorted) {
                 println "Response error: " + e
             }
 
-            htmlString += '<h2>Activity\n'
+            htmlString += '<h2>Overall activity: '
             htmlString += activityCounter + ' commits'
             htmlString += '</h2>'
 
