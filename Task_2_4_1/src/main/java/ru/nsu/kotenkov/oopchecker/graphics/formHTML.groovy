@@ -76,12 +76,6 @@ for (taskEntry in sorted) {
             githubApi = (HttpURLConnection) url.openConnection();
             githubApi.setRequestMethod("GET")
             data = URLEncoder.encode("Accept", "UTF-8") + "=" + URLEncoder.encode("application/vnd.github+json", "UTF-8")
-//            + URLEncoder.encode("Authorization: Bearer <YOUR-TOKEN>", "UTF-8")
-
-//            DataOutputStream wr = new DataOutputStream (
-//                    githubApi.getOutputStream())
-//            wr.writeBytes(data)
-//            wr.close();
 
             //Get Response
             StringBuilder response = new StringBuilder()
@@ -97,10 +91,32 @@ for (taskEntry in sorted) {
                 rd.close()
 
                 activityCounter = response.count('push')
-            } catch (IOException e) {
+
+                // if wrong ref=task format
+                if (activityCounter == 0) {
+                    // use format task-1-1-1 instead of Task_1_1_1
+                    githubUrl = 'https://api.github.com/repos/' + person + '/' + 'OOP' + '/activity' + '?ref=' + taskEntry.toLowerCase().replace('_', '-') + '&activity_type=push'
+                    url = new URL(githubUrl);
+                    githubApi = (HttpURLConnection) url.openConnection();
+                    githubApi.setRequestMethod("GET")
+                    data = URLEncoder.encode("Accept", "UTF-8") + "=" + URLEncoder.encode("application/vnd.github+json", "UTF-8")
+
+                    //Get Response
+                    response = new StringBuilder()
+
+                    is = githubApi.getInputStream()
+                    rd = new BufferedReader(new InputStreamReader(is))
+                    while ((line = rd.readLine()) != null) {
+                        response.append(line)
+                        response.append('\r')
+                    }
+                    rd.close()
+
+                    activityCounter = response.count('push')
+                }
+            } catch (Exception e) {
                 println "Response error: " + e
             }
-
 
             htmlString += '<h2>Activity\n'
             htmlString += activityCounter + ' commits'
