@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"ru.nsu.kotenkov.oopchecker","c":"Main","l":"Main()","u":"%3Cinit%3E()"},{"p":"ru.nsu.kotenkov.oopchecker","c":"Main","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
