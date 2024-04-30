@@ -1,5 +1,6 @@
 package ru.nsu.kotenkov.oopchecker.graphics
 
+//import java.net.HttpUrlConnection
 import org.jsoup.Jsoup
 import org.apache.commons.io.FileUtils
 
@@ -68,6 +69,42 @@ for (taskEntry in sorted) {
             } else {
                 htmlString += '<h2>No Javadocs ❌</h2>'
             }
+
+            // ACTIVITY
+            githubUrl = 'https://api.github.com/repos/' + person + '/' + 'OOP' + '/activity' + '?ref=' + taskEntry + '&activity_type=push'
+            URL url = new URL(githubUrl);
+            githubApi = (HttpURLConnection) url.openConnection();
+            githubApi.setRequestMethod("GET")
+            data = URLEncoder.encode("Accept", "UTF-8") + "=" + URLEncoder.encode("application/vnd.github+json", "UTF-8")
+//            + URLEncoder.encode("Authorization: Bearer <YOUR-TOKEN>", "UTF-8")
+
+//            DataOutputStream wr = new DataOutputStream (
+//                    githubApi.getOutputStream())
+//            wr.writeBytes(data)
+//            wr.close();
+
+            //Get Response
+            StringBuilder response = new StringBuilder()
+            activityCounter = 0
+            try {
+                InputStream is = githubApi.getInputStream()
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is))
+                String line
+                while ((line = rd.readLine()) != null) {
+                    response.append(line)
+                    response.append('\r')
+                }
+                rd.close()
+
+                activityCounter = response.count('push')
+            } catch (IOException e) {
+                println "Response error: " + e
+            }
+
+
+            htmlString += '<h2>Activity\n'
+            htmlString += activityCounter + ' commits'
+            htmlString += '</h2>'
 
             htmlString += '</div>\n'
         }

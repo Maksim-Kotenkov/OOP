@@ -68,32 +68,12 @@ def evaluate(Set groups, String lab) {
 //                }
             }
 
-            // DOCS
-            build = connection.newBuild()
-            try {
-                build.forTasks('javadoc')
-                        .run()
-                studentResults['javadoc'] = '+'
-
-                link = fullLabPath + '/build/docs/javadoc/allpackages-index.html'
-                File testSummary = new File(link)
-                Document document = Jsoup.parse(testSummary)
-
-//                studentResults['javadocHTML'] = document.select("div.summary-table two-column-summary").outerHtml()
-                studentResults['javadocHTML'] = document.select("div.col-first").outerHtml()  // for index-all
-                println 'javadocs stolen'
-                println studentResults['javadocHTML']
-
-            } catch (Exception e) {
-                println "Javadoc for " + fullLabPath + " failed " + e
-            }
-
             // TESTS
-            build = connection.newBuild()
+//            build = connection.newBuild()
             try {
 
                 build.forTasks('test')
-                        .addArguments('-i')
+//                        .addArguments('-i')
                         .run()
                 link = fullLabPath + '/build/reports/tests/test/index.html'
                 File testSummary = new File(link)
@@ -104,7 +84,6 @@ def evaluate(Set groups, String lab) {
 
                 studentResults['test'] = value
                 studentResults['summaryHTML'] = document.getElementById("content").outerHtml()
-                connection.close()
             } catch (Exception e) {
                 println "Execution of " + fullLabPath + " resulted in exception " + e
                 println 'Error'
@@ -115,6 +94,31 @@ def evaluate(Set groups, String lab) {
 //                    groupResults[student] = studentResults
 //                }
 //                continue
+            }
+
+            // DOCS
+//            build = connection.newBuild()
+            try {
+                build.forTasks('javadoc')
+                        .run()
+                studentResults['javadoc'] = '+'
+            } catch (Exception e) {
+                println "Javadoc for " + fullLabPath + " failed " + e
+            }
+
+            if (studentResults['javadoc'] == '+') {
+                try {
+                    link = fullLabPath + '/build/docs/javadoc/allpackages-index.html'
+                    File testSummary = new File(link)
+                    Document document = Jsoup.parse(testSummary)
+
+                    //                studentResults['javadocHTML'] = document.select("div.summary-table two-column-summary").outerHtml()
+                    studentResults['javadocHTML'] = document.select("div.col-first").outerHtml()  // for index-all
+                    println 'javadocs stolen'
+                    println studentResults['javadocHTML']
+                } catch (Exception e) {
+                    println "Cannot steal " + fullLabPath + " failed " + e
+                }
             }
 
             if (groupDirectory in groupResults.keySet()) {

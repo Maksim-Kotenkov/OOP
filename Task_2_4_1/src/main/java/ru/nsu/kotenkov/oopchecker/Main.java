@@ -32,13 +32,13 @@ public class Main {
         GroovyCodeSource source;
         switch (mode) {
             case ("clone"):
-                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
-                        "oopchecker/groovyscripts/cloning.groovy"));
+                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/"
+                        + "oopchecker/groovyscripts/cloning.groovy"));
                 shell.run(source, Collections.singletonList(""));
                 break;
             case ("check"):
-                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/" +
-                        "oopchecker/graphics/formHTML.groovy"));
+                source = new GroovyCodeSource(new File("./src/main/java/ru/nsu/kotenkov/"
+                        + "oopchecker/graphics/formHTML.groovy"));
                 shell.run(source, Collections.singletonList(""));
                 break;
             default:
