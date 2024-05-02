@@ -19,16 +19,16 @@ envAsText.eachLine {
 println map['GITHUB_TOKEN']
 
 // get results
-GroovyShell shell = new GroovyShell()
+shell = new GroovyShell()
 source = new GroovyCodeSource(this.class.getResource("/groovyscripts/checkGroupLab.groovy"))
-HashMap results = (HashMap) shell.run(source, Collections.singletonList(""))
+results = shell.run(source, Collections.singletonList(""))
 
 // get template
 htmlTemplateFile = new File(this.class.getResource("/html/template.html").getFile())
-String htmlString = Jsoup.parse(htmlTemplateFile).toString()
+htmlString = Jsoup.parse(htmlTemplateFile).toString()
 
 
-ArrayList<String> sorted = new ArrayList<String> (results.keySet())
+ArrayList sorted = results.keySet()
 Collections.sort(sorted)
 
 tabsCounter = 0
@@ -50,7 +50,7 @@ for (taskEntry in sorted) {
                 htmlString += '<h2>Build SUCCESSFUL ✅</h2>'
 
                 // TEST
-                String personRes = results[taskEntry][groupEntry][person]['summaryHTML'].toString()
+                personRes = results[taskEntry][groupEntry][person]['summaryHTML'].toString()
 
                 // replacements
                 personRes = personRes.replace('tabs', 'tabs' + person + taskEntry)  // unique id for elements
@@ -73,7 +73,7 @@ for (taskEntry in sorted) {
             if (results[taskEntry][groupEntry][person].get('javadoc') == '+') {
                 htmlString += '<h2>Javadocs ✅\n'
 
-                String personDocs = results[taskEntry][groupEntry][person]['javadocHTML'].toString()
+                personDocs = results[taskEntry][groupEntry][person]['javadocHTML'].toString()
                 docsPath = results[taskEntry][groupEntry][person]['path'] + '/build/docs/javadoc/'
                 personDocs = personDocs.replace('href="', 'href="' + docsPath)
                 htmlString += personDocs
@@ -86,19 +86,18 @@ for (taskEntry in sorted) {
             // ACTIVITY
             githubUrl = 'https://api.github.com/repos/' + person + '/' + 'OOP' + '/activity' +
                     '?ref=' + taskEntry + '&activity_type=push'
-            URL url = new URL(githubUrl);
+            url = new URL(githubUrl);
             githubApi = (HttpURLConnection) url.openConnection();
             githubApi.setRequestProperty("Authorization","Bearer " + map['GITHUB_TOKEN']);
             githubApi.setRequestMethod("GET")
             data = URLEncoder.encode("Accept", "UTF-8") + "=" + URLEncoder.encode("application/vnd.github+json", "UTF-8")
 
             //Get Response
-            StringBuilder response = new StringBuilder()
+            response = new StringBuilder()
             activityCounter = 0
             try {
-                InputStream is = githubApi.getInputStream()
-                BufferedReader rd = new BufferedReader(new InputStreamReader(is))
-                String line
+                is = githubApi.getInputStream()
+                rd = new BufferedReader(new InputStreamReader(is))
                 while ((line = rd.readLine()) != null) {
                     response.append(line)
                     response.append('\r')
@@ -149,11 +148,11 @@ htmlString += '</body>\n' +
         '</html>'
 
 
-File newHtmlFile = new File("./report/OopCheckerReport.html")
+newHtmlFile = new File("./report/OopCheckerReport.html")
 FileUtils.writeStringToFile(newHtmlFile, htmlString)
 
-File source = new File(this.class.getResource("/html/css/").getFile())
-File dest = new File("./report/css/");
+source = new File(this.class.getResource("/html/css/").getFile())
+dest = new File("./report/css/");
 try {
     FileUtils.copyDirectory(source, dest);
 } catch (IOException e) {

@@ -21,8 +21,8 @@ def evaluate(Set groups, String lab) {
         def groupResults = new HashMap()
         def connector = GradleConnector.newConnector()
 
-        File groupPath = new File("./repos/" + groupDirectory)
-        String[] studentsSubDirectories = groupPath.list(new FilenameFilter() {
+        groupPath = new File("./repos/" + groupDirectory)
+        studentsSubDirectories = groupPath.list(new FilenameFilter() {
             @Override
             boolean accept(File current, String name) {
                 return new File(current, name).isDirectory()
@@ -53,7 +53,7 @@ def evaluate(Set groups, String lab) {
 
             def connection = connector.connect()
 
-            BuildLauncher build = connection.newBuild()
+            build = connection.newBuild()
 
             // BUILD
             try {
@@ -73,11 +73,11 @@ def evaluate(Set groups, String lab) {
 //                        .addArguments('-i')
                         .run()
                 link = fullLabPath + '/build/reports/tests/test/index.html'
-                File testSummary = new File(link)
-                Document document = Jsoup.parse(testSummary)
+                testSummary = new File(link)
+                document = Jsoup.parse(testSummary)
 
-                String value = document.getElementById("successRate").select("div.percent").first().text()
-                System.out.println("TESTS COMPLETED " + value)
+                value = document.getElementById("successRate").select("div.percent").first().text()
+                println 'TESTS COMPLETED ' + value
 
                 studentResults['test'] = value
                 studentResults['summaryHTML'] = document.getElementById("content").outerHtml()
@@ -99,8 +99,8 @@ def evaluate(Set groups, String lab) {
             if (studentResults['javadoc'] == '+') {
                 try {
                     link = fullLabPath + '/build/docs/javadoc/allpackages-index.html'
-                    File testSummary = new File(link)
-                    Document document = Jsoup.parse(testSummary)
+                    testSummary = new File(link)
+                    document = Jsoup.parse(testSummary)
 
                     //                studentResults['javadocHTML'] = document.select("div.summary-table two-column-summary").outerHtml()
                     studentResults['javadocHTML'] = document.select("div.col-first").outerHtml()  // for index-all
