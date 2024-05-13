@@ -50,7 +50,6 @@ def evaluate(Set groups, String lab) {
             studentResults['path'] = fullLabPath
 
             connector.forProjectDirectory(new File(fullLabPath))
-
             def connection = connector.connect()
 
             build = connection.newBuild()
@@ -66,12 +65,15 @@ def evaluate(Set groups, String lab) {
             }
 
             // TESTS
-//            build = connection.newBuild()
+            build = connection.newBuild()
             try {
-
                 build.forTasks('test')
-//                        .addArguments('-i')
                         .run()
+            } catch (Exception e) {
+                println "Testing of " + fullLabPath + " resulted in exception " + e
+            }
+
+            try {
                 link = fullLabPath + '/build/reports/tests/test/index.html'
                 testSummary = new File(link)
                 document = Jsoup.parse(testSummary)
@@ -82,13 +84,13 @@ def evaluate(Set groups, String lab) {
                 studentResults['test'] = value
                 studentResults['summaryHTML'] = document.getElementById("content").outerHtml()
             } catch (Exception e) {
-                println "Execution of " + fullLabPath + " resulted in exception " + e
-                println 'Error'
+                println "Getting results of tests " + fullLabPath + " resulted in exception " + e
             }
 
             // DOCS
-//            build = connection.newBuild()
             try {
+//                build = connection.newBuild()
+//                println build.addJvmArguments('')
                 build.forTasks('javadoc')
                         .run()
                 studentResults['javadoc'] = '+'

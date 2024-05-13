@@ -148,11 +148,11 @@ htmlString += '</body>\n' +
         '</html>'
 
 
-newHtmlFile = new File("./report/OopCheckerReport.html")
+newHtmlFile = new File("./OopCheckerReport.html")
 FileUtils.writeStringToFile(newHtmlFile, htmlString)
 
 source = new File(this.class.getResource("/html/css/").getFile())
-dest = new File("./report/css/");
+dest = new File("./css/");
 try {
     FileUtils.copyDirectory(source, dest);
 } catch (IOException e) {
