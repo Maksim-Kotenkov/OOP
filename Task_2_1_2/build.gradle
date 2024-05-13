@@ -1,10 +1,12 @@
 plugins {
+    id 'application'
     id 'jacoco'
     id 'java'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+mainClassName = 'ru.nsu.kotenkov.primes.Main'
 
 repositories {
     mavenCentral()

@@ -30,6 +30,5 @@ public class Main {
                 Client client = new Client(args[1], port);
                 client.start();
         }
-        System.out.println("Hello world!");
     }
 }

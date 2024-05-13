@@ -40,7 +40,7 @@ public class Server {
 
     public boolean start(int[] numbers) {
         int batchSize = Math.floorDiv(numbers.length, numOfClients) + 1;
-        for (int i = 0; i < numOfClients - 1; i++) {
+        for (int i = 0; i < numOfClients; i++) {
             out[i].println(Arrays.toString(
                     Arrays.copyOfRange(numbers,
                             i * batchSize,
@@ -48,12 +48,12 @@ public class Server {
                     )
             );
         }
-        out[numOfClients - 1].println(Arrays.toString(
-                        Arrays.copyOfRange(numbers,
-                                (numOfClients - 2) * batchSize,
-                                numbers.length)
-                )
-        );
+//        out[numOfClients - 1].println(Arrays.toString(
+//                        Arrays.copyOfRange(numbers,
+//                                (numOfClients - 2) * batchSize,
+//                                numbers.length)
+//                )
+//        );
 
         try {
             for (int i = 0; i < numOfClients; i++) {
