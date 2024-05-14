@@ -22,7 +22,7 @@ public class Client {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         } catch (IOException e) {
-            System.err.println("IOERR IN CLIENT" + e);
+            System.err.println("IOERR IN CLIENT: " + e);
         }
     }
 
