@@ -3,6 +3,7 @@ package ru.nsu.kotenkov.primes.net;
 
 import ru.nsu.kotenkov.primes.calculus.LinearChecker;
 
+import javax.sound.midi.SysexMessage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,6 +38,10 @@ public class Client {
             boolean myRes = LinearChecker.check(myPartInt);
 
             System.out.println("My result: " + myRes);
+
+            // to check errors on the client side
+            System.out.println("Timeout before sending: 5 sec");
+            Thread.sleep(5000);
             out.println(myRes);
 
             System.out.println("Result sent to the server");
@@ -44,6 +49,8 @@ public class Client {
             return myRes;
         } catch (IOException e) {
             System.err.println("IOERR IN CLIENT WHILE PROCESSING ITS PART: " + e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         return false;
