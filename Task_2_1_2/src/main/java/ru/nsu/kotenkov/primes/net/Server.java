@@ -62,7 +62,8 @@ public class Server {
             try {
                 String inRes = in[i].readLine();
 
-                if (inRes.isEmpty()) {
+                // means that clientSocket.getOutpurStream() now is null so client has problems
+                if (inRes == null) {
                     throw new SocketException("Empty res from client");
                 }
 
