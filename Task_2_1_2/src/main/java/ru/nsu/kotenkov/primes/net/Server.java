@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 
 public class Server {
-    private ServerSocket serverSocket;
+    private final ServerSocket serverSocket;
     private final Socket[] clientSocket;
     private final PrintWriter[] out;
     private final BufferedReader[] in;
@@ -55,15 +55,8 @@ public class Server {
             );
         }
 
-        // and our part is the last
-        boolean myRes = LinearChecker.check(Arrays.copyOfRange(this.testDataset, numOfClients * batchSize, this.testDataset.length));
-
-        System.out.println("All parts are sent, waiting for results");
-
-        if (myRes) {
-            stop();
-            return true;
-        }
+        // our part should be there but for tests I moved it
+        // this is to test broken connections
 
         for (int i = 0; i < numOfClients; i++) {
             try {
@@ -76,13 +69,22 @@ public class Server {
             } catch (SocketException|SocketTimeoutException e) {
                 // here we need to check it by ourselves
                 boolean res = LinearChecker.check(Arrays.copyOfRange(this.testDataset, i * batchSize, (i + 1) * batchSize));
-                System.out.println("+ result: " + res);
+                System.out.println("Socket exception, doing " + i + " part by myself with the result: " + res);
                 if (res) {
                     stop();
                     return true;
                 }
             }
+        }
 
+        // and our part is the last (test ver)
+        boolean myRes = LinearChecker.check(Arrays.copyOfRange(this.testDataset, numOfClients * batchSize, this.testDataset.length));
+
+        System.out.println("All parts are sent, waiting for results");
+
+        if (myRes) {
+            stop();
+            return true;
         }
 
         stop();
