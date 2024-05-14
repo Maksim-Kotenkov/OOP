@@ -1,14 +1,20 @@
 package ru.nsu.kotenkov.primes;
 
 
+import java.io.IOException;
 import ru.nsu.kotenkov.primes.net.Client;
 import ru.nsu.kotenkov.primes.net.Server;
 
-import java.io.IOException;
-import java.util.Arrays;
 
-
+/**
+ * Main class.
+ */
 public class Main {
+    /**
+     * Based main method.
+     *
+     * @param args based args
+     */
     public static void main(String[] args) {
         if (args.length == 0) {
             System.err.println("MODE NOT SPECIFIED");

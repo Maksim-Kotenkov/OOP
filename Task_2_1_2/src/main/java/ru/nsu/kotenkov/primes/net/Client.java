@@ -1,8 +1,6 @@
 package ru.nsu.kotenkov.primes.net;
 
 
-import ru.nsu.kotenkov.primes.calculus.LinearChecker;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,34 +8,47 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.stream.Stream;
+import ru.nsu.kotenkov.primes.calculus.LinearChecker;
 
 
+/**
+ * A class for client mode.
+ */
 public class Client {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
 
+    /**
+     * Connecting to the server and setting shutdown hook.
+     *
+     * @param ip what machine to connect to
+     * @param port what ports to connect
+     */
     public Client(String ip, int port) {
         try {
             clientSocket = new Socket(ip, port);
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                public void run() {
-                    System.out.println("Running Shutdown Hook");
-                    try {
-                        Client.this.stop();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.out.println("Running Shutdown Hook");
+                try {
+                    Client.this.stop();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            });
+            }));
         } catch (IOException e) {
             System.err.println("IOERR IN CLIENT: " + e);
         }
     }
 
-    public boolean start() {
+    /**
+     * Receiving our part of work, performing and sending the res.
+     * There is a timeout for testing the death of our machine with SIGINT.
+     * Also, I tried to minimize memory allocation.
+     */
+    public void start() {
         try {
             String myPart = in.readLine();
             String subS = myPart.substring(1, myPart.length() - 1);
@@ -60,14 +71,12 @@ public class Client {
 
             System.out.println("Result sent to the server");
             stop();
-            return myRes;
         } catch (IOException e) {
             System.err.println("IOERR IN CLIENT WHILE PROCESSING ITS PART: " + e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        return false;
     }
 
     public void stop() throws IOException {

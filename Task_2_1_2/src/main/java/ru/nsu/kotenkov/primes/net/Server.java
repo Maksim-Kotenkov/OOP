@@ -1,8 +1,6 @@
 package ru.nsu.kotenkov.primes.net;
 
 
-import ru.nsu.kotenkov.primes.calculus.LinearChecker;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,8 +10,12 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
+import ru.nsu.kotenkov.primes.calculus.LinearChecker;
 
 
+/**
+ * A class for server, that distributes the work.
+ */
 public class Server {
     private final ServerSocket serverSocket;
     private final Socket[] clientSocket;
@@ -22,6 +24,14 @@ public class Server {
     private final int numOfClients;
     private final int[] testDataset;
 
+    /**
+     * In constructor, we get connections from clients, init our target array of numbers.
+     *
+     * @param port to host on
+     * @param numOfClients how many machines we are waiting for
+     * @param size of the target array of numbers
+     * @throws IOException if ruined
+     */
     public Server(int port, int numOfClients, int size) throws IOException {
         clientSocket = new Socket[numOfClients];
         out = new PrintWriter[numOfClients];
@@ -44,6 +54,13 @@ public class Server {
 
     }
 
+    /**
+     * Sending parts of the array and receiving results.
+     * If a client has died, we get its part and perform it by ourselves.
+     *
+     * @return overall result for the whole array of numbers
+     * @throws IOException if ruined
+     */
     public boolean start() throws IOException {
         int batchSize = Math.floorDiv(this.testDataset.length, numOfClients + 1) + 1;
         for (int i = 0; i < numOfClients; i++) {
@@ -76,8 +93,14 @@ public class Server {
                 }
             } catch (SocketException|SocketTimeoutException e) {
                 // here we need to check it by ourselves
-                boolean res = LinearChecker.check(Arrays.copyOfRange(this.testDataset, i * batchSize, (i + 1) * batchSize));
-                System.out.println("Socket exception, doing " + i + " part by myself with the result: " + res);
+                boolean res = LinearChecker.check(
+                        Arrays.copyOfRange(
+                                this.testDataset,
+                                i * batchSize,
+                                (i + 1) * batchSize)
+                );
+                System.out.println("Socket exception, doing " + i
+                        + " part by myself with the result: " + res);
                 if (res) {
                     stop();
                     return true;
@@ -86,7 +109,12 @@ public class Server {
         }
 
         // and our part is the last (test ver)
-        boolean myRes = LinearChecker.check(Arrays.copyOfRange(this.testDataset, numOfClients * batchSize, this.testDataset.length));
+        boolean myRes = LinearChecker.check(
+                Arrays.copyOfRange(
+                        this.testDataset,
+                        numOfClients * batchSize,
+                        this.testDataset.length)
+        );
 
         if (myRes) {
             stop();
@@ -97,6 +125,11 @@ public class Server {
         return false;
     }
 
+    /**
+     * Closing every socket.
+     *
+     * @throws IOException if ruined
+     */
     public void stop() throws IOException {
         for (int i = 0; i < numOfClients; i++) {
             in[i].close();
