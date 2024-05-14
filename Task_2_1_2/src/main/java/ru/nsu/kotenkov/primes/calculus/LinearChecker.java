@@ -14,7 +14,7 @@ public class LinearChecker {
      * @param arg target int[]
      * @return is there a non-prime number or not
      */
-    public boolean check(int[] arg) {
+    public static boolean check(int[] arg) {
         for (int elem : arg) {
             if (!prime(elem)) {
                 return true;

@@ -24,7 +24,7 @@ public class Main {
         String mode = args[0];
         switch (mode) {
             case "server":
-                Server serv = new Server(port, 1);
+                Server serv = new Server(port, Integer.parseInt(args[1]));
                 boolean result = serv.start(testDataset);
             case "client":
                 Client client = new Client(args[1], port);

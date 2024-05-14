@@ -24,6 +24,7 @@ public class Server {
         this.numOfClients = numOfClients;
 
         try {
+            System.out.println("Receiving connections");
             serverSocket = new ServerSocket(port);
             for (int i = 0; i < numOfClients; i++) {
                 clientSocket[i] = serverSocket.accept();

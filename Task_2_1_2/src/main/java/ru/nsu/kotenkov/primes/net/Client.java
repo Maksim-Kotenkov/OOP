@@ -1,6 +1,8 @@
 package ru.nsu.kotenkov.primes.net;
 
 
+import ru.nsu.kotenkov.primes.calculus.LinearChecker;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,11 +28,11 @@ public class Client {
     public boolean start() {
         try {
             String myPart = in.readLine();
-            System.out.println(myPart.length());
+            System.out.println(myPart);
 
-            stop();
+            boolean myRes = LinearChecker.check(new int[]{Integer.parseInt(myPart)});
         } catch (IOException e) {
-            System.err.println("IOERR IN CLIENT WHILE GETTING ITS PART: " + e);
+            System.err.println("IOERR IN CLIENT WHILE PROCESSING ITS PART: " + e);
         }
 
         return false;
