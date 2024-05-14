@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.nsu.kotenkov.primes"},{"l":"ru.nsu.kotenkov.primes.calculus"},{"l":"ru.nsu.kotenkov.primes.net"}]

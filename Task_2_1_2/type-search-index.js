@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.kotenkov.primes.net","l":"Client"},{"p":"ru.nsu.kotenkov.primes.calculus","l":"LinearChecker"},{"p":"ru.nsu.kotenkov.primes","l":"Main"},{"p":"ru.nsu.kotenkov.primes.calculus","l":"PrimeChecker"},{"p":"ru.nsu.kotenkov.primes.net","l":"Server"}]
