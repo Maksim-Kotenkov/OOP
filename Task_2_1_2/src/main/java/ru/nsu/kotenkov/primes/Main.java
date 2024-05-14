@@ -37,6 +37,7 @@ public class Main {
                 case "client":
                     Client client = new Client(args[1], port);
                     client.start();
+                    return;
                 default:
                     System.err.println("WTF yo passed to my args...");
             }
