@@ -60,8 +60,14 @@ public class Server {
 
         for (int i = 0; i < numOfClients; i++) {
             try {
-                out[i].write("");  // checking if alive
-                boolean res = Boolean.parseBoolean(in[i].readLine());
+                String inRes = in[i].readLine();
+
+                if (inRes.isEmpty()) {
+                    throw new SocketException("Empty res from client");
+                }
+
+                boolean res = Boolean.parseBoolean(inRes);
+
                 System.out.println("+ result: " + res);
                 if (res) {
                     stop();
