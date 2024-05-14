@@ -42,19 +42,24 @@ public class Server {
     public boolean start(int[] numbers) {
         int batchSize = Math.floorDiv(numbers.length, numOfClients) + 1;
         for (int i = 0; i < numOfClients; i++) {
-            out[i].println(Arrays.toString(
-                    Arrays.copyOfRange(numbers,
-                            i * batchSize,
-                            (i + 1) * batchSize)
-                    )
-            );
+            if (i == numOfClients - 1) {
+                out[i].println(Arrays.toString(
+                                Arrays.copyOfRange(numbers,
+                                        i * batchSize,
+                                        numbers.length)
+                        )
+                );
+            } else {
+                out[i].println(Arrays.toString(
+                                Arrays.copyOfRange(numbers,
+                                        i * batchSize,
+                                        (i + 1) * batchSize)
+                        )
+                );
+            }
+
         }
-//        out[numOfClients - 1].println(Arrays.toString(
-//                        Arrays.copyOfRange(numbers,
-//                                (numOfClients - 2) * batchSize,
-//                                numbers.length)
-//                )
-//        );
+
         System.out.println("All parts are sent, waiting for results");
         try {
             for (int i = 0; i < numOfClients; i++) {
