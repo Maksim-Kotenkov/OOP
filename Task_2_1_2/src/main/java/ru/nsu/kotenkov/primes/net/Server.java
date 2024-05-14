@@ -60,15 +60,12 @@ public class Server {
 
         for (int i = 0; i < numOfClients; i++) {
             try {
-                if (clientSocket[i].isConnected()) {
-                    boolean res = Boolean.parseBoolean(in[i].readLine());
-                    System.out.println("+ result: " + res);
-                    if (res) {
-                        stop();
-                        return true;
-                    }
-                } else {
-                    throw new SocketException("Disconnected");
+                out[i].write("");  // checking if alive
+                boolean res = Boolean.parseBoolean(in[i].readLine());
+                System.out.println("+ result: " + res);
+                if (res) {
+                    stop();
+                    return true;
                 }
             } catch (SocketException|SocketTimeoutException e) {
                 // here we need to check it by ourselves
