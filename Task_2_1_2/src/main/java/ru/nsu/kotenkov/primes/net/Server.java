@@ -55,10 +55,11 @@ public class Server {
 //                                numbers.length)
 //                )
 //        );
-
+        System.out.println("All parts are sent, waiting for results");
         try {
             for (int i = 0; i < numOfClients; i++) {
                 boolean res = Boolean.parseBoolean(in[i].readLine());
+                System.out.println("+ result");
                 if (res) {
                     stop();
                     return true;

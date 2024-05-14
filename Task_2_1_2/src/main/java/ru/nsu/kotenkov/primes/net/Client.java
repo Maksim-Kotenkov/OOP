@@ -36,8 +36,11 @@ public class Client {
 
             boolean myRes = LinearChecker.check(myPartInt);
 
-            System.out.println(myRes);
+            System.out.println("My result: " + myRes);
             out.println(myRes);
+
+            System.out.println("Result sent to the server");
+            stop();
             return myRes;
         } catch (IOException e) {
             System.err.println("IOERR IN CLIENT WHILE PROCESSING ITS PART: " + e);
