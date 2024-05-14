@@ -22,6 +22,16 @@ public class Client {
             clientSocket = new Socket(ip, port);
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                public void run() {
+                    System.out.println("Running Shutdown Hook");
+                    try {
+                        Client.this.stop();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
         } catch (IOException e) {
             System.err.println("IOERR IN CLIENT: " + e);
         }
