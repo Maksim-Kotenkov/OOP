@@ -79,6 +79,11 @@ public class Client {
 
     }
 
+    /**
+     * Closing connection.
+     *
+     * @throws IOException if ruined
+     */
     public void stop() throws IOException {
         in.close();
         out.close();

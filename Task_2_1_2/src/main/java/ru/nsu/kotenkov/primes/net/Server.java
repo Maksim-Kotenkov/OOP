@@ -91,7 +91,7 @@ public class Server {
                     stop();
                     return true;
                 }
-            } catch (SocketException|SocketTimeoutException e) {
+            } catch (SocketException | SocketTimeoutException e) {
                 // here we need to check it by ourselves
                 boolean res = LinearChecker.check(
                         Arrays.copyOfRange(

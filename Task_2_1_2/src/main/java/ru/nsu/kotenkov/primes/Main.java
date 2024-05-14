@@ -37,6 +37,8 @@ public class Main {
                 case "client":
                     Client client = new Client(args[1], port);
                     client.start();
+                default:
+                    System.err.println("WTF yo passed to my args...");
             }
         } catch (IOException e) {
             System.err.println("IOERR: " + e);

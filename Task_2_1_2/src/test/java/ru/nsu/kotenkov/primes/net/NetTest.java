@@ -1,7 +1,9 @@
 package ru.nsu.kotenkov.primes.net;
 
-import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 
 //import java.io.IOException;
 //
