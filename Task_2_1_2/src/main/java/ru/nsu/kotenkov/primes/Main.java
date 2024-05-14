@@ -26,6 +26,8 @@ public class Main {
             case "server":
                 Server serv = new Server(port, Integer.parseInt(args[1]));
                 boolean result = serv.start(testDataset);
+                System.out.println("OVERALL RESULT: " + result);
+                return;
             case "client":
                 Client client = new Client(args[1], port);
                 client.start();

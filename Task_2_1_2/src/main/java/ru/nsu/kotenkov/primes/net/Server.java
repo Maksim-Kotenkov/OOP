@@ -12,10 +12,10 @@ import java.util.Arrays;
 
 public class Server {
     private ServerSocket serverSocket;
-    private Socket[] clientSocket;
-    private PrintWriter[] out;
-    private BufferedReader[] in;
-    private int numOfClients;
+    private final Socket[] clientSocket;
+    private final PrintWriter[] out;
+    private final BufferedReader[] in;
+    private final int numOfClients;
 
     public Server(int port, int numOfClients) {
         clientSocket = new Socket[numOfClients];
@@ -59,7 +59,7 @@ public class Server {
         try {
             for (int i = 0; i < numOfClients; i++) {
                 boolean res = Boolean.parseBoolean(in[i].readLine());
-                System.out.println("+ result");
+                System.out.println("+ result: " + res);
                 if (res) {
                     stop();
                     return true;
