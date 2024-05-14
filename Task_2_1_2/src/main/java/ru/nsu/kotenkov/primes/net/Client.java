@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 
 
 public class Client {
@@ -28,9 +29,16 @@ public class Client {
     public boolean start() {
         try {
             String myPart = in.readLine();
-            System.out.println(myPart);
+            int[] myPartInt = Arrays.stream(myPart.substring(1, myPart.length() - 1).split(", "))
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+            System.out.println(myPartInt.length);
 
-            boolean myRes = LinearChecker.check(new int[]{Integer.parseInt(myPart)});
+            boolean myRes = LinearChecker.check(myPartInt);
+
+            System.out.println(myRes);
+            out.println(myRes);
+            return myRes;
         } catch (IOException e) {
             System.err.println("IOERR IN CLIENT WHILE PROCESSING ITS PART: " + e);
         }
