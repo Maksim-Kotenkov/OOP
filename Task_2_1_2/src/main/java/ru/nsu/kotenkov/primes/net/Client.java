@@ -3,13 +3,13 @@ package ru.nsu.kotenkov.primes.net;
 
 import ru.nsu.kotenkov.primes.calculus.LinearChecker;
 
-import javax.sound.midi.SysexMessage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 
 public class Client {
@@ -30,7 +30,11 @@ public class Client {
     public boolean start() {
         try {
             String myPart = in.readLine();
-            int[] myPartInt = Arrays.stream(myPart.substring(1, myPart.length() - 1).split(", "))
+            String subS = myPart.substring(1, myPart.length() - 1);
+            myPart = null;
+            Stream<String> myPartStream = Arrays.stream(subS.split(", "));
+            subS = null;
+            int[] myPartInt = myPartStream
                     .mapToInt(Integer::parseInt)
                     .toArray();
             System.out.println(myPartInt.length);

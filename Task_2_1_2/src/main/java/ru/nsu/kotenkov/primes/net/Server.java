@@ -60,11 +60,15 @@ public class Server {
 
         for (int i = 0; i < numOfClients; i++) {
             try {
-                boolean res = Boolean.parseBoolean(in[i].readLine());
-                System.out.println("+ result: " + res);
-                if (res) {
-                    stop();
-                    return true;
+                if (clientSocket[i].isConnected()) {
+                    boolean res = Boolean.parseBoolean(in[i].readLine());
+                    System.out.println("+ result: " + res);
+                    if (res) {
+                        stop();
+                        return true;
+                    }
+                } else {
+                    throw new SocketException("Disconnected");
                 }
             } catch (SocketException|SocketTimeoutException e) {
                 // here we need to check it by ourselves
@@ -79,8 +83,6 @@ public class Server {
 
         // and our part is the last (test ver)
         boolean myRes = LinearChecker.check(Arrays.copyOfRange(this.testDataset, numOfClients * batchSize, this.testDataset.length));
-
-        System.out.println("All parts are sent, waiting for results");
 
         if (myRes) {
             stop();
