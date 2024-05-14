@@ -15,19 +15,17 @@ public class Main {
             return;
         }
 
-        int size = 100000000;
-
-        int[] testDataset = new int[size];
-        Arrays.fill(testDataset, 2004991);  // fill with this prime number
-        testDataset[size - 1] = 700;
-
         int port = 666;
         String mode = args[0];
         try {
             switch (mode) {
                 case "server":
-                    Server serv = new Server(port, Integer.parseInt(args[1]));
-                    boolean result = serv.start(testDataset);
+                    Server serv = new Server(
+                            port,
+                            Integer.parseInt(args[1]),
+                            Integer.parseInt(args[2])
+                    );
+                    boolean result = serv.start();
                     System.out.println("OVERALL RESULT: " + result);
                     return;
                 case "client":

@@ -20,12 +20,17 @@ public class Server {
     private final PrintWriter[] out;
     private final BufferedReader[] in;
     private final int numOfClients;
+    private final int[] testDataset;
 
-    public Server(int port, int numOfClients) throws IOException {
+    public Server(int port, int numOfClients, int size) throws IOException {
         clientSocket = new Socket[numOfClients];
         out = new PrintWriter[numOfClients];
         in = new BufferedReader[numOfClients];
         this.numOfClients = numOfClients;
+
+        this.testDataset = new int[size];
+        Arrays.fill(testDataset, 2004991);  // fill with this prime number
+        testDataset[size - 1] = 700;
 
         System.out.println("Receiving connections");
         serverSocket = new ServerSocket(port);
@@ -39,11 +44,11 @@ public class Server {
 
     }
 
-    public boolean start(int[] numbers) throws IOException {
-        int batchSize = Math.floorDiv(numbers.length, numOfClients + 1) + 1;
+    public boolean start() throws IOException {
+        int batchSize = Math.floorDiv(this.testDataset.length, numOfClients + 1) + 1;
         for (int i = 0; i < numOfClients; i++) {
             out[i].println(Arrays.toString(
-                            Arrays.copyOfRange(numbers,
+                            Arrays.copyOfRange(this.testDataset,
                                     i * batchSize,
                                     (i + 1) * batchSize)
                     )
@@ -51,7 +56,7 @@ public class Server {
         }
 
         // and our part is the last
-        boolean myRes = LinearChecker.check(Arrays.copyOfRange(numbers, numOfClients * batchSize, numbers.length));
+        boolean myRes = LinearChecker.check(Arrays.copyOfRange(this.testDataset, numOfClients * batchSize, this.testDataset.length));
 
         System.out.println("All parts are sent, waiting for results");
 
@@ -70,7 +75,7 @@ public class Server {
                 }
             } catch (SocketException|SocketTimeoutException e) {
                 // here we need to check it by ourselves
-                boolean res = LinearChecker.check(Arrays.copyOfRange(numbers, i * batchSize, (i + 1) * batchSize));
+                boolean res = LinearChecker.check(Arrays.copyOfRange(this.testDataset, i * batchSize, (i + 1) * batchSize));
                 System.out.println("+ result: " + res);
                 if (res) {
                     stop();
