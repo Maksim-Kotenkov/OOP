@@ -21,7 +21,7 @@ public class Main {
             return;
         }
 
-        int port = 666;
+        int port = 17000;
         String mode = args[0];
         try {
             switch (mode) {

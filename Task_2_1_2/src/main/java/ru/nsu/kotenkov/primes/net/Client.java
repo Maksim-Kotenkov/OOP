@@ -53,6 +53,9 @@ public class Client {
         try {
             while (true) {
                 String myPart = in.readLine();
+                if (myPart == null) {
+                    break;
+                }
                 String subS = myPart.substring(1, myPart.length() - 1);
                 myPart = null;
                 Stream<String> myPartStream = Arrays.stream(subS.split(", "));

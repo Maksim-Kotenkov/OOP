@@ -64,8 +64,6 @@ public class Server {
      * @throws IOException if ruined
      */
     public boolean start() throws IOException {
-        //TODO do our part in another thread
-
         //TODO if any machine died, wait for connection on this socket and send this part
         // or after delay perform it by ourselves
         this.batchSize = Math.floorDiv(this.testDataset.length, numOfClients + 1) + 1;
@@ -93,6 +91,7 @@ public class Server {
         for (int i = 0; i < numOfClients; i++) {
             if (!ourPartThread.isAlive()) {
                 if (ourPart.isResult()) {
+                    System.out.println("Positive result from our thread, stopping the work");
                     sendStop();
                     return true;
                 }
@@ -193,7 +192,9 @@ public class Server {
     }
 
     private void sendStop() {
-
+        for (int i = 0; i < numOfClients; i++) {
+            out[i].println("STOP");
+        }
     }
 
     /**
