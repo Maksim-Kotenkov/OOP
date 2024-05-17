@@ -23,6 +23,7 @@ public class Server {
     private final BufferedReader[] in;
     private final int numOfClients;
     private final int[] testDataset;
+    private int batchSize;
 
     /**
      * In constructor, we get connections from clients, init our target array of numbers.
@@ -62,12 +63,16 @@ public class Server {
      * @throws IOException if ruined
      */
     public boolean start() throws IOException {
-        int batchSize = Math.floorDiv(this.testDataset.length, numOfClients + 1) + 1;
+        //TODO do our part in another thread
+
+        //TODO if any machine died, wait for connection on this socket and send this part
+        // or after delay perform it by ourselves
+        this.batchSize = Math.floorDiv(this.testDataset.length, numOfClients + 1) + 1;
         for (int i = 0; i < numOfClients; i++) {
             out[i].println(Arrays.toString(
                             Arrays.copyOfRange(this.testDataset,
-                                    i * batchSize,
-                                    (i + 1) * batchSize)
+                                    i * this.batchSize,
+                                    (i + 1) * this.batchSize)
                     )
             );
         }
@@ -93,17 +98,40 @@ public class Server {
                 }
             } catch (SocketException | SocketTimeoutException e) {
                 // here we need to check it by ourselves
-                boolean res = LinearChecker.check(
-                        Arrays.copyOfRange(
-                                this.testDataset,
-                                i * batchSize,
-                                (i + 1) * batchSize)
-                );
-                System.out.println("Socket exception, doing " + i
-                        + " part by myself with the result: " + res);
-                if (res) {
-                    stop();
-                    return true;
+//                boolean res = LinearChecker.check(
+//                        Arrays.copyOfRange(
+//                                this.testDataset,
+//                                i * this.batchSize,
+//                                (i + 1) * this.batchSize)
+//                );
+//                System.out.println("Socket exception, doing " + i
+//                        + " part by myself with the result: " + res);
+//                if (res) {
+//                    stop();
+//                    return true;
+//                }
+                System.out.println("Machine " + i + " died, waiting for another connection");
+                try {
+                    boolean failedResult = carryFailedPart(i);
+                    System.out.println("+ result: " + failedResult);
+                    if (failedResult) {
+                        stop();
+                        return true;
+                    }
+                } catch (SocketException e2) {
+                    System.out.println("Machine " + i + " died again");
+                    boolean res = LinearChecker.check(
+                            Arrays.copyOfRange(
+                                    this.testDataset,
+                                    i * this.batchSize,
+                                    (i + 1) * this.batchSize)
+                    );
+                    System.out.println("Doing " + i
+                            + " part by myself with the result: " + res);
+                    if (res) {
+                        stop();
+                        return true;
+                    }
                 }
             }
         }
@@ -123,6 +151,29 @@ public class Server {
 
         stop();
         return false;
+    }
+
+    private boolean carryFailedPart(int part) throws IOException, SocketException {
+        clientSocket[part] = serverSocket.accept();
+        out[part] = new PrintWriter(clientSocket[part].getOutputStream(), true);
+        in[part] = new BufferedReader(new InputStreamReader(clientSocket[part].getInputStream()));
+        System.out.println("+ replaced client");
+
+        out[part].println(Arrays.toString(
+                        Arrays.copyOfRange(this.testDataset,
+                                part * this.batchSize,
+                                (part + 1) * this.batchSize)
+                )
+        );
+
+        String inRes = in[part].readLine();
+
+        // means that clientSocket.getOutputStream() now is null so client has problems
+        if (inRes == null) {
+            throw new SocketException("Empty res from client");
+        }
+
+        return Boolean.parseBoolean(inRes);
     }
 
     /**

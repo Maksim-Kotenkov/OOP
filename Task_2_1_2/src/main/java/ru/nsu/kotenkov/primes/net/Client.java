@@ -49,6 +49,7 @@ public class Client {
      * Also, I tried to minimize memory allocation.
      */
     public void start() {
+        //TODO catch interruptions from server
         try {
             String myPart = in.readLine();
             String subS = myPart.substring(1, myPart.length() - 1);
