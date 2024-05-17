@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
 import ru.nsu.kotenkov.primes.calculus.LinearChecker;
+import ru.nsu.kotenkov.primes.calculus.PrimeThread;
 
 
 /**
@@ -77,10 +78,25 @@ public class Server {
             );
         }
 
+        PrimeThread ourPart = new PrimeThread(Arrays.copyOfRange(
+                        this.testDataset,
+                        numOfClients * batchSize,
+                        this.testDataset.length)
+        );
+
+        Thread ourPartThread = new Thread(ourPart);
+        ourPartThread.start();
+
         // our part should be there but for tests I moved it
         // this is to test broken connections
 
         for (int i = 0; i < numOfClients; i++) {
+            if (!ourPartThread.isAlive()) {
+                if (ourPart.isResult()) {
+                    sendStop();
+                    return true;
+                }
+            }
             try {
                 String inRes = in[i].readLine();
 
@@ -137,17 +153,17 @@ public class Server {
         }
 
         // and our part is the last (test ver)
-        boolean myRes = LinearChecker.check(
-                Arrays.copyOfRange(
-                        this.testDataset,
-                        numOfClients * batchSize,
-                        this.testDataset.length)
-        );
+//        boolean myRes = LinearChecker.check(
+//                Arrays.copyOfRange(
+//                        this.testDataset,
+//                        numOfClients * batchSize,
+//                        this.testDataset.length)
+//        );
 
-        if (myRes) {
-            stop();
-            return true;
-        }
+//        if (myRes) {
+//            stop();
+//            return true;
+//        }
 
         stop();
         return false;
@@ -174,6 +190,10 @@ public class Server {
         }
 
         return Boolean.parseBoolean(inRes);
+    }
+
+    private void sendStop() {
+
     }
 
     /**

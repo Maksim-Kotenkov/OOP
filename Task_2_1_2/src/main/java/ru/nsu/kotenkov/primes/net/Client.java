@@ -51,27 +51,28 @@ public class Client {
     public void start() {
         //TODO catch interruptions from server
         try {
-            String myPart = in.readLine();
-            String subS = myPart.substring(1, myPart.length() - 1);
-            myPart = null;
-            Stream<String> myPartStream = Arrays.stream(subS.split(", "));
-            subS = null;
-            int[] myPartInt = myPartStream
-                    .mapToInt(Integer::parseInt)
-                    .toArray();
-            System.out.println(myPartInt.length);
+            while (true) {
+                String myPart = in.readLine();
+                String subS = myPart.substring(1, myPart.length() - 1);
+                myPart = null;
+                Stream<String> myPartStream = Arrays.stream(subS.split(", "));
+                subS = null;
+                int[] myPartInt = myPartStream
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+                System.out.println(myPartInt.length);
 
-            boolean myRes = LinearChecker.check(myPartInt);
+                boolean myRes = LinearChecker.check(myPartInt);
 
-            System.out.println("My result: " + myRes);
+                System.out.println("My result: " + myRes);
 
-            // to check errors on the client side
-            System.out.println("Timeout before sending: 5 sec");
-            Thread.sleep(5000);
-            out.println(myRes);
+                // to check errors on the client side
+                System.out.println("Timeout before sending: 5 sec");
+                Thread.sleep(5000);
+                out.println(myRes);
 
-            System.out.println("Result sent to the server");
-            stop();
+                System.out.println("Result sent to the server");
+            }
         } catch (IOException e) {
             System.err.println("IOERR IN CLIENT WHILE PROCESSING ITS PART: " + e);
         } catch (InterruptedException e) {
