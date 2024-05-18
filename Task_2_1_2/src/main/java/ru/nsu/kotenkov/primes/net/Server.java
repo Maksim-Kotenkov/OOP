@@ -76,7 +76,8 @@ public class Server {
             );
         }
 
-        PrimeThread ourPart = new PrimeThread(Arrays.copyOfRange(
+        PrimeThread ourPart = new PrimeThread(
+                Arrays.copyOfRange(
                         this.testDataset,
                         numOfClients * batchSize,
                         this.testDataset.length)

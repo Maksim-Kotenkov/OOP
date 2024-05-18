@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import ru.nsu.kotenkov.primes.calculus.LinearChecker;
+import ru.nsu.kotenkov.primes.calculus.PrimeThread;
 
 
 /**
@@ -65,8 +66,15 @@ public class Client {
                         .toArray();
                 System.out.println(myPartInt.length);
 
-                boolean myRes = LinearChecker.check(myPartInt);
+                PrimeThread ourPart = new PrimeThread(myPartInt);
+                Thread ourPartThread = new Thread(ourPart);
+                ourPartThread.start();
 
+                synchronized (ourPart) {
+                    wait();
+                }
+//                boolean myRes = LinearChecker.check(myPartInt);
+                boolean myRes = ourPart.isResult();
                 System.out.println("My result: " + myRes);
 
                 // to check errors on the client side

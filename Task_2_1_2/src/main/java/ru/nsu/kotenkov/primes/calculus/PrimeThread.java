@@ -23,14 +23,18 @@ public class PrimeThread implements Runnable {
      */
     @Override
     public void run() {
-        for (int elem : target) {
-            if (!PrimeChecker.prime(elem)) {
-                this.result = true;
-                return;
+        synchronized (this) {
+            for (int elem : target) {
+                if (!PrimeChecker.prime(elem)) {
+                    this.result = true;
+                    notifyAll();
+                    return;
+                }
             }
-        }
 
-        this.result = false;
+            notifyAll();
+            this.result = false;
+        }
     }
 
     /**
