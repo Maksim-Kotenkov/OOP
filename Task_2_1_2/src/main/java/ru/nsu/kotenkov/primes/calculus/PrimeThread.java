@@ -8,6 +8,7 @@ public class PrimeThread implements Runnable {
      */
     private final int[] target;
     private volatile boolean result;
+    private boolean finished = false;
 
     /**
      * Constructor.
@@ -27,13 +28,14 @@ public class PrimeThread implements Runnable {
             for (int elem : target) {
                 if (!PrimeChecker.prime(elem)) {
                     this.result = true;
+                    this.finished = true;
                     notifyAll();
                     return;
                 }
             }
-
-            notifyAll();
             this.result = false;
+            this.finished = true;
+            notifyAll();
         }
     }
 
@@ -44,5 +46,9 @@ public class PrimeThread implements Runnable {
      */
     public boolean isResult() {
         return result;
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 }

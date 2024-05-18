@@ -54,19 +54,29 @@ public class Client {
         try {
             while (true) {
                 String myPart = in.readLine();
-                if (myPart == null) {
+                if (myPart == null || myPart.equals("STOP")) {
                     break;
                 }
-                String subS = myPart.substring(1, myPart.length() - 1);
-                myPart = null;
-                Stream<String> myPartStream = Arrays.stream(subS.split(", "));
-                subS = null;
-                int[] myPartInt = myPartStream
-                        .mapToInt(Integer::parseInt)
-                        .toArray();
+                int[] myPartInt = extract(myPart);
                 System.out.println(myPartInt.length);
 
+                // calculations thread
                 PrimeThread ourPart = new PrimeThread(myPartInt);
+
+                // cancellation receiving thread
+                Thread cancelRcv = new Thread(() -> {
+                    synchronized (ourPart) {
+                        try {
+                            String incomeMsg = in.readLine();
+                            if (incomeMsg == null || incomeMsg.equals("STOP")) {
+                                notifyAll();
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+
                 Thread ourPartThread = new Thread(ourPart);
                 ourPartThread.start();
 
@@ -74,15 +84,20 @@ public class Client {
                     ourPart.wait();
                 }
 //                boolean myRes = LinearChecker.check(myPartInt);
-                boolean myRes = ourPart.isResult();
-                System.out.println("My result: " + myRes);
+                if (ourPart.isFinished()) {
+                    boolean myRes = ourPart.isResult();
+                    System.out.println("My result: " + myRes);
 
-                // to check errors on the client side
-                System.out.println("Timeout before sending: 5 sec");
-                Thread.sleep(5000);
-                out.println(myRes);
+                    // to check errors on the client side
+                    System.out.println("Timeout before sending: 5 sec");
+                    Thread.sleep(5000);
+                    out.println(myRes);
 
-                System.out.println("Result sent to the server");
+                    System.out.println("Result sent to the server");
+                } else {
+                    break;
+                }
+
             }
         } catch (IOException e) {
             System.err.println("IOERR IN CLIENT WHILE PROCESSING ITS PART: " + e);
@@ -90,6 +105,16 @@ public class Client {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private int[] extract(String myPart) {
+        String subS = myPart.substring(1, myPart.length() - 1);
+        myPart = null;
+        Stream<String> myPartStream = Arrays.stream(subS.split(", "));
+        subS = null;
+        return myPartStream
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 
     /**
