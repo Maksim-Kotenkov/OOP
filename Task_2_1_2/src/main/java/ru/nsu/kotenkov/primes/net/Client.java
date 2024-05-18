@@ -57,7 +57,13 @@ public class Client {
                 if (myPart == null || myPart.equals("STOP")) {
                     break;
                 }
-                int[] myPartInt = extract(myPart);
+                String subS = myPart.substring(1, myPart.length() - 1);
+                myPart = null;
+                Stream<String> myPartStream = Arrays.stream(subS.split(", "));
+                subS = null;
+                int[] myPartInt = myPartStream
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
                 System.out.println(myPartInt.length);
 
                 // calculations thread
