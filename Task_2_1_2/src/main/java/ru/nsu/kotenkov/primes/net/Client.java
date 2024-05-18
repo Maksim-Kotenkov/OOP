@@ -101,6 +101,7 @@ public class Client {
 
                     System.out.println("Result sent to the server");
                 } else {
+                    System.out.println("Interruption from the server, stopping the work");
                     break;
                 }
 

@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+
 import ru.nsu.kotenkov.primes.calculus.LinearChecker;
 import ru.nsu.kotenkov.primes.calculus.PrimeThread;
 
@@ -42,7 +44,7 @@ public class Server {
 
         this.testDataset = new int[size];
         Arrays.fill(testDataset, 2004991);  // fill with this prime number
-        testDataset[size - 1] = 700;
+        testDataset[ThreadLocalRandom.current().nextInt(0, size)] = 700;
 
         System.out.println("Receiving connections");
         serverSocket = new ServerSocket(port);
