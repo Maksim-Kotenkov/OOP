@@ -71,7 +71,7 @@ public class Client {
                 ourPartThread.start();
 
                 synchronized (ourPart) {
-                    wait();
+                    ourPart.wait();
                 }
 //                boolean myRes = LinearChecker.check(myPartInt);
                 boolean myRes = ourPart.isResult();
