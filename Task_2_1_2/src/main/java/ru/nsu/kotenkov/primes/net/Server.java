@@ -115,19 +115,6 @@ public class Server {
                     return true;
                 }
             } catch (SocketException | SocketTimeoutException e) {
-                // here we need to check it by ourselves
-//                boolean res = LinearChecker.check(
-//                        Arrays.copyOfRange(
-//                                this.testDataset,
-//                                i * this.batchSize,
-//                                (i + 1) * this.batchSize)
-//                );
-//                System.out.println("Socket exception, doing " + i
-//                        + " part by myself with the result: " + res);
-//                if (res) {
-//                    stop();
-//                    return true;
-//                }
                 System.out.println("Machine " + i + " died, waiting for another connection");
                 try {
                     boolean failedResult = carryFailedPart(i);
@@ -153,19 +140,6 @@ public class Server {
                 }
             }
         }
-
-        // and our part is the last (test ver)
-//        boolean myRes = LinearChecker.check(
-//                Arrays.copyOfRange(
-//                        this.testDataset,
-//                        numOfClients * batchSize,
-//                        this.testDataset.length)
-//        );
-
-//        if (myRes) {
-//            stop();
-//            return true;
-//        }
 
         stop();
         return false;

@@ -95,8 +95,8 @@ public class Client {
                     System.out.println("My result: " + myRes);
 
                     // to check errors on the client side
-                    System.out.println("Timeout before sending: 5 sec");
-                    Thread.sleep(5000);
+//                    System.out.println("Timeout before sending: 5 sec");
+//                    Thread.sleep(5000);
                     out.println(myRes);
 
                     System.out.println("Result sent to the server");
