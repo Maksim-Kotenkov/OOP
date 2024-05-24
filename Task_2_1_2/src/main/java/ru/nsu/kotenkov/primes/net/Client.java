@@ -83,6 +83,7 @@ public class Client {
                 });
 
                 Thread ourPartThread = new Thread(ourPart);
+                cancelRcv.start();
                 ourPartThread.start();
 
                 synchronized (ourPart) {
