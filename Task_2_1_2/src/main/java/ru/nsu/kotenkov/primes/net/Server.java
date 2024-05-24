@@ -120,7 +120,7 @@ public class Server {
                         stop();
                         return true;
                     }
-                } catch (SocketException e2) {
+                } catch (SocketException | SocketTimeoutException e2) {
                     System.out.println("Machine " + i + " died again");
                     boolean res = LinearChecker.check(
                             Arrays.copyOfRange(
