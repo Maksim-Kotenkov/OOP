@@ -1,5 +1,9 @@
 package ru.nsu.kotenkov.primes.calculus;
 
+
+/**
+ * A Thread class with possibility to get the results.
+ */
 public class PrimeThread implements Runnable {
     /**
      * target int[] and the result, that will be saved in the memory
@@ -48,6 +52,11 @@ public class PrimeThread implements Runnable {
         return result;
     }
 
+    /**
+     * And getter to check the state.
+     *
+     * @return state
+     */
     public boolean isFinished() {
         return finished;
     }

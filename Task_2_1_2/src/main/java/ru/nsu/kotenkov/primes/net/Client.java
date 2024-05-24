@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import ru.nsu.kotenkov.primes.calculus.LinearChecker;
 import ru.nsu.kotenkov.primes.calculus.PrimeThread;
 
 
@@ -50,11 +49,11 @@ public class Client {
      * Also, I tried to minimize memory allocation.
      */
     public void start() {
-        //TODO catch interruptions from server
         try {
             while (true) {
                 String myPart = in.readLine();
                 if (myPart == null || myPart.equals("STOP")) {
+                    System.out.println("Connection closed, stopping the work");
                     break;
                 }
                 String subS = myPart.substring(1, myPart.length() - 1);
@@ -112,16 +111,6 @@ public class Client {
             throw new RuntimeException(e);
         }
 
-    }
-
-    private int[] extract(String myPart) {
-        String subS = myPart.substring(1, myPart.length() - 1);
-        myPart = null;
-        Stream<String> myPartStream = Arrays.stream(subS.split(", "));
-        subS = null;
-        return myPartStream
-                .mapToInt(Integer::parseInt)
-                .toArray();
     }
 
     /**

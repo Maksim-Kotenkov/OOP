@@ -11,7 +11,6 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
-
 import ru.nsu.kotenkov.primes.calculus.LinearChecker;
 import ru.nsu.kotenkov.primes.calculus.PrimeThread;
 
@@ -66,8 +65,6 @@ public class Server {
      * @throws IOException if ruined
      */
     public boolean start() throws IOException {
-        //TODO if any machine died, wait for connection on this socket and send this part
-        // or after delay perform it by ourselves
         this.batchSize = Math.floorDiv(this.testDataset.length, numOfClients + 1) + 1;
         for (int i = 0; i < numOfClients; i++) {
             out[i].println(Arrays.toString(
@@ -145,6 +142,14 @@ public class Server {
         return false;
     }
 
+    /**
+     * Replacing the client and delegating failed work to him.
+     *
+     * @param part failed part
+     * @return the result of clients work
+     * @throws IOException based
+     * @throws SocketException exception indicating that client died AGAIN
+     */
     private boolean carryFailedPart(int part) throws IOException, SocketException {
         clientSocket[part] = serverSocket.accept();
         out[part] = new PrintWriter(clientSocket[part].getOutputStream(), true);
@@ -168,6 +173,9 @@ public class Server {
         return Boolean.parseBoolean(inRes);
     }
 
+    /**
+     * Stopping everybody.
+     */
     private void sendStop() {
         for (int i = 0; i < numOfClients; i++) {
             out[i].println("STOP");
