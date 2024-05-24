@@ -74,7 +74,7 @@ public class Client {
                         try {
                             String incomeMsg = in.readLine();
                             if (incomeMsg == null || incomeMsg.equals("STOP")) {
-                                notifyAll();
+                                ourPart.notify();
                             }
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -83,8 +83,8 @@ public class Client {
                 });
 
                 Thread ourPartThread = new Thread(ourPart);
-                cancelRcv.start();
                 ourPartThread.start();
+                cancelRcv.start();
 
                 synchronized (ourPart) {
                     ourPart.wait();
