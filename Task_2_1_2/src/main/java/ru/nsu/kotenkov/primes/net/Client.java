@@ -74,7 +74,7 @@ public class Client {
                         try {
                             String incomeMsg = in.readLine();
                             if (incomeMsg == null || incomeMsg.equals("STOP")) {
-                                ourPart.notify();
+                                ourPart.notifyAll();
                             }
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -83,10 +83,10 @@ public class Client {
                 });
 
                 Thread ourPartThread = new Thread(ourPart);
-                ourPartThread.start();
                 cancelRcv.start();
 
                 synchronized (ourPart) {
+                    ourPartThread.start();
                     ourPart.wait();
                 }
 //                boolean myRes = LinearChecker.check(myPartInt);
