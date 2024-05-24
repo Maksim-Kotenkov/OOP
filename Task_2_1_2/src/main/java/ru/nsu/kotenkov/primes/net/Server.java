@@ -151,6 +151,7 @@ public class Server {
      * @throws SocketException exception indicating that client died AGAIN
      */
     private boolean carryFailedPart(int part) throws IOException, SocketException {
+        serverSocket.setSoTimeout(10000);
         clientSocket[part] = serverSocket.accept();
         out[part] = new PrintWriter(clientSocket[part].getOutputStream(), true);
         in[part] = new BufferedReader(new InputStreamReader(clientSocket[part].getInputStream()));

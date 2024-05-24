@@ -83,10 +83,10 @@ public class Client {
                 });
 
                 Thread ourPartThread = new Thread(ourPart);
-                cancelRcv.start();
+                ourPartThread.start();
+//                cancelRcv.start();
 
                 synchronized (ourPart) {
-                    ourPartThread.start();
                     ourPart.wait();
                 }
 //                boolean myRes = LinearChecker.check(myPartInt);
