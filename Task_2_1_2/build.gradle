@@ -1,0 +1,39 @@
+plugins {
+    id 'application'
+    id 'jacoco'
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+mainClassName = 'ru.nsu.kotenkov.primes.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = "LINE"
+                minimum = 0.80
+            }
+        }
+    }
+}
